@@ -7,6 +7,8 @@
 
 const SERVER_IP = "play.muffinsmp.ir";
 
+const TELEGRAM_USERNAME = "@muffinsmp";
+
 
 /* ================= IP COPY ================= */
 
@@ -54,7 +56,7 @@ function showToast(message) {
 
         toast.classList.remove("show");
 
-    }, 2500);
+    }, 3000);
 
 }
 
@@ -184,22 +186,30 @@ updateServerStatus();
 
 /* ================= AUTO UPDATE ================= */
 
-/*
-   هر 30 ثانیه وضعیت سرور دوباره بررسی می‌شود.
-*/
-
 setInterval(
     updateServerStatus,
     30000
 );
 
 
+/* ================= TELEGRAM PURCHASE MESSAGE ================= */
+
+function purchaseMessage(type, name) {
+
+    showToast(
+        `برای خرید ${type} ${name} به تلگرام ما پیام دهید: ${TELEGRAM_USERNAME}`
+    );
+
+}
+
+
 /* ================= BUY RANK ================= */
 
 function buyRank(rank) {
 
-    showToast(
-        `برای خرید رنک ${rank} با مدیریت MuffinSMP در ارتباط باشید.`
+    purchaseMessage(
+        "رنک",
+        rank
     );
 
 }
@@ -209,8 +219,9 @@ function buyRank(rank) {
 
 function buyKey(key) {
 
-    showToast(
-        `برای خرید ${key} Key با مدیریت MuffinSMP در ارتباط باشید.`
+    purchaseMessage(
+        "کلید",
+        `${key} Key`
     );
 
 }
