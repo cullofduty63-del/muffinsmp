@@ -1,434 +1,131 @@
-/* =====================================================
-   MUFFINSMP WEBSITE
-   ===================================================== */
-
-
-/* ================= SERVER SETTINGS ================= */
-
 const SERVER_IP = "play.muffinsmp.ir";
-const TELEGRAM_USERNAME = "@muffinsmp";
 const TELEGRAM_URL = "https://t.me/muffinsmp";
 
-
-/* ================= IP COPY ================= */
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+}
 
 async function copyIP() {
-
-    const ipElement = document.getElementById("serverIP");
-
-    if (!ipElement) return;
-
-    const ip = ipElement.innerText.trim();
-
     try {
-
-        await navigator.clipboard.writeText(ip);
-
-        const message = document.getElementById("copyMessage");
-
-        if (message) {
-
-            message.classList.add("show");
-
-            setTimeout(() => {
-                message.classList.remove("show");
-            }, 2000);
-
+        await navigator.clipboard.writeText(SERVER_IP);
+        const msg = document.getElementById("copyMessage");
+        if (msg) {
+            msg.classList.add("show");
+            setTimeout(() => msg.classList.remove("show"), 1800);
         }
-
-        showToast("✅ IP سرور کپی شد!");
-
-    } catch (error) {
-
-        console.error("Copy IP Error:", error);
-
-        showToast("❌ کپی کردن IP انجام نشد.");
-
+        showToast("IP سرور کپی شد!");
+    } catch {
+        showToast("کپی خودکار انجام نشد؛ IP را دستی کپی کن.");
     }
-
 }
 
-
-/* ================= TOAST ================= */
-
-function showToast(message) {
-
-    const toast = document.getElementById("toast");
-
-    if (!toast) return;
-
-    toast.innerText = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(window.toastTimeout);
-
-    window.toastTimeout = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 3000);
-
+function purchaseMessage(type, name) {
+    showToast(`برای خرید ${type} ${name} به تلگرام ما پیام بدهید: @muffinsmp`);
+    setTimeout(() => {
+        window.open(TELEGRAM_URL, "_blank", "noopener");
+    }, 700);
 }
 
+function buyRank(rank) {
+    purchaseMessage("رنک", rank);
+}
 
-/* ================= SERVER STATUS ================= */
+function buyKey(key) {
+    purchaseMessage("Key", key);
+}
+
+function setStatus(state, statusText, countText) {
+    const dot = document.getElementById("statusDot");
+    const status = document.getElementById("serverStatus");
+    const count = document.getElementById("playerCount");
+    if (!dot || !status || !count) return;
+
+    dot.className = `status-dot ${state}`;
+    status.textContent = statusText;
+    count.textContent = countText;
+}
 
 async function updateServerStatus() {
-
-    const status = document.getElementById("serverStatus");
-    const players = document.getElementById("playerCount");
-    const dot = document.getElementById("statusDot");
     const refresh = document.getElementById("statusRefresh");
-
-
-    if (!status || !players || !dot) return;
-
-
-    /* ================= CHECKING ================= */
-
-    status.innerText = "🟡 در حال بررسی سرور...";
-    players.innerText = "در حال دریافت اطلاعات...";
-    
-    dot.className = "status-dot checking";
-
-    if (refresh) {
-        refresh.style.opacity = "1";
-    }
-
+    if (refresh) refresh.style.opacity = "1";
 
     try {
-
         const controller = new AbortController();
-
-        const timeout = setTimeout(() => {
-            controller.abort();
-        }, 8000);
-
+        const timeout = setTimeout(() => controller.abort(), 7000);
 
         const response = await fetch(
-            `https://api.mcsrvstat.us/3/${SERVER_IP}`,
-            {
-                method: "GET",
-                cache: "no-store",
-                signal: controller.signal
-            }
+            `https://api.mcsrvstat.us/3/${encodeURIComponent(SERVER_IP)}`,
+            { cache: "no-store", signal: controller.signal }
         );
-
 
         clearTimeout(timeout);
 
-
-        if (!response.ok) {
-
-            throw new Error(
-                `API Error: ${response.status}`
-            );
-
-        }
-
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
 
-
-        /* ================= ONLINE ================= */
-
         if (data.online === true) {
-
-            const online =
-                Number.isFinite(data.players?.online)
-                    ? data.players.online
-                    : 0;
-
-
-            const max =
-                Number.isFinite(data.players?.max)
-                    ? data.players.max
-                    : "؟";
-
-
-            status.innerText =
-                "🟢 سرور آنلاین است";
-
-
-            players.innerText =
-                `${online} / ${max} بازیکن آنلاین`;
-
-
-            dot.className =
-                "status-dot online";
-
-
+            const online = Number.isFinite(data.players?.online) ? data.players.online : 0;
+            const max = Number.isFinite(data.players?.max) ? data.players.max : "؟";
+            setStatus("online", "سرور آنلاین است", `${online} / ${max} بازیکن آنلاین`);
+        } else {
+            setStatus("offline", "سرور آفلاین است", "در حال حاضر بازیکنی آنلاین نیست");
         }
-
-
-        /* ================= OFFLINE ================= */
-
-        else {
-
-            status.innerText =
-                "🔴 سرور آفلاین است";
-
-
-            players.innerText =
-                "سرور در حال حاضر آفلاین است";
-
-
-            dot.className =
-                "status-dot offline";
-
+    } catch (error) {
+        console.error("Server status error:", error);
+        setStatus("offline", "وضعیت سرور قابل دریافت نیست", "چند لحظه بعد دوباره تلاش می‌کنیم");
+    } finally {
+        if (refresh) {
+            refresh.style.opacity = ".35";
         }
-
-
     }
-
-    catch (error) {
-
-        console.error(
-            "MuffinSMP Server Status Error:",
-            error
-        );
-
-
-        status.innerText =
-            "⚠️ وضعیت سرور نامشخص است";
-
-
-        players.innerText =
-            "امکان دریافت وضعیت سرور وجود ندارد";
-
-
-        /*
-         * وضعیت نامشخص را Offline واقعی نشان نمی‌دهیم.
-         * چون ممکن است API موقتاً جواب نداده باشد.
-         */
-
-        dot.className =
-            "status-dot checking";
-
-    }
-
-
-    if (refresh) {
-
-        refresh.style.opacity = ".35";
-
-    }
-
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    updateServerStatus();
+    setInterval(updateServerStatus, 30000);
 
-/* ================= INITIAL SERVER CHECK ================= */
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+        navbar?.classList.toggle("scrolled", window.scrollY > 30);
+    }, { passive: true });
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        updateServerStatus();
-
-    }
-);
-
-
-/* ================= AUTO UPDATE ================= */
-
-setInterval(
-    updateServerStatus,
-    30000
-);
-
-
-/* ================= TELEGRAM PURCHASE ================= */
-
-function purchaseMessage(type, name) {
-
-    showToast(
-        `🛒 برای خرید ${type} ${name} به تلگرام ما پیام دهید: ${TELEGRAM_USERNAME}`
-    );
-
-
-    /*
-     * بعد از نمایش پیام، Telegram باز می‌شود.
-     */
-
-    setTimeout(() => {
-
-        window.open(
-            TELEGRAM_URL,
-            "_blank",
-            "noopener,noreferrer"
-        );
-
-    }, 900);
-
-}
-
-
-/* ================= BUY RANK ================= */
-
-function buyRank(rank) {
-
-    purchaseMessage(
-        "رنک",
-        rank
-    );
-
-}
-
-
-/* ================= BUY KEY ================= */
-
-function buyKey(key) {
-
-    purchaseMessage(
-        "کلید",
-        `${key} Key`
-    );
-
-}
-
-
-/* ================= NAVBAR ================= */
-
-window.addEventListener(
-    "scroll",
-    () => {
-
-        const navbar =
-            document.querySelector(".navbar");
-
-
-        if (!navbar) return;
-
-
-        if (window.scrollY > 30) {
-
-            navbar.classList.add("scrolled");
-
-        }
-
-        else {
-
-            navbar.classList.remove("scrolled");
-
-        }
-
-    },
-    {
-        passive: true
-    }
-);
-
-
-/* ================= SCROLL ANIMATION ================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const elements =
-            document.querySelectorAll(".reveal");
-
-
-        if (!elements.length) return;
-
-
-        const observer =
-            new IntersectionObserver(
-                (entries) => {
-
-                    entries.forEach(
-                        (entry) => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    "visible"
-                                );
-
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-                {
-                    threshold: 0.12
-                }
-            );
-
-
-        elements.forEach(
-            (element, index) => {
-
-                element.style.transitionDelay =
-                    `${Math.min(index * 45, 300)}ms`;
-
-
-                observer.observe(
-                    element
-                );
-
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
             }
-        );
+        });
+    }, { threshold: 0.12 });
 
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+        el.style.transitionDelay = `${Math.min(i * 45, 300)}ms`;
+        observer.observe(el);
+    });
+
+    const particles = document.querySelector(".particles");
+    if (particles && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        for (let i = 0; i < 26; i++) {
+            const p = document.createElement("span");
+            p.style.cssText = `
+                position:fixed;width:${2 + Math.random() * 3}px;height:${2 + Math.random() * 3}px;
+                border-radius:50%;background:rgba(196,76,255,${.15 + Math.random() * .35});
+                left:${Math.random() * 100}vw;top:${Math.random() * 100}vh;
+                pointer-events:none;z-index:-1;filter:blur(.2px);
+                animation:particleFloat ${7 + Math.random() * 10}s linear infinite;
+                animation-delay:${-Math.random() * 10}s;
+            `;
+            particles.appendChild(p);
+        }
+
+        const style = document.createElement("style");
+        style.textContent = `@keyframes particleFloat{50%{transform:translate(${Math.random()*80-40}px,-${30+Math.random()*80}px);opacity:.8}100%{transform:translate(0,0);opacity:.25}}`;
+        document.head.appendChild(style);
     }
-);
-
-
-/* ================= SMOOTH TELEGRAM BUTTON ================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const telegramLinks =
-            document.querySelectorAll(
-                'a[href*="t.me/muffinsmp"]'
-            );
-
-
-        telegramLinks.forEach(
-            (link) => {
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        showToast(
-                            "✈️ در حال انتقال به Telegram..."
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* ================= CONSOLE BRANDING ================= */
-
-console.log(
-    "%c🍩 MuffinSMP",
-    "font-size:24px;font-weight:bold;color:#c44cff;"
-);
-
-console.log(
-    "%cServer: " + SERVER_IP,
-    "font-size:14px;color:#aaa;"
-);
-
-console.log(
-    "%cTelegram: " + TELEGRAM_USERNAME,
-    "font-size:14px;color:#2AABEE;"
-);
+});
