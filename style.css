@@ -22,7 +22,6 @@ a {
     color: inherit;
 }
 
-
 /* ================= NAVBAR ================= */
 
 .navbar {
@@ -40,12 +39,18 @@ a {
     padding: 0 7%;
 
     background: rgba(7, 5, 11, .78);
-
     backdrop-filter: blur(18px);
 
     border-bottom: 1px solid rgba(170, 0, 255, .15);
 
     z-index: 1000;
+
+    transition: .3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(5, 4, 8, .94);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
 }
 
 .logo {
@@ -88,8 +93,14 @@ a {
 
     box-shadow:
         0 0 25px rgba(160, 0, 255, .3);
+
+    transition: .25s;
 }
 
+.nav-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
 
 /* ================= HERO ================= */
 
@@ -135,12 +146,12 @@ a {
 
     background-image:
         linear-gradient(
-            rgba(255,255,255,.025) 1px,
+            rgba(255, 255, 255, .025) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,.025) 1px,
+            rgba(255, 255, 255, .025) 1px,
             transparent 1px
         );
 
@@ -183,6 +194,9 @@ a {
     font-weight: 700;
 
     margin-bottom: 25px;
+
+    box-shadow:
+        0 0 25px rgba(160, 0, 255, .08);
 }
 
 .hero h1 {
@@ -268,6 +282,9 @@ a {
     transform: translateY(-3px);
 }
 
+.primary-btn:hover {
+    filter: brightness(1.1);
+}
 
 /* ================= SERVER IP ================= */
 
@@ -285,15 +302,24 @@ a {
     justify-content: space-between;
 
     background:
-        rgba(255,255,255,.04);
+        rgba(255, 255, 255, .04);
 
     border:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255, 255, 255, .08);
 
     border-radius: 15px;
 
     text-align: right;
+
+    transition: .3s;
+}
+
+.server-ip:hover {
+    border-color: rgba(168, 0, 255, .35);
+
+    box-shadow:
+        0 0 30px rgba(140, 0, 255, .08);
 }
 
 .server-ip small {
@@ -328,8 +354,15 @@ a {
     font-family: inherit;
 
     font-weight: 700;
+
+    transition: .2s;
 }
 
+.server-ip button:hover {
+    background: #b52aff;
+
+    transform: translateY(-2px);
+}
 
 /* ================= SERVER STATUS ================= */
 
@@ -349,13 +382,15 @@ a {
     padding: 14px 20px;
 
     background:
-        rgba(255,255,255,.035);
+        rgba(255, 255, 255, .035);
 
     border:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255, 255, 255, .08);
 
     border-radius: 15px;
+
+    transition: .3s;
 }
 
 .status-dot {
@@ -368,9 +403,11 @@ a {
 
     box-shadow:
         0 0 12px
-        rgba(255,255,255,.2);
+        rgba(255, 255, 255, .2);
 
     flex-shrink: 0;
+
+    transition: .3s;
 }
 
 .status-info {
@@ -408,7 +445,6 @@ a {
 .copy-message.show {
     opacity: 1;
 }
-
 
 /* ================= FEATURES ================= */
 
@@ -455,7 +491,7 @@ a {
 
     box-shadow:
         0 15px 50px
-        rgba(130,0,200,.15);
+        rgba(130, 0, 200, .15);
 }
 
 .feature-icon {
@@ -475,7 +511,6 @@ a {
 
     font-size: 12px;
 }
-
 
 /* ================= SECTION ================= */
 
@@ -516,7 +551,6 @@ a {
 .section-title p {
     color: #777;
 }
-
 
 /* ================= SHOP ================= */
 
@@ -566,6 +600,11 @@ a {
 
 .shop-card:hover {
     transform: translateY(-8px);
+
+    border-color: #3a2b42;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, .25);
 }
 
 .shop-card::before {
@@ -592,6 +631,10 @@ a {
 
 .shop-card.apex::before {
     background: #a020f0;
+}
+
+.shop-card.sponsor::before {
+    background: #ffd700;
 }
 
 .rank-icon {
@@ -665,8 +708,9 @@ a {
 .shop-card button:hover,
 .key-card button:hover {
     filter: brightness(1.2);
-}
 
+    transform: translateY(-2px);
+}
 
 /* ================= KEYS ================= */
 
@@ -687,6 +731,17 @@ a {
     border-radius: 18px;
 
     text-align: center;
+
+    transition: .3s;
+}
+
+.key-card:hover {
+    transform: translateY(-6px);
+
+    border-color: #3b2945;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .25);
 }
 
 .key-card > span {
@@ -708,7 +763,6 @@ a {
 .key-card button {
     padding: 10px;
 }
-
 
 /* ================= RULES ================= */
 
@@ -739,6 +793,14 @@ a {
     border-radius: 18px;
 
     padding: 30px;
+
+    transition: .3s;
+}
+
+.rule:hover {
+    transform: translateY(-4px);
+
+    border-color: #372340;
 }
 
 .rule > span {
@@ -761,8 +823,7 @@ a {
     font-size: 13px;
 }
 
-
-/* ================= DISCORD ================= */
+/* ================= TELEGRAM / DISCORD ================= */
 
 .discord-section {
     max-width: 1200px;
@@ -786,7 +847,7 @@ a {
     background:
         radial-gradient(
             circle at 90% 50%,
-            rgba(120,0,255,.25),
+            rgba(120, 0, 255, .25),
             transparent 35%
         ),
         #0e0b13;
@@ -794,6 +855,15 @@ a {
     border:
         1px solid
         #2b2135;
+
+    transition: .3s;
+}
+
+.discord-box:hover {
+    border-color: #493253;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, .25);
 }
 
 .discord-icon {
@@ -823,15 +893,30 @@ a {
 }
 
 .discord-btn {
-    background: #5865f2;
+    background:
+        linear-gradient(
+            135deg,
+            #229ed9,
+            #168ac1
+        );
 
     padding: 13px 25px;
 
     border-radius: 11px;
 
     font-weight: 800;
+
+    transition: .25s;
 }
 
+.discord-btn:hover {
+    transform: translateY(-3px);
+
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 10px 30px rgba(34, 158, 217, .2);
+}
 
 /* ================= FOOTER ================= */
 
@@ -875,12 +960,13 @@ footer p {
     color: #777;
 
     font-size: 12px;
+
+    transition: .2s;
 }
 
 .footer-links a:hover {
     color: #b000ff;
 }
-
 
 /* ================= TOAST ================= */
 
@@ -889,6 +975,8 @@ footer p {
 
     bottom: 25px;
     right: 25px;
+
+    max-width: calc(100% - 50px);
 
     background: #17121c;
 
@@ -907,6 +995,9 @@ footer p {
     transition: .3s;
 
     z-index: 9999;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, .35);
 }
 
 .toast.show {
@@ -915,6 +1006,23 @@ footer p {
     opacity: 1;
 }
 
+/* ================= REVEAL ANIMATION ================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+
+    transform: translateY(0);
+}
 
 /* ================= MOBILE ================= */
 
@@ -946,7 +1054,6 @@ footer p {
     }
 
 }
-
 
 @media (max-width: 600px) {
 
@@ -982,6 +1089,11 @@ footer p {
         flex-direction: column;
     }
 
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+
     .server-ip {
         flex-direction: column;
 
@@ -1006,6 +1118,10 @@ footer p {
         grid-template-columns: 1fr;
     }
 
+    .section {
+        padding: 75px 20px;
+    }
+
     .section-title h2 {
         font-size: 30px;
     }
@@ -1014,12 +1130,56 @@ footer p {
         flex-direction: column;
 
         text-align: center;
+
+        padding: 30px 20px;
+    }
+
+    .discord-box > div:nth-child(2) {
+        width: 100%;
     }
 
     .discord-btn {
         width: 100%;
 
         text-align: center;
+    }
+
+    .toast {
+        right: 15px;
+
+        bottom: 15px;
+
+        max-width: calc(100% - 30px);
+
+        text-align: center;
+    }
+
+}
+
+/* ================= EXTRA SMALL ================= */
+
+@media (max-width: 380px) {
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .badge {
+        font-size: 10px;
+
+        padding: 7px 13px;
+    }
+
+    .section-title h2 {
+        font-size: 26px;
+    }
+
+    .shop-card {
+        padding: 28px 20px;
     }
 
 }
