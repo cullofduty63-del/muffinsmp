@@ -6,37 +6,45 @@
 /* ================= SERVER SETTINGS ================= */
 
 const SERVER_IP = "play.muffinsmp.ir";
-
 const TELEGRAM_USERNAME = "@muffinsmp";
+const TELEGRAM_URL = "https://t.me/muffinsmp";
 
 
 /* ================= IP COPY ================= */
 
-function copyIP() {
+async function copyIP() {
 
-    const ip =
-        document.getElementById("serverIP").innerText;
+    const ipElement = document.getElementById("serverIP");
 
-    navigator.clipboard.writeText(ip)
-        .then(() => {
+    if (!ipElement) return;
 
-            const message =
-                document.getElementById("copyMessage");
+    const ip = ipElement.innerText.trim();
+
+    try {
+
+        await navigator.clipboard.writeText(ip);
+
+        const message = document.getElementById("copyMessage");
+
+        if (message) {
 
             message.classList.add("show");
 
             setTimeout(() => {
-
                 message.classList.remove("show");
-
             }, 2000);
 
-        })
-        .catch(() => {
+        }
 
-            showToast("کپی کردن IP انجام نشد.");
+        showToast("✅ IP سرور کپی شد!");
 
-        });
+    } catch (error) {
+
+        console.error("Copy IP Error:", error);
+
+        showToast("❌ کپی کردن IP انجام نشد.");
+
+    }
 
 }
 
@@ -45,14 +53,17 @@ function copyIP() {
 
 function showToast(message) {
 
-    const toast =
-        document.getElementById("toast");
+    const toast = document.getElementById("toast");
+
+    if (!toast) return;
 
     toast.innerText = message;
 
     toast.classList.add("show");
 
-    setTimeout(() => {
+    clearTimeout(window.toastTimeout);
+
+    window.toastTimeout = setTimeout(() => {
 
         toast.classList.remove("show");
 
@@ -65,48 +76,75 @@ function showToast(message) {
 
 async function updateServerStatus() {
 
-    const status =
-        document.getElementById("serverStatus");
+    const status = document.getElementById("serverStatus");
+    const players = document.getElementById("playerCount");
+    const dot = document.getElementById("statusDot");
+    const refresh = document.getElementById("statusRefresh");
 
-    const players =
-        document.getElementById("playerCount");
 
-    const dot =
-        document.getElementById("statusDot");
+    if (!status || !players || !dot) return;
+
+
+    /* ================= CHECKING ================= */
+
+    status.innerText = "🟡 در حال بررسی سرور...";
+    players.innerText = "در حال دریافت اطلاعات...";
+    
+    dot.className = "status-dot checking";
+
+    if (refresh) {
+        refresh.style.opacity = "1";
+    }
 
 
     try {
 
+        const controller = new AbortController();
+
+        const timeout = setTimeout(() => {
+            controller.abort();
+        }, 8000);
+
+
         const response = await fetch(
             `https://api.mcsrvstat.us/3/${SERVER_IP}`,
             {
-                cache: "no-store"
+                method: "GET",
+                cache: "no-store",
+                signal: controller.signal
             }
         );
+
+
+        clearTimeout(timeout);
 
 
         if (!response.ok) {
 
             throw new Error(
-                "Server status API error"
+                `API Error: ${response.status}`
             );
 
         }
 
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
 
         /* ================= ONLINE ================= */
 
-        if (data.online) {
+        if (data.online === true) {
 
             const online =
-                data.players?.online ?? 0;
+                Number.isFinite(data.players?.online)
+                    ? data.players.online
+                    : 0;
+
 
             const max =
-                data.players?.max ?? 0;
+                Number.isFinite(data.players?.max)
+                    ? data.players.max
+                    : "؟";
 
 
             status.innerText =
@@ -114,15 +152,12 @@ async function updateServerStatus() {
 
 
             players.innerText =
-                `${online} / ${max} Players Online`;
+                `${online} / ${max} بازیکن آنلاین`;
 
 
-            dot.style.background =
-                "#2ecc71";
+            dot.className =
+                "status-dot online";
 
-
-            dot.style.boxShadow =
-                "0 0 15px rgba(46,204,113,.8)";
 
         }
 
@@ -136,15 +171,11 @@ async function updateServerStatus() {
 
 
             players.innerText =
-                "Server Offline";
+                "سرور در حال حاضر آفلاین است";
 
 
-            dot.style.background =
-                "#e74c3c";
-
-
-            dot.style.boxShadow =
-                "0 0 15px rgba(231,76,60,.8)";
+            dot.className =
+                "status-dot offline";
 
         }
 
@@ -154,25 +185,33 @@ async function updateServerStatus() {
     catch (error) {
 
         console.error(
-            "Server Status Error:",
+            "MuffinSMP Server Status Error:",
             error
         );
 
 
         status.innerText =
-            "⚠️ وضعیت نامشخص";
+            "⚠️ وضعیت سرور نامشخص است";
 
 
         players.innerText =
-            "Unable to check server";
+            "امکان دریافت وضعیت سرور وجود ندارد";
 
 
-        dot.style.background =
-            "#f1c40f";
+        /*
+         * وضعیت نامشخص را Offline واقعی نشان نمی‌دهیم.
+         * چون ممکن است API موقتاً جواب نداده باشد.
+         */
+
+        dot.className =
+            "status-dot checking";
+
+    }
 
 
-        dot.style.boxShadow =
-            "0 0 15px rgba(241,196,15,.7)";
+    if (refresh) {
+
+        refresh.style.opacity = ".35";
 
     }
 
@@ -181,7 +220,14 @@ async function updateServerStatus() {
 
 /* ================= INITIAL SERVER CHECK ================= */
 
-updateServerStatus();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateServerStatus();
+
+    }
+);
 
 
 /* ================= AUTO UPDATE ================= */
@@ -192,13 +238,28 @@ setInterval(
 );
 
 
-/* ================= TELEGRAM PURCHASE MESSAGE ================= */
+/* ================= TELEGRAM PURCHASE ================= */
 
 function purchaseMessage(type, name) {
 
     showToast(
-        `برای خرید ${type} ${name} به تلگرام ما پیام دهید: ${TELEGRAM_USERNAME}`
+        `🛒 برای خرید ${type} ${name} به تلگرام ما پیام دهید: ${TELEGRAM_USERNAME}`
     );
+
+
+    /*
+     * بعد از نمایش پیام، Telegram باز می‌شود.
+     */
+
+    setTimeout(() => {
+
+        window.open(
+            TELEGRAM_URL,
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+    }, 900);
 
 }
 
@@ -237,19 +298,137 @@ window.addEventListener(
             document.querySelector(".navbar");
 
 
+        if (!navbar) return;
+
+
         if (window.scrollY > 30) {
 
-            navbar.style.background =
-                "rgba(5, 4, 8, .94)";
+            navbar.classList.add("scrolled");
 
         }
 
         else {
 
-            navbar.style.background =
-                "rgba(7, 5, 11, .78)";
+            navbar.classList.remove("scrolled");
 
         }
 
+    },
+    {
+        passive: true
     }
+);
+
+
+/* ================= SCROLL ANIMATION ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const elements =
+            document.querySelectorAll(".reveal");
+
+
+        if (!elements.length) return;
+
+
+        const observer =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        elements.forEach(
+            (element, index) => {
+
+                element.style.transitionDelay =
+                    `${Math.min(index * 45, 300)}ms`;
+
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ================= SMOOTH TELEGRAM BUTTON ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const telegramLinks =
+            document.querySelectorAll(
+                'a[href*="t.me/muffinsmp"]'
+            );
+
+
+        telegramLinks.forEach(
+            (link) => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        showToast(
+                            "✈️ در حال انتقال به Telegram..."
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ================= CONSOLE BRANDING ================= */
+
+console.log(
+    "%c🍩 MuffinSMP",
+    "font-size:24px;font-weight:bold;color:#c44cff;"
+);
+
+console.log(
+    "%cServer: " + SERVER_IP,
+    "font-size:14px;color:#aaa;"
+);
+
+console.log(
+    "%cTelegram: " + TELEGRAM_USERNAME,
+    "font-size:14px;color:#2AABEE;"
 );
