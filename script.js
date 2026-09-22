@@ -1,9 +1,8 @@
 /* =========================================
    MUFFIN SMP - MAIN SCRIPT
    ========================================= */
-
 const SERVER_IP = "play.muffinsmp.ir";
-const API = "https://api.muffinsmp.ir/api";
+const API = "https://cullofduty63.cullofduty63.workers.dev/api";
 
 
 /* =========================================
