@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#9b00ff"
+    >
+
+    <title>Panel | MuffinSMP</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="favicon.png"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(155, 0, 255, .15),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(95, 0, 255, .12),
+                    transparent 35%
+                ),
+                #08050d;
+
+            color: #fff;
+
+            font-family:
+                Tahoma,
+                Arial,
+                sans-serif;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           TOP NAV
+        ===================================================== */
+
+        .topbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            width: 100%;
+
+            background: rgba(8, 5, 13, .88);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(176, 86, 255, .15);
+        }
+
+
+        .topbar-inner {
+
+            width: min(
+                1200px,
+                94%
+            );
+
+            margin: auto;
+
+            min-height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .brand {
+
+            font-size: 25px;
+
+            font-weight: 900;
+
+            color: #fff;
+
+            text-shadow:
+                0 0 20px
+                rgba(175, 81, 255, .5);
+        }
+
+
+        .brand span {
+            color: #c06cff;
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .home-btn,
+        .logout-btn {
+
+            border:
+                1px solid
+                rgba(193, 103, 255, .3);
+
+            background:
+                rgba(109, 44, 161, .15);
+
+            color: #fff;
+
+            padding:
+                10px 16px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .home-btn:hover,
+        .logout-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                #a849e9;
+
+            background:
+                rgba(129, 53, 190, .3);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .container {
+
+            width: min(
+                1200px,
+                94%
+            );
+
+            margin:
+                35px auto
+                70px;
+        }
+
+
+        .welcome {
+
+            margin-bottom: 25px;
+        }
+
+
+        .welcome h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 34px;
+        }
+
+
+        .welcome h1 span {
+            color: #cb7aff;
+        }
+
+
+        .welcome p {
+
+            margin: 0;
+
+            color: #999;
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 16px;
+        }
+
+
+        .stat-card {
+
+            position: relative;
+
+            padding: 23px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(23, 13, 34, .96),
+                    rgba(12, 8, 18, .96)
+                );
+
+            border:
+                1px solid
+                rgba(170, 77, 239, .2);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, .18);
+
+            overflow: hidden;
+        }
+
+
+        .stat-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            right: -45px;
+            bottom: -45px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(173, 65, 255, .10);
+
+            filter: blur(5px);
+        }
+
+
+        .stat-icon {
+
+            font-size: 28px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .stat-label {
+
+            color: #96909e;
+
+            font-size: 13px;
+        }
+
+
+        .stat-value {
+
+            margin-top: 8px;
+
+            font-size: 26px;
+
+            font-weight: 900;
+        }
+
+
+        .purple {
+            color: #c776ff;
+        }
+
+
+        .green {
+            color: #62f39a;
+        }
+
+
+        .yellow {
+            color: #ffd35c;
+        }
+
+
+        .blue {
+            color: #66adff;
+        }
+
+
+        /* =====================================================
+           MAIN GRID
+        ===================================================== */
+
+        .main-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.3fr
+                .7fr;
+
+            gap: 18px;
+
+            margin-top: 18px;
+        }
+
+
+        .panel-card {
+
+            background:
+                rgba(17, 10, 25, .92);
+
+            border:
+                1px solid
+                rgba(170, 77, 239, .18);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 15px 45px
+                rgba(0, 0, 0, .16);
+        }
+
+
+        .panel-card h2 {
+
+            margin:
+                0 0 8px;
+
+            font-size: 20px;
+        }
+
+
+        .panel-card > p {
+
+            margin:
+                0 0 20px;
+
+            color: #96909e;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           MINECRAFT CONNECTION
+        ===================================================== */
+
+        .minecraft-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 15px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,.06);
+        }
+
+
+        .status-circle {
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: #ff5252;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,82,82,.5);
+        }
+
+
+        .status-circle.online {
+
+            background: #43ee85;
+
+            box-shadow:
+                0 0 15px
+                rgba(67,238,133,.6);
+        }
+
+
+        .mc-name {
+
+            font-size: 17px;
+
+            font-weight: bold;
+        }
+
+
+        .mc-sub {
+
+            margin-top: 4px;
+
+            color: #8b8591;
+
+            font-size: 12px;
+        }
+
+
+        .link-area {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        .link-input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 13px 14px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid
+                rgba(188, 92, 255, .25);
+
+            background:
+                #0a0710;
+
+            color: #fff;
+
+            outline: none;
+        }
+
+
+        .link-input:focus {
+
+            border-color: #9f4bda;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(159,75,218,.08);
+        }
+
+
+        .action-btn {
+
+            border: 0;
+
+            border-radius: 12px;
+
+            padding:
+                12px 18px;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9349c4,
+                    #5b2fa8
+                );
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+
+        .action-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(136, 58, 201, .25);
+        }
+
+
+        .message {
+
+            min-height: 25px;
+
+            margin-top: 10px;
+
+            color: #c47dff;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           COIN
+        ===================================================== */
+
+        .coin-box {
+
+            text-align: center;
+
+            padding:
+                15px;
+        }
+
+
+        .coin-big {
+
+            font-size: 44px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .coin-number {
+
+            font-size: 29px;
+
+            font-weight: 900;
+
+            color: #ffd34d;
+        }
+
+
+        .coin-label {
+
+            margin-top: 5px;
+
+            color: #928b99;
+        }
+
+
+        .buy-coin-btn {
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 13px;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d69d29,
+                    #9c6912
+                );
+
+            color: #fff;
+
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           SHOP
+        ===================================================== */
+
+        .section-title {
+
+            margin-top: 25px;
+
+            margin-bottom: 18px;
+
+            font-size: 23px;
+
+            font-weight: 900;
+        }
+
+
+        .products {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .product {
+
+            padding: 18px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(179, 87, 245, .17);
+
+            transition: .2s;
+        }
+
+
+        .product:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(190, 93, 255, .45);
+        }
+
+
+        .product-icon {
+
+            font-size: 31px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-name {
+
+            font-weight: 900;
+
+            font-size: 18px;
+        }
+
+
+        .product-price {
+
+            margin-top: 7px;
+
+            color: #d17bff;
+
+            font-weight: bold;
+        }
+
+
+        .product button {
+
+            width: 100%;
+
+            margin-top: 14px;
+
+            padding: 11px;
+
+            border: 0;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            color: #fff;
+
+            background:
+                rgba(135,55,180,.45);
+
+            border:
+                1px solid
+                rgba(189,89,255,.18);
+        }
+
+
+        .product button:hover {
+
+            background:
+                rgba(150,66,202,.65);
+        }
+
+
+        /* =====================================================
+           TRANSACTIONS
+        ===================================================== */
+
+        .transactions {
+
+            margin-top: 25px;
+        }
+
+
+        .transaction-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .transaction {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 15px 16px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,.05);
+        }
+
+
+        .transaction-desc {
+
+            font-weight: bold;
+        }
+
+
+        .transaction-date {
+
+            color: #77727e;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+        }
+
+
+        .transaction-amount {
+
+            font-weight: 900;
+
+            color: #ffd65a;
+
+            white-space: nowrap;
+        }
+
+
+        .empty {
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #77727e;
+        }
+
+
+        /* =====================================================
+           COIN MODAL
+        ===================================================== */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 3000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .modal.show {
+            display: flex;
+        }
+
+
+        .modal-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.75);
+
+            backdrop-filter: blur(8px);
+        }
+
+
+        .modal-box {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(
+                600px,
+                100%
+            );
+
+            max-height:
+                90vh;
+
+            overflow-y: auto;
+
+            padding: 26px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #170d20,
+                    #0d0812
+                );
+
+            border:
+                1px solid
+                rgba(195, 97, 255, .3);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,.45);
+        }
+
+
+        .modal-close {
+
+            position: absolute;
+
+            top: 12px;
+            left: 12px;
+
+            width: 35px;
+            height: 35px;
+
+            border: 0;
+
+            border-radius: 50%;
+
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.06);
+
+            cursor: pointer;
+        }
+
+
+        .modal-box h2 {
+
+            margin-top: 0;
+
+            color: #ce83ff;
+        }
+
+
+        .packages {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 15px;
+        }
+
+
+        .package {
+
+            padding: 17px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.03);
+
+            border:
+                1px solid
+                rgba(178,87,244,.16);
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition: .2s;
+        }
+
+
+        .package:hover {
+
+            border-color:
+                #a952df;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .package strong {
+
+            display: block;
+
+            font-size: 20px;
+
+            color: #ffd65a;
+        }
+
+
+        .custom-label {
+
+            display: block;
+
+            margin-top: 18px;
+
+            margin-bottom: 7px;
+
+            color: #aaa;
+        }
+
+
+        .custom-input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border-radius: 11px;
+
+            border:
+                1px solid
+                rgba(186,90,255,.25);
+
+            background:
+                #09060d;
+
+            color: #fff;
+
+            outline: none;
+        }
+
+
+        .payment-info {
+
+            margin-top: 18px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(208,151,37,.08);
+
+            border:
+                1px solid
+                rgba(255,211,76,.17);
+        }
+
+
+        .payment-info strong {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #ffd65a;
+        }
+
+
+        .payment-card {
+
+            margin-top: 10px;
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            color: #fff;
+        }
+
+
+        .note {
+
+            color: #8d8792;
+
+            font-size: 12px;
+
+            line-height: 1.8;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            text-align: center;
+
+            color: #6d6772;
+
+            padding:
+                25px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.04);
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .main-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .products {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topbar-inner {
+
+                min-height: 65px;
+            }
+
+
+            .brand {
+
+                font-size: 20px;
+            }
+
+
+            .home-btn {
+
+                display: none;
+            }
+
+
+            .container {
+
+                width: 92%;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 27px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 10px;
+            }
+
+
+            .stat-card {
+
+                padding: 16px;
+            }
+
+
+            .stat-value {
+
+                font-size: 20px;
+            }
+
+
+            .link-area {
+
+                flex-direction: column;
+            }
+
+
+            .products {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .packages {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .transaction {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+            🍩 MUFFIN<span>SMP</span>
+        </a>
+
+
+        <div class="top-actions">
+
+            <a
+                href="index.html"
+                class="home-btn"
+            >
+                🏠 سایت
+            </a>
+
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                🚪 خروج
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <!-- =====================================================
+         WELCOME
+    ===================================================== -->
+
+    <section class="welcome">
+
+        <h1>
+            سلام،
+            <span id="username">
+                کاربر
+            </span>
+            👋
+        </h1>
+
+        <p>
+            اینجا پنل شخصی MuffinSMP توئه.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         STATS
+    ===================================================== -->
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div class="stat-label">
+                Rank
+            </div>
+
+            <div
+                class="stat-value purple"
+                id="rank"
+            >
+                PLAYER
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🪙
+            </div>
+
+            <div class="stat-label">
+                Muffin Coin
+            </div>
+
+            <div
+                class="stat-value yellow"
+                id="coins"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💎
+            </div>
+
+            <div class="stat-label">
+                Shard
+            </div>
+
+            <div
+                class="stat-value blue"
+                id="shards"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⛏️
+            </div>
+
+            <div class="stat-label">
+                Minecraft
+            </div>
+
+            <div
+                class="stat-value green"
+                id="minecraftStatus"
+            >
+                متصل نیست
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN GRID
+    ===================================================== -->
+
+    <section class="main-grid">
+
+
+        <!-- MINECRAFT -->
+
+        <div class="panel-card">
+
+            <h2>
+                🔗 اتصال Minecraft
+            </h2>
+
+            <p>
+                با دستور
+                <b>/link</b>
+                داخل سرور یک کد بگیر و اینجا وارد کن.
+            </p>
+
+
+            <div class="minecraft-status">
+
+                <div
+                    id="minecraftDot"
+                    class="status-circle"
+                ></div>
+
+                <div>
+
+                    <div
+                        id="minecraftName"
+                        class="mc-name"
+                    >
+                        Minecraft متصل نیست
+                    </div>
+
+                    <div
+                        id="minecraftUUID"
+                        class="mc-sub"
+                    >
+                        برای خرید باید Minecraft متصل باشد.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="link-area">
+
+                <input
+                    id="linkCode"
+                    class="link-input"
+                    placeholder="M7K9-X2P4"
+                    maxlength="16"
+                    autocomplete="off"
+                >
+
+
+                <button
+                    class="action-btn"
+                    onclick="verifyMinecraftLink()"
+                >
+                    🔗 اتصال
+                </button>
+
+            </div>
+
+
+            <div
+                id="linkMessage"
+                class="message"
+            ></div>
+
+        </div>
+
+
+        <!-- COIN -->
+
+        <div class="panel-card">
+
+            <h2>
+                🪙 Muffin Coin
+            </h2>
+
+            <p>
+                موجودی Coin برای خرید Rank و Key.
+            </p>
+
+
+            <div class="coin-box">
+
+                <div class="coin-big">
+                    🪙
+                </div>
+
+                <div
+                    class="coin-number"
+                    id="coinBig"
+                >
+                    0
+                </div>
+
+                <div class="coin-label">
+                    Muffin Coin
+                </div>
+
+
+                <button
+                    class="buy-coin-btn"
+                    onclick="openCoinModal()"
+                >
+                    ＋ خرید Muffin Coin
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SHOP
+    ===================================================== -->
+
+    <div
+        id="shop"
+        class="section-title"
+    >
+        🛒 فروشگاه MuffinSMP
+    </div>
+
+
+    <section class="panel-card">
+
+        <p>
+            قیمت‌ها با Muffin Coin محاسبه می‌شوند.
+        </p>
+
+
+        <div class="products">
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🟢
+                </div>
+
+                <div class="product-name">
+                    NOVA
+                </div>
+
+                <div class="product-price">
+                    180,000 Coin
+                </div>
+
+                <button onclick="buyProduct('rank','NOVA')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🔵
+                </div>
+
+                <div class="product-name">
+                    VANTA
+                </div>
+
+                <div class="product-price">
+                    240,000 Coin
+                </div>
+
+                <button onclick="buyProduct('rank','VANTA')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🟣
+                </div>
+
+                <div class="product-name">
+                    APEX
+                </div>
+
+                <div class="product-price">
+                    480,000 Coin
+                </div>
+
+                <button onclick="buyProduct('rank','APEX')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🟡
+                </div>
+
+                <div class="product-name">
+                    SPONSOR
+                </div>
+
+                <div class="product-price">
+                    750,000 Coin
+                </div>
+
+                <button onclick="buyProduct('rank','SPONSOR')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🔵
+                </div>
+
+                <div class="product-name">
+                    Prime Key
+                </div>
+
+                <div class="product-price">
+                    35,000 Coin
+                </div>
+
+                <button onclick="buyProduct('key','Prime')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🟡
+                </div>
+
+                <div class="product-name">
+                    Gold Key
+                </div>
+
+                <div class="product-price">
+                    45,000 Coin
+                </div>
+
+                <button onclick="buyProduct('key','Gold')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🔴
+                </div>
+
+                <div class="product-name">
+                    Crimson Key
+                </div>
+
+                <div class="product-price">
+                    55,000 Coin
+                </div>
+
+                <button onclick="buyProduct('key','Crimson')">
+                    خرید
+                </button>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-icon">
+                    🟣
+                </div>
+
+                <div class="product-name">
+                    Amethyst Key
+                </div>
+
+                <div class="product-price">
+                    100,000 Coin
+                </div>
+
+                <button onclick="buyProduct('key','Amethyst')">
+                    خرید
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TRANSACTIONS
+    ===================================================== -->
+
+    <section class="transactions">
+
+        <div class="section-title">
+            📜 آخرین تراکنش‌ها
+        </div>
+
+
+        <div class="panel-card">
+
+            <div
+                id="transactionList"
+                class="transaction-list"
+            >
+
+                <div class="empty">
+                    در حال دریافت تراکنش‌ها...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     COIN MODAL
+===================================================== -->
+
+<div
+    id="coinModal"
+    class="modal"
+>
+
+    <div
+        class="modal-overlay"
+        onclick="closeCoinModal()"
+    ></div>
+
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeCoinModal()"
+        >
+            ✕
+        </button>
+
+
+        <h2>
+            🪙 خرید Muffin Coin
+        </h2>
+
+
+        <p>
+            بسته موردنظر خودت را انتخاب کن یا مقدار دلخواه وارد کن.
+        </p>
+
+
+        <div class="packages">
+
+            <div
+                class="package"
+                onclick="selectCoinPackage(10000)"
+            >
+                <strong>
+                    10,000
+                </strong>
+
+                Coin
+            </div>
+
+
+            <div
+                class="package"
+                onclick="selectCoinPackage(50000)"
+            >
+                <strong>
+                    50,000
+                </strong>
+
+                Coin
+            </div>
+
+
+            <div
+                class="package"
+                onclick="selectCoinPackage(100000)"
+            >
+                <strong>
+                    100,000
+                </strong>
+
+                Coin
+            </div>
+
+
+            <div
+                class="package"
+                onclick="selectCoinPackage(250000)"
+            >
+                <strong>
+                    250,000
+                </strong>
+
+                Coin
+            </div>
+
+        </div>
+
+
+        <label
+            class="custom-label"
+            for="customCoin"
+        >
+            مقدار دلخواه
+        </label>
+
+
+        <input
+            id="customCoin"
+            class="custom-input"
+            type="number"
+            min="1000"
+            step="1000"
+            placeholder="مثلاً 150000"
+        >
+
+
+        <div class="payment-info">
+
+            <strong>
+                💳 اطلاعات پرداخت
+            </strong>
+
+            <div>
+                شماره کارت:
+            </div>
+
+            <div class="payment-card">
+                XXXXXXXX
+            </div>
+
+            <div class="note">
+                شماره کارت واقعی را بعداً داخل Backend تنظیم می‌کنیم.
+                فعلاً این بخش فقط رابط پرداخت است.
+            </div>
+
+        </div>
+
+
+        <button
+            class="action-btn"
+            style="
+                width:100%;
+                margin-top:16px;
+            "
+            onclick="startCoinPurchase()"
+        >
+            ادامه پرداخت
+        </button>
+
+
+        <div
+            id="coinMessage"
+            class="message"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 MuffinSMP — All Rights Reserved.
+
+</footer>
+
+
+<script>
+
+const API =
+    "https://api.muffinsmp.ir/api";
+
+const TOKEN_KEY =
+    "muffin_token";
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+function token() {
+
+    return localStorage.getItem(
+        TOKEN_KEY
+    );
+
+}
+
+
+function logout() {
+
+    localStorage.removeItem(
+        TOKEN_KEY
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   FORMAT
+===================================================== */
+
+function formatNumber(value) {
+
+    return Number(
+        value || 0
+    ).toLocaleString("en-US");
+
+}
+
+
+/* =====================================================
+   LOAD USER
+===================================================== */
+
+async function loadUser() {
+
+    const authToken =
+        token();
+
+    if (!authToken) {
+
+        window.location.href =
+            "index.html";
+
+        return null;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/me`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${authToken}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            localStorage.removeItem(
+                TOKEN_KEY
+            );
+
+            window.location.href =
+                "index.html";
+
+            return null;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const user =
+            data.user;
+
+
+        document.getElementById(
+            "username"
+        ).innerText =
+            user.username;
+
+
+        document.getElementById(
+            "rank"
+        ).innerText =
+            user.rank;
+
+
+        document.getElementById(
+            "coins"
+        ).innerText =
+            formatNumber(
+                user.coins
+            );
+
+
+        document.getElementById(
+            "coinBig"
+        ).innerText =
+            formatNumber(
+                user.coins
+            );
+
+
+        document.getElementById(
+            "shards"
+        ).innerText =
+            formatNumber(
+                user.shards
+            );
+
+
+        if (
+            user.minecraft_username
+        ) {
+
+            document.getElementById(
+                "minecraftStatus"
+            ).innerText =
+                "متصل";
+
+            document.getElementById(
+                "minecraftStatus"
+            ).className =
+                "stat-value green";
+
+
+            document.getElementById(
+                "minecraftName"
+            ).innerText =
+                user.minecraft_username;
+
+
+            document.getElementById(
+                "minecraftUUID"
+            ).innerText =
+                user.minecraft_uuid ||
+                "UUID متصل";
+
+
+            document.getElementById(
+                "minecraftDot"
+            ).classList.add(
+                "online"
+            );
+
+        } else {
+
+            document.getElementById(
+                "minecraftStatus"
+            ).innerText =
+                "متصل نیست";
+
+
+            document.getElementById(
+                "minecraftName"
+            ).innerText =
+                "Minecraft متصل نیست";
+
+
+            document.getElementById(
+                "minecraftUUID"
+            ).innerText =
+                "برای خرید باید Minecraft متصل باشد.";
+
+        }
+
+
+        return user;
+
+    } catch (error) {
+
+        console.error(
+            "Load User:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   LINK MINECRAFT
+===================================================== */
+
+async function verifyMinecraftLink() {
+
+    const code =
+        document.getElementById(
+            "linkCode"
+        ).value
+        .trim();
+
+
+    const message =
+        document.getElementById(
+            "linkMessage"
+        );
+
+
+    if (!code) {
+
+        message.innerText =
+            "❌ کد لینک را وارد کن.";
+
+        return;
+    }
+
+
+    message.innerText =
+        "⏳ در حال بررسی کد...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/link/verify`,
+                {
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        Authorization:
+                            `Bearer ${token()}`
+                    },
+
+                    body: JSON.stringify({
+                        code
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            message.innerText =
+                "❌ " +
+                (
+                    data.error ||
+                    "کد نامعتبر است."
+                );
+
+            return;
+        }
+
+
+        message.innerText =
+            "✅ " +
+            (
+                data.message ||
+                "Minecraft متصل شد."
+            );
+
+
+        await loadUser();
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        message.innerText =
+            "❌ اتصال به سرور انجام نشد.";
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOP
+===================================================== */
+
+async function buyProduct(
+    type,
+    name
+) {
+
+    const authToken =
+        token();
+
+
+    if (!authToken) {
+
+        window.location.href =
+            "index.html";
+
+        return;
+    }
+
+
+    if (
+        !confirm(
+            `آیا می‌خواهی ${name} را خریداری کنی؟`
+        )
+    ) {
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/purchase`,
+                {
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        Authorization:
+                            `Bearer ${authToken}`
+                    },
+
+                    body: JSON.stringify({
+                        type,
+                        name
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+                "❌ " +
+                (
+                    data.message ||
+                    data.error ||
+                    "خرید انجام نشد."
+                )
+            );
+
+            return;
+        }
+
+
+        alert(
+            "✅ خرید با موفقیت انجام شد."
+        );
+
+
+        await loadUser();
+
+        await loadTransactions();
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "❌ خطا در ارتباط با Backend."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
+async function loadTransactions() {
+
+    const list =
+        document.getElementById(
+            "transactionList"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/transactions`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token()}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Transaction request failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const transactions =
+            data.transactions || [];
+
+
+        if (
+            transactions.length === 0
+        ) {
+
+            list.innerHTML = `
+                <div class="empty">
+                    هنوز تراکنشی ثبت نشده است.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        list.innerHTML =
+            transactions.map(
+                transaction => {
+
+                    const date =
+                        new Date(
+                            transaction.created_at
+                        ).toLocaleString(
+                            "fa-IR"
+                        );
+
+
+                    return `
+
+                        <div class="transaction">
+
+                            <div>
+
+                                <div class="transaction-desc">
+                                    ${escapeHTML(
+                                        transaction.description
+                                    )}
+                                </div>
+
+                                <div class="transaction-date">
+                                    ${date}
+                                </div>
+
+                            </div>
+
+                            <div class="transaction-amount">
+
+                                ${formatNumber(
+                                    transaction.amount
+                                )}
+
+                                🪙
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        list.innerHTML = `
+            <div class="empty">
+                دریافت تراکنش‌ها انجام نشد.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    return String(
+        text || ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   COIN MODAL
+===================================================== */
+
+function openCoinModal() {
+
+    document
+        .getElementById(
+            "coinModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+function closeCoinModal() {
+
+    document
+        .getElementById(
+            "coinModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+function selectCoinPackage(
+    amount
+) {
+
+    document.getElementById(
+        "customCoin"
+    ).value =
+        amount;
+
+}
+
+
+function startCoinPurchase() {
+
+    const amount =
+        Number(
+            document.getElementById(
+                "customCoin"
+            ).value
+        );
+
+
+    const message =
+        document.getElementById(
+            "coinMessage"
+        );
+
+
+    if (
+        !amount ||
+        amount < 1000
+    ) {
+
+        message.innerText =
+            "❌ حداقل مبلغ 1,000 Coin است.";
+
+        return;
+    }
+
+
+    /*
+     * Payment backend is not connected yet.
+     */
+
+    message.innerText =
+        `✅ درخواست خرید ${formatNumber(amount)} Coin آماده شد.`;
+
+    alert(
+        "سیستم تأیید پرداخت هنوز به Backend متصل نشده است."
+    );
+
+}
+
+
+/* =====================================================
+   ESC CLOSE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeCoinModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+async function initPanel() {
+
+    const user =
+        await loadUser();
+
+
+    if (!user) {
+        return;
+    }
+
+
+    await loadTransactions();
+
+}
+
+
+initPanel();
+
+</script>
+
+</body>
+</html>
