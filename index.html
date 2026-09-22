@@ -4,229 +4,313 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="MuffinSMP - سرور Survival و Donut SMP ایرانی"
-    >
+    <title>MuffinSMP | DonutSMP</title>
 
-    <meta name="theme-color" content="#9b00ff">
+    <meta name="description"
+          content="MuffinSMP - سرور حرفه‌ای DonutSMP با Rank، Key، Crate، PvP و Economy">
 
-    <title>MuffinSMP | Donut SMP</title>
-
-    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
 
-<div class="ambient ambient-one"></div>
-<div class="ambient ambient-two"></div>
-<div class="particles" aria-hidden="true"></div>
+<!-- ================= NAVBAR ================= -->
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
+<nav class="navbar">
 
-<header class="navbar" id="navbar">
+    <a href="index.html" class="logo">
+        ᴍᴜꜰꜰɪɴ<span>ѕᴍᴘ</span>
+    </a>
 
-    <div class="logo">
-        🍩 MUFFIN<span>SMP</span>
+    <div class="nav-links">
+        <a href="#home">خانه</a>
+        <a href="#ranks">رنک‌ها</a>
+        <a href="#keys">Key Shop</a>
+        <a href="#rules">قوانین</a>
+        <a href="login.html" class="nav-login">
+            ورود
+        </a>
     </div>
 
-    <nav>
-        <a href="#home">خانه</a>
-        <a href="#shop">فروشگاه</a>
-        <a href="#ranks">رنک‌ها</a>
-        <a href="#rules">قوانین</a>
-        <a href="#telegram">تلگرام</a>
-    </nav>
+</nav>
 
-    <div class="nav-actions">
 
-        <!-- Login/Register -->
-        <a
-            href="javascript:void(0)"
-            class="nav-account-button"
-            id="loginButton"
-            onclick="openAuthModal()"
-        >
-            👤 ورود / ثبت‌نام
-        </a>
+<!-- ================= HERO ================= -->
 
-        <!-- Logged in -->
-        <div
-            class="account-mini hidden"
-            id="accountMini"
-        >
+<header id="home" class="hero">
 
-            <button
-                class="account-mini-button"
-                onclick="toggleAccountMenu()"
-            >
-                👤
-                <span id="navUsername">
-                    کاربر
-                </span>
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            🔥 MUFFIN SMP • DONUT SMP
+        </div>
+
+        <h1>
+            دنیای جدیدت
+            <span>اینجا شروع میشه</span>
+        </h1>
+
+        <p>
+            یک تجربه متفاوت از DonutSMP
+            با اقتصاد، Crate، PvP، Shard و امکانات اختصاصی MuffinSMP
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="main-btn" onclick="copyServerIP()">
+                📋 کپی IP
             </button>
 
-            <div
-                class="account-dropdown"
-                id="accountDropdown"
-            >
-
-                <div class="account-balance-mini">
-
-                    <div>
-                        <small>Muffin Coin</small>
-                        <strong id="navCoins">
-                            0
-                        </strong>
-                    </div>
-
-                    <div>
-                        <small>Shard</small>
-                        <strong id="navShards">
-                            0
-                        </strong>
-                    </div>
-
-                </div>
-
-                <a href="panel.html">
-                    📊 پنل کاربری
-                </a>
-
-                <a href="panel.html#shop">
-                    🛒 فروشگاه
-                </a>
-
-                <button onclick="logoutUser()">
-                    🚪 خروج
-                </button>
-
-            </div>
+            <a href="login.html" class="second-btn">
+                👤 ورود به حساب
+            </a>
 
         </div>
 
-        <a
-            href="#shop"
-            class="nav-button"
-        >
-            🛒 فروشگاه
-        </a>
+        <div id="copyMessage" class="copy-message">
+            IP با موفقیت کپی شد ✓
+        </div>
 
     </div>
 
 </header>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- ================= SERVER STATUS ================= -->
 
-<section id="home" class="hero">
+<section class="server-status">
 
-    <div class="hero-background"></div>
+    <div class="status-item">
 
-    <div class="hero-content reveal">
+        <span id="statusDot" class="status-dot"></span>
 
-        <div class="badge">
-            🍩 MUFFIN SMP • DONUT SMP
-        </div>
+        <span id="serverStatus">
+            در حال بررسی سرور...
+        </span>
 
-        <h1>
-            به
-            <span>MuffinSMP</span>
-            <br>
-            خوش آمدید
-        </h1>
+    </div>
+
+    <div id="playerCount">
+        Checking...
+    </div>
+
+    <code id="serverIP">
+        play.muffinsmp.ir
+    </code>
+
+</section>
+
+
+<!-- ================= RANKS ================= -->
+
+<section id="ranks" class="section">
+
+    <div class="section-title">
+
+        <span>MUFFIN SHOP</span>
+
+        <h2>
+            رنک‌های سرور
+        </h2>
 
         <p>
-            یک تجربه متفاوت از Survival و Donut SMP
-            با اقتصاد، کریت، Shard، PvP و کلی امکانات جذاب.
+            رنک مورد نظرت رو انتخاب کن و داخل بازی دریافتش کن.
         </p>
 
-        <div class="hero-buttons">
-
-            <a
-                href="#shop"
-                class="primary-btn"
-            >
-                🛒 مشاهده فروشگاه
-            </a>
-
-            <a
-                href="javascript:void(0)"
-                class="secondary-btn"
-                onclick="openAuthModal()"
-            >
-                👤 پنل کاربری
-            </a>
-
-        </div>
+    </div>
 
 
-        <!-- Server IP -->
+    <div class="cards">
 
-        <div class="server-ip glass">
 
-            <div>
+        <!-- NOVA -->
 
-                <small>
-                    آدرس سرور
-                </small>
+        <div class="shop-card nova">
 
-                <strong id="serverIP">
-                    play.muffinsmp.ir
-                </strong>
-
+            <div class="rank-icon">
+                🟢
             </div>
 
-            <button onclick="copyIP()">
-                📋 کپی IP
+            <h3>
+                NOVA
+            </h3>
+
+            <div class="price">
+                180,000
+                <small>Coin</small>
+            </div>
+
+            <ul>
+
+                <li>🏠 3 Home</li>
+
+                <li>📦 Order Limit: 4</li>
+
+                <li>⚡ Action Limit: 6</li>
+
+                <li>💰 Balance: 125K</li>
+
+                <li>🔑 2 Prime</li>
+
+                <li>🔑 1 Crimson</li>
+
+                <li>🔑 1 Gold</li>
+
+            </ul>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('rank','NOVA')">
+
+                خرید NOVA
+
             </button>
 
         </div>
 
 
-        <!-- Server status -->
+        <!-- VANTA -->
 
-        <div
-            class="server-status glass"
-            aria-live="polite"
-        >
+        <div class="shop-card vanta">
 
-            <div
-                class="status-dot checking"
-                id="statusDot"
-            ></div>
-
-            <div class="status-info">
-
-                <strong id="serverStatus">
-                    در حال بررسی سرور...
-                </strong>
-
-                <span id="playerCount">
-                    در حال دریافت تعداد بازیکنان...
-                </span>
-
+            <div class="rank-icon">
+                🔵
             </div>
 
-            <span
-                class="refresh-status"
-                id="statusRefresh"
-            >
-                ●
-            </span>
+            <h3>
+                VANTA
+            </h3>
+
+            <div class="price">
+                240,000
+                <small>Coin</small>
+            </div>
+
+            <ul>
+
+                <li>🏠 4 Home</li>
+
+                <li>📦 Order Limit: 6</li>
+
+                <li>⚡ Action Limit: 8</li>
+
+                <li>💰 Balance: 200K</li>
+
+                <li>🔑 4 Prime</li>
+
+                <li>🔑 2 Crimson</li>
+
+                <li>🔑 2 Gold</li>
+
+            </ul>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('rank','VANTA')">
+
+                خرید VANTA
+
+            </button>
 
         </div>
 
-        <div
-            id="copyMessage"
-            class="copy-message"
-        >
-            IP کپی شد!
+
+        <!-- APEX -->
+
+        <div class="shop-card apex">
+
+            <div class="rank-icon">
+                🟣
+            </div>
+
+            <h3>
+                APEX
+            </h3>
+
+            <div class="price">
+                480,000
+                <small>Coin</small>
+            </div>
+
+            <ul>
+
+                <li>🏠 5 Home</li>
+
+                <li>📦 Order Limit: 8</li>
+
+                <li>⚡ Action Limit: 10</li>
+
+                <li>💰 Balance: 280K</li>
+
+                <li>💜 1 Amethyst</li>
+
+                <li>🔑 2 Crimson</li>
+
+                <li>🔑 2 Gold</li>
+
+            </ul>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('rank','APEX')">
+
+                خرید APEX
+
+            </button>
+
+        </div>
+
+
+        <!-- SPONSOR -->
+
+        <div class="shop-card sponsor">
+
+            <div class="rank-icon">
+                👑
+            </div>
+
+            <h3>
+                SPONSOR
+            </h3>
+
+            <div class="price">
+                750,000
+                <small>Coin</small>
+            </div>
+
+            <ul>
+
+                <li>🏠 8 Home</li>
+
+                <li>📦 Order Limit: 12</li>
+
+                <li>⚡ Action Limit: 15</li>
+
+                <li>💰 Balance: 500K</li>
+
+                <li>🔑 5 Prime</li>
+
+                <li>🔑 3 Gold</li>
+
+                <li>🔑 3 Crimson</li>
+
+                <li>💜 2 Amethyst</li>
+
+                <li>✨ Prefix + Effect</li>
+
+            </ul>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('rank','SPONSOR')">
+
+                خرید SPONSOR
+
+            </button>
+
         </div>
 
     </div>
@@ -234,855 +318,253 @@
 </section>
 
 
-<!-- =====================================================
-     FEATURES
-===================================================== -->
+<!-- ================= KEY SHOP ================= -->
+
+<section id="keys" class="section">
+
+    <div class="section-title">
+
+        <span>KEY SHOP</span>
+
+        <h2>
+            کلیدهای Crate
+        </h2>
+
+        <p>
+            کلید مورد نظرت رو با Muffin Coin خریداری کن.
+        </p>
+
+    </div>
+
+
+    <div class="cards keys-grid">
+
+
+        <div class="shop-card">
+
+            <div class="key-icon">
+                🔑
+            </div>
+
+            <h3>
+                Prime Key
+            </h3>
+
+            <div class="price">
+                35,000
+                <small>Coin</small>
+            </div>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('key','prime')">
+
+                خرید Key
+
+            </button>
+
+        </div>
+
+
+        <div class="shop-card">
+
+            <div class="key-icon">
+                🔑
+            </div>
+
+            <h3>
+                Gold Key
+            </h3>
+
+            <div class="price">
+                45,000
+                <small>Coin</small>
+            </div>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('key','gold')">
+
+                خرید Key
+
+            </button>
+
+        </div>
+
+
+        <div class="shop-card">
+
+            <div class="key-icon">
+                🔑
+            </div>
+
+            <h3>
+                Crimson Key
+            </h3>
+
+            <div class="price">
+                55,000
+                <small>Coin</small>
+            </div>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('key','crimson')">
+
+                خرید Key
+
+            </button>
+
+        </div>
+
+
+        <div class="shop-card">
+
+            <div class="key-icon">
+                💜
+            </div>
+
+            <h3>
+                Amethyst Key
+            </h3>
+
+            <div class="price">
+                100,000
+                <small>Coin</small>
+            </div>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('key','amethyst')">
+
+                خرید Key
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
 
 <section class="features">
 
-    <div class="feature-card reveal">
-
-        <div class="feature-icon">
-            ⚔️
-        </div>
-
-        <h3>
-            PvP
-        </h3>
-
-        <p>
-            نبردهای جذاب و رقابتی
-        </p>
-
+    <div class="feature">
+        <b>⚡ بدون لگ</b>
+        <span>بهینه‌سازی شده برای تجربه روان</span>
     </div>
 
-
-    <div class="feature-card reveal">
-
-        <div class="feature-icon">
-            💎
-        </div>
-
-        <h3>
-            Shards
-        </h3>
-
-        <p>
-            سیستم اقتصادی اختصاصی
-        </p>
-
+    <div class="feature">
+        <b>💎 Shards</b>
+        <span>سیستم اقتصادی اختصاصی</span>
     </div>
 
-
-    <div class="feature-card reveal">
-
-        <div class="feature-icon">
-            🎁
-        </div>
-
-        <h3>
-            Crates
-        </h3>
-
-        <p>
-            کریت‌های ویژه و متنوع
-        </p>
-
+    <div class="feature">
+        <b>🎁 Crates</b>
+        <span>Crateهای مختلف و جذاب</span>
     </div>
 
-
-    <div class="feature-card reveal">
-
-        <div class="feature-icon">
-            🌎
-        </div>
-
-        <h3>
-            Survival
-        </h3>
-
-        <p>
-            دنیای Survival اختصاصی
-        </p>
-
+    <div class="feature">
+        <b>⚔️ PvP</b>
+        <span>مبارزه و رقابت واقعی</span>
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     SHOP
-===================================================== -->
+<!-- ================= RULES ================= -->
 
-<section id="shop" class="section">
+<section id="rules" class="section rules-section">
 
-    <div class="section-title reveal">
+    <div class="section-title">
 
-        <span>
-            STORE
-        </span>
-
-        <h2>
-            فروشگاه
-            <b>MuffinSMP</b>
-        </h2>
-
-        <p>
-            رنک و Key موردنظر خودت رو انتخاب کن.
-        </p>
-
-    </div>
-
-
-    <!-- RANKS -->
-
-    <div id="ranks" class="shop-category">
-
-        <h3 class="category-title reveal">
-            👑 RANKS
-        </h3>
-
-        <div class="cards">
-
-
-            <!-- NOVA -->
-
-            <div class="shop-card nova reveal">
-
-                <div class="rank-icon">
-                    🟢
-                </div>
-
-                <h3>
-                    NOVA
-                </h3>
-
-                <div class="price">
-                    180,000
-                    <small>
-                        Muffin Coin
-                    </small>
-                </div>
-
-                <ul>
-
-                    <li>
-                        🏠 3 Home
-                    </li>
-
-                    <li>
-                        📦 Order Limit: 4
-                    </li>
-
-                    <li>
-                        ⚡ Action Limit: 6
-                    </li>
-
-                    <li>
-                        💰 Balance: 125K
-                    </li>
-
-                    <li>
-                        🔑 2 Prime
-                    </li>
-
-                    <li>
-                        🔴 1 Crimson
-                    </li>
-
-                    <li>
-                        🟡 1 Gold
-                    </li>
-
-                </ul>
-
-                <button
-                    onclick="buyRank('NOVA')"
-                >
-                    خرید NOVA
-                </button>
-
-            </div>
-
-
-            <!-- VANTA -->
-
-            <div class="shop-card vanta reveal">
-
-                <div class="rank-icon">
-                    🔵
-                </div>
-
-                <h3>
-                    VANTA
-                </h3>
-
-                <div class="price">
-
-                    240,000
-
-                    <small>
-                        Muffin Coin
-                    </small>
-
-                </div>
-
-                <ul>
-
-                    <li>
-                        🏠 4 Home
-                    </li>
-
-                    <li>
-                        📦 Order Limit: 6
-                    </li>
-
-                    <li>
-                        ⚡ Action Limit: 8
-                    </li>
-
-                    <li>
-                        💰 Balance: 200K
-                    </li>
-
-                    <li>
-                        🔑 4 Prime
-                    </li>
-
-                    <li>
-                        🔴 2 Crimson
-                    </li>
-
-                    <li>
-                        🟡 2 Gold
-                    </li>
-
-                </ul>
-
-                <button
-                    onclick="buyRank('VANTA')"
-                >
-                    خرید VANTA
-                </button>
-
-            </div>
-
-
-            <!-- APEX -->
-
-            <div class="shop-card apex reveal">
-
-                <div class="rank-icon">
-                    🟣
-                </div>
-
-                <h3>
-                    APEX
-                </h3>
-
-                <div class="price">
-
-                    480,000
-
-                    <small>
-                        Muffin Coin
-                    </small>
-
-                </div>
-
-                <ul>
-
-                    <li>
-                        🏠 5 Home
-                    </li>
-
-                    <li>
-                        📦 Order Limit: 8
-                    </li>
-
-                    <li>
-                        ⚡ Action Limit: 10
-                    </li>
-
-                    <li>
-                        💰 Balance: 280K
-                    </li>
-
-                    <li>
-                        🟣 1 Amethyst
-                    </li>
-
-                    <li>
-                        🔴 2 Crimson
-                    </li>
-
-                    <li>
-                        🟡 2 Gold
-                    </li>
-
-                </ul>
-
-                <button
-                    onclick="buyRank('APEX')"
-                >
-                    خرید APEX
-                </button>
-
-            </div>
-
-
-            <!-- SPONSOR -->
-
-            <div class="shop-card sponsor reveal">
-
-                <div class="sponsor-badge">
-                    TOP RANK
-                </div>
-
-                <div class="rank-icon">
-                    🟡
-                </div>
-
-                <h3>
-                    SPONSOR
-                </h3>
-
-                <div class="price">
-
-                    750,000
-
-                    <small>
-                        Muffin Coin
-                    </small>
-
-                </div>
-
-                <ul>
-
-                    <li>
-                        🏠 8 Home
-                    </li>
-
-                    <li>
-                        📦 Order Limit: 12
-                    </li>
-
-                    <li>
-                        ⚡ Action Limit: 15
-                    </li>
-
-                    <li>
-                        💰 Balance: 500K
-                    </li>
-
-                    <li>
-                        🔑 5 Prime
-                    </li>
-
-                    <li>
-                        🟡 3 Gold
-                    </li>
-
-                    <li>
-                        🔴 3 Crimson
-                    </li>
-
-                    <li>
-                        🟣 2 Amethyst
-                    </li>
-
-                    <li>
-                        ⭐ Sponsor Prefix
-                    </li>
-
-                    <li>
-                        ✨ افکت اختصاصی TAB و چت
-                    </li>
-
-                </ul>
-
-                <button
-                    onclick="buyRank('SPONSOR')"
-                >
-                    خرید SPONSOR
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- KEYS -->
-
-    <div class="shop-category">
-
-        <h3 class="category-title reveal">
-            🔑 CRATE KEYS
-        </h3>
-
-        <div class="cards key-cards">
-
-
-            <div class="key-card reveal">
-
-                <span>
-                    🔵
-                </span>
-
-                <h3>
-                    PRIME KEY
-                </h3>
-
-                <strong>
-                    35,000 Muffin Coin
-                </strong>
-
-                <button
-                    onclick="buyKey('Prime')"
-                >
-                    خرید
-                </button>
-
-            </div>
-
-
-            <div class="key-card reveal">
-
-                <span>
-                    🟡
-                </span>
-
-                <h3>
-                    GOLD KEY
-                </h3>
-
-                <strong>
-                    45,000 Muffin Coin
-                </strong>
-
-                <button
-                    onclick="buyKey('Gold')"
-                >
-                    خرید
-                </button>
-
-            </div>
-
-
-            <div class="key-card reveal">
-
-                <span>
-                    🔴
-                </span>
-
-                <h3>
-                    CRIMSON KEY
-                </h3>
-
-                <strong>
-                    55,000 Muffin Coin
-                </strong>
-
-                <button
-                    onclick="buyKey('Crimson')"
-                >
-                    خرید
-                </button>
-
-            </div>
-
-
-            <div class="key-card reveal">
-
-                <span>
-                    🟣
-                </span>
-
-                <h3>
-                    AMETHYST KEY
-                </h3>
-
-                <strong>
-                    100,000 Muffin Coin
-                </strong>
-
-                <button
-                    onclick="buyKey('Amethyst')"
-                >
-                    خرید
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     RULES
-===================================================== -->
-
-<section
-    id="rules"
-    class="section rules-section"
->
-
-    <div class="section-title reveal">
-
-        <span>
-            RULES
-        </span>
+        <span>SERVER RULES</span>
 
         <h2>
             قوانین
-            <b>MuffinSMP</b>
         </h2>
 
     </div>
 
-    <div class="rules-grid">
+    <div class="rules-box">
 
+        <p>
+            🚫 استفاده از باگ و Exploit ممنوع است.
+        </p>
 
-        <div class="rule reveal">
+        <p>
+            🤝 احترام به بازیکنان الزامی است.
+        </p>
 
-            <span>
-                01
-            </span>
+        <p>
+            ⚠️ هرگونه تقلب یا استفاده از Cheat ممنوع است.
+        </p>
 
-            <h3>
-                احترام
-            </h3>
+        <p>
+            📢 تبلیغات بدون اجازه ممنوع است.
+        </p>
 
-            <p>
-                به بازیکنان، Staff و اعضای کامیونیتی احترام بگذارید.
-            </p>
-
-        </div>
-
-
-        <div class="rule reveal">
-
-            <span>
-                02
-            </span>
-
-            <h3>
-                Cheat ممنوع
-            </h3>
-
-            <p>
-                استفاده از Hack، Cheat و Clientهای غیرمجاز ممنوع است.
-            </p>
-
-        </div>
-
-
-        <div class="rule reveal">
-
-            <span>
-                03
-            </span>
-
-            <h3>
-                Spam ممنوع
-            </h3>
-
-            <p>
-                از Spam، Flood و تبلیغات بدون اجازه خودداری کنید.
-            </p>
-
-        </div>
-
-
-        <div class="rule reveal">
-
-            <span>
-                04
-            </span>
-
-            <h3>
-                Bug Abuse
-            </h3>
-
-            <p>
-                استفاده عمدی از باگ‌های سرور ممنوع است.
-            </p>
-
-        </div>
+        <p>
+            📜 قوانین ممکن است در آینده بروزرسانی شوند.
+        </p>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     TELEGRAM
-===================================================== -->
+<!-- ================= TELEGRAM ================= -->
 
-<section
-    id="telegram"
-    class="telegram-section"
->
+<section class="telegram-section">
 
-    <div class="telegram-box reveal">
+    <div>
 
-        <div class="telegram-icon">
-            ✈️
-        </div>
+        <span>
+            MUFFIN COMMUNITY
+        </span>
 
-        <div>
+        <h2>
+            با ما در ارتباط باش
+        </h2>
 
-            <span>
-                COMMUNITY
-            </span>
-
-            <h2>
-                به Telegram ما بپیوندید
-            </h2>
-
-            <p>
-                اخبار، خرید رنک و Key، Support و ارتباط با بازیکنان.
-            </p>
-
-        </div>
-
-        <a
-            href="https://t.me/muffinsmp"
-            target="_blank"
-            rel="noopener"
-            class="telegram-btn"
-        >
-            Join Telegram
-        </a>
+        <p>
+            اخبار، آپدیت‌ها و اطلاعیه‌های MuffinSMP
+        </p>
 
     </div>
+
+    <a
+        href="https://t.me/muffinsmp"
+        target="_blank"
+        class="telegram-btn">
+
+        📢 Telegram
+
+    </a>
 
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
     <div class="footer-logo">
-        🍩 MUFFINSMP
+        ᴍᴜꜰꜰɪɴѕᴍᴘ
     </div>
 
     <p>
-        © 2026 MuffinSMP — All Rights Reserved.
+        © 2026 MuffinSMP
     </p>
 
-    <div class="footer-links">
-
-        <a href="#home">
-            خانه
-        </a>
-
-        <a href="#shop">
-            فروشگاه
-        </a>
-
-        <a href="#rules">
-            قوانین
-        </a>
-
-        <a href="#telegram">
-            Telegram
-        </a>
-
-    </div>
+    <p>
+        play.muffinsmp.ir
+    </p>
 
 </footer>
-
-
-<!-- =====================================================
-     AUTH MODAL
-===================================================== -->
-
-<div
-    class="auth-modal"
-    id="authModal"
->
-
-    <div
-        class="auth-overlay"
-        onclick="closeAuthModal()"
-    ></div>
-
-    <div class="auth-box">
-
-        <button
-            class="auth-close"
-            onclick="closeAuthModal()"
-        >
-            ✕
-        </button>
-
-
-        <div class="auth-logo">
-            🍩
-        </div>
-
-        <h2>
-            حساب MuffinSMP
-        </h2>
-
-        <p class="auth-subtitle">
-            وارد حساب خودت شو یا یک حساب جدید بساز.
-        </p>
-
-
-        <!-- Tabs -->
-
-        <div class="auth-tabs">
-
-            <button
-                class="auth-tab active"
-                id="loginTab"
-                onclick="switchAuthTab('login')"
-            >
-                ورود
-            </button>
-
-            <button
-                class="auth-tab"
-                id="registerTab"
-                onclick="switchAuthTab('register')"
-            >
-                ثبت‌نام
-            </button>
-
-        </div>
-
-
-        <!-- LOGIN -->
-
-        <form
-            id="loginForm"
-            class="auth-form"
-        >
-
-            <label>
-                ایمیل
-            </label>
-
-            <input
-                id="loginEmail"
-                type="email"
-                placeholder="example@gmail.com"
-                autocomplete="email"
-                required
-            >
-
-
-            <label>
-                رمز عبور
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                placeholder="رمز عبور"
-                autocomplete="current-password"
-                required
-            >
-
-
-            <button
-                type="submit"
-                class="auth-submit"
-            >
-                🔐 ورود به حساب
-            </button>
-
-        </form>
-
-
-        <!-- REGISTER -->
-
-        <form
-            id="registerForm"
-            class="auth-form hidden"
-        >
-
-            <label>
-                نام کاربری
-            </label>
-
-            <input
-                id="registerUsername"
-                type="text"
-                placeholder="YourUsername"
-                minlength="3"
-                maxlength="24"
-                required
-            >
-
-
-            <label>
-                ایمیل
-            </label>
-
-            <input
-                id="registerEmail"
-                type="email"
-                placeholder="example@gmail.com"
-                autocomplete="email"
-                required
-            >
-
-
-            <label>
-                رمز عبور
-            </label>
-
-            <input
-                id="registerPassword"
-                type="password"
-                placeholder="حداقل ۸ کاراکتر"
-                minlength="8"
-                autocomplete="new-password"
-                required
-            >
-
-
-            <button
-                type="submit"
-                class="auth-submit"
-            >
-                ✨ ساخت اکانت
-            </button>
-
-        </form>
-
-
-        <div
-            id="authMessage"
-            class="auth-message"
-        ></div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-    id="toast"
-    class="toast"
->
-    انجام شد!
-</div>
 
 
 <script src="script.js"></script>
