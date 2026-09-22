@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ورود | MuffinSMP</title>
+
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(123, 71, 161, .22), transparent 35%),
+                radial-gradient(circle at 80% 80%, rgba(155, 89, 182, .16), transparent 35%),
+                #07050b;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: rgba(123, 71, 161, .12);
+            filter: blur(100px);
+            border-radius: 50%;
+            top: -180px;
+            left: -180px;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+        }
+
+        .card {
+            position: relative;
+            background: rgba(15, 11, 23, .88);
+            border: 1px solid rgba(167, 91, 220, .25);
+            border-radius: 24px;
+            padding: 38px 30px;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, .55),
+                0 0 50px rgba(123, 71, 161, .12);
+            backdrop-filter: blur(18px);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .logo span {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #d49aff, #7b47a1, #b86cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #cfcfcf;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            height: 52px;
+            border-radius: 13px;
+            border: 1px solid #292331;
+            outline: none;
+            background: #0c0911;
+            color: #fff;
+            padding: 0 15px;
+            font-size: 14px;
+            transition: .25s;
+        }
+
+        input:focus {
+            border-color: #9b59d0;
+            box-shadow: 0 0 0 3px rgba(155, 89, 208, .12);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 54px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7b47a1, #a85de0);
+            box-shadow: 0 10px 30px rgba(123, 71, 161, .25);
+            transition: .25s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 35px rgba(123, 71, 161, .4);
+        }
+
+        .login-btn:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
+
+        .message {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: #ffb3b3;
+            background: rgba(231, 76, 60, .10);
+            border: 1px solid rgba(231, 76, 60, .25);
+        }
+
+        .message.success {
+            color: #b8ffd0;
+            background: rgba(46, 204, 113, .10);
+            border: 1px solid rgba(46, 204, 113, .25);
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 24px;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .register a {
+            color: #c17aff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .back:hover {
+            color: #aaa;
+        }
+
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.25);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .logo span {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            <span>ᴍᴜꜰꜰɪɴѕᴍᴘ</span>
+        </div>
+
+        <div class="subtitle">
+            پنل رسمی MuffinSMP
+        </div>
+
+        <div class="title">
+            🔐 ورود به حساب
+        </div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label for="username">نام کاربری یا ایمیل</label>
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Username / Email"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="password">رمز عبور</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button id="loginBtn" class="login-btn" type="submit">
+                🔐 ورود
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="register">
+            حساب نداری؟
+            <a href="register.html">ثبت‌نام کن</a>
+        </div>
+
+        <a class="back" href="index.html">
+            ← بازگشت به سایت
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+    const API = "https://api.muffinsmp.ir/api";
+
+    const form = document.getElementById("loginForm");
+    const button = document.getElementById("loginBtn");
+    const message = document.getElementById("message");
+
+    function showMessage(text, type = "error") {
+        message.textContent = text;
+        message.className = "message show " + type;
+    }
+
+    function setLoading(loading) {
+
+        button.disabled = loading;
+
+        if (loading) {
+            button.innerHTML = `
+                <span class="loading">
+                    <span class="spinner"></span>
+                    در حال ورود...
+                </span>
+            `;
+        } else {
+            button.innerHTML = "🔐 ورود";
+        }
+    }
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const username = document
+            .getElementById("username")
+            .value
+            .trim();
+
+        const password = document
+            .getElementById("password")
+            .value;
+
+        if (!username || !password) {
+            showMessage("لطفاً نام کاربری و رمز عبور را وارد کنید.");
+            return;
+        }
+
+        setLoading(true);
+        message.className = "message";
+
+        try {
+
+            const response = await fetch(`${API}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            });
+
+            let data = {};
+
+            try {
+                data = await response.json();
+            } catch {
+                data = {};
+            }
+
+            if (!response.ok) {
+
+                showMessage(
+                    data.error ||
+                    data.message ||
+                    "نام کاربری یا رمز عبور اشتباه است."
+                );
+
+                setLoading(false);
+                return;
+            }
+
+            if (!data.token) {
+                showMessage("ورود انجام شد اما توکن دریافت نشد.");
+                setLoading(false);
+                return;
+            }
+
+            localStorage.setItem("muffin_token", data.token);
+
+            showMessage("✅ ورود موفق بود؛ در حال انتقال...", "success");
+
+            setTimeout(() => {
+                window.location.href = "panel.html";
+            }, 700);
+
+        } catch (error) {
+
+            console.error("Login Error:", error);
+
+            showMessage(
+                "ارتباط با سرور برقرار نشد. دوباره تلاش کنید."
+            );
+
+            setLoading(false);
+        }
+    });
+
+    // اگر قبلاً لاگین شده، مستقیم پنل باز شود
+    if (localStorage.getItem("muffin_token")) {
+        window.location.href = "panel.html";
+    }
+</script>
+
+</body>
+</html>
