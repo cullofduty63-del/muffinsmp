@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Panel | MuffinSMP</title>
+<title>MuffinSMP Panel</title>
 
 <style>
 *{
@@ -13,82 +12,67 @@
     padding:0;
 }
 
-:root{
-    --bg:#07050b;
-    --card:#100b17;
-    --card2:#160e20;
-    --border:rgba(168,85,247,.20);
-    --purple:#a855f7;
-    --purple2:#7b47a1;
-    --text:#fff;
-    --muted:#9d94a8;
-    --green:#35e889;
-    --red:#ff536d;
-    --yellow:#ffd34d;
-}
-
 body{
-    min-height:100vh;
     font-family:Tahoma,Arial,sans-serif;
     background:
-        radial-gradient(circle at 10% 10%,rgba(123,71,161,.16),transparent 30%),
-        radial-gradient(circle at 90% 80%,rgba(168,85,247,.12),transparent 30%),
-        var(--bg);
-    color:var(--text);
+        radial-gradient(circle at top right,#32105c 0%,transparent 35%),
+        radial-gradient(circle at bottom left,#16052d 0%,transparent 35%),
+        #07030d;
+    color:#fff;
+    min-height:100vh;
 }
 
-/* NAVBAR */
+button,input,textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
 
 .navbar{
-    position:sticky;
-    top:0;
-    z-index:100;
     height:70px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 5%;
-    background:rgba(7,5,11,.88);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
+    padding:0 30px;
+    background:rgba(10,5,18,.92);
+    border-bottom:1px solid rgba(174,77,255,.25);
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(15px);
 }
 
 .logo{
-    font-size:24px;
+    font-size:25px;
     font-weight:900;
-    color:#c27cff;
-    text-shadow:0 0 20px rgba(168,85,247,.35);
+    color:#b45cff;
+    text-shadow:0 0 20px rgba(180,92,255,.55);
 }
 
-.nav-actions{
+.nav-right{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
 }
 
 .nav-btn{
+    border:1px solid rgba(180,92,255,.25);
+    background:#12091d;
+    color:#fff;
     padding:10px 16px;
     border-radius:10px;
-    border:1px solid var(--border);
-    background:#120c19;
-    color:#ddd;
-    text-decoration:none;
-    cursor:pointer;
+    transition:.2s;
 }
 
 .nav-btn:hover{
-    border-color:var(--purple);
-    color:white;
+    background:#241039;
+    border-color:#b45cff;
 }
-
-.logout{
-    color:#ff7183;
-}
-
-/* MAIN */
 
 .container{
-    width:min(1200px,92%);
+    width:min(1200px,94%);
     margin:35px auto 70px;
 }
 
@@ -98,170 +82,86 @@ body{
 
 .welcome h1{
     font-size:30px;
-    margin-bottom:7px;
+    margin-bottom:8px;
 }
 
 .welcome p{
-    color:var(--muted);
+    color:#a99bb5;
 }
 
-/* STATS */
-
-.stats{
+.grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-bottom:25px;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
 }
 
-.stat{
-    padding:22px;
-    border:1px solid var(--border);
+.card{
+    background:linear-gradient(145deg,rgba(25,12,38,.95),rgba(10,6,17,.95));
+    border:1px solid rgba(180,92,255,.18);
     border-radius:18px;
-    background:linear-gradient(145deg,rgba(22,14,32,.95),rgba(12,8,17,.95));
-    box-shadow:0 15px 40px rgba(0,0,0,.18);
+    padding:22px;
+    box-shadow:0 15px 50px rgba(0,0,0,.2);
 }
 
-.stat-title{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:10px;
+.card h2{
+    font-size:18px;
+    margin-bottom:16px;
 }
 
-.stat-value{
-    font-size:24px;
+.balance{
+    font-size:28px;
     font-weight:900;
+    color:#c77cff;
 }
 
-.coin{
-    color:#ffd34d;
+.sub{
+    color:#9f91aa;
+    font-size:13px;
+    margin-top:5px;
 }
 
-.shard{
-    color:#d68cff;
+.plus{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    border:1px solid rgba(180,92,255,.4);
+    background:#1b0b2b;
+    color:#d18aff;
+    font-size:22px;
+    margin-right:8px;
+}
+
+.profile-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.profile-row:last-child{
+    border-bottom:none;
+}
+
+.value{
+    color:#d8c9e5;
 }
 
 .rank{
-    color:#b56cff;
+    color:#c879ff;
+    font-weight:900;
 }
 
-.minecraft{
-    color:#55e990;
-}
-
-/* SECTION */
-
-.section{
+.shop-section,
+.ticket-section,
+.admin-section{
     margin-top:25px;
 }
 
 .section-title{
-    font-size:20px;
+    font-size:24px;
     margin-bottom:15px;
 }
-
-/* CARD */
-
-.card{
-    padding:22px;
-    border:1px solid var(--border);
-    border-radius:18px;
-    background:rgba(16,11,23,.92);
-}
-
-/* MINECRAFT */
-
-.minecraft-box{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.mc-info strong{
-    display:block;
-    margin-bottom:7px;
-    font-size:18px;
-}
-
-.mc-info span{
-    color:var(--muted);
-    font-size:13px;
-}
-
-.link-area{
-    display:flex;
-    gap:10px;
-}
-
-input,
-select{
-    background:#09070d;
-    border:1px solid #342441;
-    color:white;
-    border-radius:10px;
-    padding:12px;
-    outline:none;
-}
-
-input:focus{
-    border-color:var(--purple);
-}
-
-.link-area input{
-    width:180px;
-}
-
-/* BUTTON */
-
-.btn{
-    border:0;
-    border-radius:10px;
-    padding:12px 18px;
-    font-weight:bold;
-    cursor:pointer;
-    color:white;
-    background:linear-gradient(135deg,var(--purple2),var(--purple));
-    transition:.2s;
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 25px rgba(168,85,247,.25);
-}
-
-.btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-    transform:none;
-}
-
-.btn-green{
-    background:linear-gradient(135deg,#16894c,#35e889);
-    color:#04150b;
-}
-
-.btn-red{
-    background:#42131d;
-    color:#ff8090;
-}
-
-/* COIN */
-
-.coin-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-}
-
-.coin-big{
-    font-size:32px;
-    font-weight:900;
-    color:#ffd34d;
-}
-
-/* SHOP */
 
 .shop-grid{
     display:grid;
@@ -271,3032 +171,768 @@ input:focus{
 
 .product{
     padding:20px;
-    border:1px solid var(--border);
-    border-radius:17px;
-    background:linear-gradient(145deg,#160d20,#0c0811);
+    border-radius:16px;
+    background:#10071a;
+    border:1px solid rgba(180,92,255,.16);
     transition:.2s;
 }
 
 .product:hover{
-    transform:translateY(-4px);
-    border-color:rgba(168,85,247,.55);
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    transform:translateY(-3px);
+    border-color:#a957f5;
 }
 
-.product-name{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.product-type{
-    color:var(--muted);
-    font-size:12px;
-    margin-bottom:17px;
-}
-
-.product-price{
-    color:#ffd34d;
-    font-size:17px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-/* TRANSACTIONS */
-
-.table-wrap{
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,
-td{
-    padding:14px 10px;
-    text-align:right;
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-th{
-    color:#a99db5;
-    font-size:12px;
-}
-
-td{
-    font-size:13px;
-}
-
-.status{
-    display:inline-block;
-    padding:5px 9px;
-    border-radius:8px;
-    font-size:11px;
-}
-
-.status.pending{
-    background:rgba(255,211,77,.1);
-    color:#ffd34d;
-}
-
-.status.delivered{
-    background:rgba(53,232,137,.1);
-    color:#35e889;
-}
-
-.status.failed{
-    background:rgba(255,83,109,.1);
-    color:#ff536d;
-}
-
-/* MODAL */
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(8px);
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(500px,100%);
-    padding:28px;
-    border:1px solid var(--border);
-    border-radius:22px;
-    background:#100b17;
-    box-shadow:0 30px 80px rgba(0,0,0,.5);
-}
-
-.modal-title{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:20px;
-}
-
-.close{
-    float:left;
-    cursor:pointer;
-    color:#aaa;
-    font-size:22px;
-}
-
-.close:hover{
-    color:white;
-}
-
-.packages{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.package{
-    padding:14px;
-    border-radius:12px;
-    border:1px solid #352442;
-    background:#0c0810;
-    cursor:pointer;
-    text-align:center;
-}
-
-.package:hover,
-.package.active{
-    border-color:var(--purple);
-    background:rgba(168,85,247,.08);
-}
-
-.package strong{
-    display:block;
-    margin-bottom:5px;
-}
-
-.package span{
-    color:#ffd34d;
-    font-size:12px;
-}
-
-.custom-input{
-    width:100%;
-    margin-bottom:15px;
-}
-
-.payment-box{
-    margin-top:15px;
-    padding:15px;
-    border-radius:13px;
-    background:#0a070d;
-    border:1px solid rgba(255,255,255,.06);
-}
-
-.payment-title{
-    color:#aaa;
-    font-size:12px;
+.product h3{
     margin-bottom:8px;
-}
-
-.payment-number{
-    font-size:18px;
-    font-weight:bold;
-    letter-spacing:2px;
-    color:#c77dff;
-}
-
-/* TOAST */
-
-.toast{
-    position:fixed;
-    bottom:25px;
-    left:50%;
-    transform:translate(-50%,30px);
-    opacity:0;
-    pointer-events:none;
-    z-index:999;
-    padding:13px 18px;
-    border-radius:12px;
-    background:#17101e;
-    border:1px solid var(--border);
-    color:white;
-    transition:.25s;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .shop-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .minecraft-box{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-}
-
-@media(max-width:600px){
-
-    .navbar{
-        padding:0 4%;
-    }
-
-    .logo{
-        font-size:19px;
-    }
-
-    .nav-btn{
-        padding:8px 10px;
-        font-size:12px;
-    }
-
-    .container{
-        width:94%;
-    }
-
-    .welcome h1{
-        font-size:24px;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat{
-        padding:16px;
-    }
-
-    .stat-value{
-        font-size:19px;
-    }
-
-    .shop-grid{
-        grid-template-columns:1fr;
-    }
-
-    .link-area{
-        flex-direction:column;
-    }
-
-    .link-area input{
-        width:100%;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<!-- NAVBAR -->
-
-<nav class="navbar">
-
-    <div class="logo">
-        ᴍᴜꜰꜰɪɴꜱᴍᴘ
-    </div>
-
-    <div class="nav-actions">
-
-        <a class="nav-btn" href="index.html">
-            خانه
-        </a>
-
-        <button class="nav-btn logout" onclick="logout()">
-            خروج
-        </button>
-
-    </div>
-
-</nav>
-
-
-<main class="container">
-
-    <!-- WELCOME -->
-
-    <div class="welcome">
-
-        <h1>
-            سلام <span id="username">Player</span> 👋
-        </h1>
-
-        <p>
-            به پنل کاربری MuffinSMP خوش اومدی.
-        </p>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="stats">
-
-        <div class="stat">
-            <div class="stat-title">Rank</div>
-            <div class="stat-value rank" id="rank">
-                PLAYER
-            </div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-title">Muffin Coin</div>
-            <div class="stat-value coin" id="coins">
-                0
-            </div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-title">Shard</div>
-            <div class="stat-value shard" id="shards">
-                0
-            </div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-title">Minecraft</div>
-            <div class="stat-value minecraft" id="minecraft">
-                متصل نیست
-            </div>
-        </div>
-
-    </div>
-
-
-    <!-- MINECRAFT LINK -->
-
-    <section class="section">
-
-        <div class="section-title">
-            🎮 اتصال اکانت Minecraft
-        </div>
-
-        <div class="card minecraft-box">
-
-            <div class="mc-info">
-
-                <strong id="mcName">
-                    اکانت Minecraft متصل نیست
-                </strong>
-
-                <span>
-                    داخل سرور دستور <b>/link</b> بزن و کد دریافت‌شده را اینجا وارد کن.
-                </span>
-
-            </div>
-
-            <div class="link-area">
-
-                <input
-                    id="linkCode"
-                    maxlength="12"
-                    placeholder="Link Code"
-                >
-
-                <button class="btn" onclick="verifyMinecraftLink()">
-                    اتصال
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- COINS -->
-
-    <section class="section">
-
-        <div class="section-title">
-            🪙 Muffin Coin
-        </div>
-
-        <div class="card">
-
-            <div class="coin-head">
-
-                <div>
-                    <div style="color:#aaa;font-size:13px">
-                        موجودی فعلی
-                    </div>
-
-                    <div class="coin-big" id="coinBig">
-                        0 Coin
-                    </div>
-                </div>
-
-                <button class="btn" onclick="openCoinModal()">
-                    ＋ شارژ Coin
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SHOP -->
-
-    <section class="section">
-
-        <div class="section-title">
-            🛒 فروشگاه MuffinSMP
-        </div>
-
-        <div class="shop-grid">
-
-            <div class="product">
-                <div class="product-name">NOVA</div>
-                <div class="product-type">Rank</div>
-                <div class="product-price">180,000 Coin</div>
-                <button class="btn" onclick="buyProduct('rank','NOVA',180000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">VANTA</div>
-                <div class="product-type">Rank</div>
-                <div class="product-price">240,000 Coin</div>
-                <button class="btn" onclick="buyProduct('rank','VANTA',240000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">APEX</div>
-                <div class="product-type">Rank</div>
-                <div class="product-price">480,000 Coin</div>
-                <button class="btn" onclick="buyProduct('rank','APEX',480000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">SPONSOR</div>
-                <div class="product-type">Rank</div>
-                <div class="product-price">750,000 Coin</div>
-                <button class="btn" onclick="buyProduct('rank','SPONSOR',750000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">Prime Key</div>
-                <div class="product-type">Key</div>
-                <div class="product-price">35,000 Coin</div>
-                <button class="btn" onclick="buyProduct('key','prime',35000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">Gold Key</div>
-                <div class="product-type">Key</div>
-                <div class="product-price">45,000 Coin</div>
-                <button class="btn" onclick="buyProduct('key','gold',45000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">Crimson Key</div>
-                <div class="product-type">Key</div>
-                <div class="product-price">55,000 Coin</div>
-                <button class="btn" onclick="buyProduct('key','crimson',55000)">
-                    خرید
-                </button>
-            </div>
-
-            <div class="product">
-                <div class="product-name">Amethyst Key</div>
-                <div class="product-type">Key</div>
-                <div class="product-price">100,000 Coin</div>
-                <button class="btn" onclick="buyProduct('key','amethyst',100000)">
-                    خرید
-                </button>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PURCHASE HISTORY -->
-
-    <section class="section">
-
-        <div class="section-title">
-            📜 تاریخچه خرید
-        </div>
-
-        <div class="card">
-
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>پنل کاربری | MuffinSMP</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    min-height:100vh;
-    font-family:Tahoma,Arial,sans-serif;
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(123,71,161,.20),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 90%,
-            rgba(168,85,247,.12),
-            transparent 30%
-        ),
-        #07050b;
-    color:#fff;
-}
-
-/* =========================
-   NAVBAR
-========================= */
-
-.navbar{
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    height:70px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 5%;
-
-    background:rgba(7,5,11,.82);
-    border-bottom:1px solid rgba(155,89,208,.15);
-
-    backdrop-filter:blur(18px);
-}
-
-.logo{
-    font-size:24px;
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d49aff,
-            #7b47a1,
-            #b86cff
-        );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.minecraft-ip{
-    display:none;
-
-    padding:9px 13px;
-
-    border-radius:10px;
-
-    background:rgba(123,71,161,.10);
-    border:1px solid rgba(155,89,208,.15);
-
-    color:#cda4ed;
-
-    font-size:12px;
-}
-
-.logout-btn{
-    border:1px solid rgba(255,80,100,.20);
-
-    background:rgba(255,60,80,.08);
-
-    color:#ff9ca8;
-
-    border-radius:10px;
-
-    padding:9px 14px;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-    transition:.2s;
-}
-
-.logout-btn:hover{
-    background:rgba(255,60,80,.16);
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.container{
-    width:min(1150px,92%);
-    margin:0 auto;
-
-    padding:40px 0 70px;
-}
-
-/* =========================
-   WELCOME
-========================= */
-
-.welcome{
-    margin-bottom:28px;
-}
-
-.welcome h1{
-    font-size:30px;
-    margin-bottom:8px;
-}
-
-.welcome h1 span{
-    color:#b66cff;
-}
-
-.welcome p{
-    color:#8f8a96;
-    font-size:14px;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:16px;
-
-    margin-bottom:22px;
-}
-
-.card{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(22,16,30,.94),
-            rgba(12,9,17,.94)
-        );
-
-    border:1px solid rgba(155,89,208,.16);
-
-    border-radius:18px;
-
-    padding:22px;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.25);
-
-    transition:.2s;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-
-    border-color:
-        rgba(166,91,220,.30);
-}
-
-.card-title{
-    color:#85808d;
-    font-size:12px;
-    margin-bottom:12px;
-}
-
-.card-value{
-    font-size:24px;
-    font-weight:900;
-}
-
-.card-icon{
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-/* =========================
-   COIN
-========================= */
-
-.coin-card{
-    position:relative;
-}
-
-.coin-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.plus-btn{
-    width:32px;
-    height:32px;
-
-    border:1px solid rgba(182,108,255,.35);
-
-    border-radius:9px;
-
-    background:
-        rgba(182,108,255,.10);
-
-    color:#c889ff;
-
-    font-size:21px;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.plus-btn:hover{
-    background:rgba(182,108,255,.20);
-
-    transform:scale(1.06);
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section{
-    margin-top:25px;
-}
-
-.section-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:14px;
-}
-
-.section-title h2{
-    font-size:19px;
-}
-
-.section-title span{
-    color:#777;
-    font-size:12px;
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile{
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:16px;
-}
-
-.info{
-    padding:15px;
-
-    border-radius:12px;
-
-    background:rgba(255,255,255,.025);
-
-    border:1px solid rgba(255,255,255,.05);
-}
-
-.info-label{
-    color:#777;
-    font-size:11px;
-    margin-bottom:7px;
-}
-
-.info-value{
-    font-size:14px;
-    font-weight:bold;
-    word-break:break-word;
-}
-
-.rank{
-    color:#c47dff;
-}
-
-/* =========================
-   LINK MINECRAFT
-========================= */
-
-.link-box{
-    text-align:center;
-}
-
-.link-status{
-    padding:18px;
-
-    border-radius:14px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
-    margin-bottom:15px;
-}
-
-.linked{
-    color:#65e99a;
-}
-
-.not-linked{
-    color:#ffbd66;
-}
-
-.primary-btn{
-    border:none;
-
-    border-radius:12px;
-
-    padding:12px 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7b47a1,
-            #a855f7
-        );
-
-    color:white;
-
-    font-family:inherit;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.primary-btn:hover{
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(168,85,247,.25);
-}
-
-.primary-btn:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-}
-
-/* =========================
-   LINK CODE
-========================= */
-
-.link-code{
-    display:none;
-
-    margin-top:15px;
-
-    padding:18px;
-
-    border-radius:14px;
-
-    background:
-        rgba(123,71,161,.08);
-
-    border:
-        1px solid rgba(155,89,208,.22);
-}
-
-.link-code.show{
-    display:block;
-}
-
-.code{
-    margin:10px 0;
-
-    font-size:34px;
-
-    font-weight:900;
-
-    letter-spacing:7px;
-
-    color:#c77cff;
-}
-
-.code-help{
-    color:#888;
-
-    font-size:12px;
-
-    line-height:1.8;
-}
-
-.code-help strong{
-    color:#ddd;
-}
-
-/* =========================
-   SHOP
-========================= */
-
-.shop-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:14px;
-}
-
-.shop-item{
-    position:relative;
-
-    overflow:hidden;
-
-    padding:20px;
-
-    border-radius:16px;
-
-    background:
-        rgba(18,13,25,.92);
-
-    border:
-        1px solid rgba(155,89,208,.15);
-}
-
-.shop-item h3{
-    font-size:17px;
-    margin-bottom:8px;
-}
-
-.shop-item p{
-    color:#85808d;
-    font-size:12px;
-    margin-bottom:15px;
 }
 
 .price{
-    color:#d09aff;
-
-    font-size:15px;
-
+    color:#c97cff;
     font-weight:bold;
-
-    margin-bottom:15px;
+    margin:10px 0 15px;
 }
 
-.buy-btn{
+.buy-btn,
+.primary-btn{
     width:100%;
-
-    padding:10px;
-
-    border:none;
-
+    border:0;
+    padding:12px;
     border-radius:10px;
+    background:linear-gradient(135deg,#8b35d9,#c35dff);
+    color:#fff;
+    font-weight:800;
+}
 
-    background:
-        rgba(155,89,208,.12);
+.buy-btn:hover,
+.primary-btn:hover{
+    filter:brightness(1.12);
+}
 
-    border:
-        1px solid rgba(155,89,208,.20);
+.secondary-btn{
+    border:1px solid rgba(180,92,255,.35);
+    background:#160b22;
+    color:#fff;
+    padding:10px 15px;
+    border-radius:10px;
+}
 
-    color:#d4a5f5;
+.danger-btn{
+    border:1px solid rgba(255,70,70,.35);
+    background:#2a0d12;
+    color:#ff9b9b;
+    padding:10px 15px;
+    border-radius:10px;
+}
 
-    font-family:inherit;
+.ticket-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
 
-    font-weight:bold;
-
+.ticket-item{
+    background:#10071a;
+    border:1px solid rgba(180,92,255,.15);
+    border-radius:14px;
+    padding:17px;
     cursor:pointer;
-
     transition:.2s;
 }
 
-.buy-btn:hover{
-    background:
-        rgba(155,89,208,.22);
+.ticket-item:hover{
+    border-color:#a957f5;
+    background:#14091f;
 }
 
-.buy-btn:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
-
-/* =========================
-   PURCHASES
-========================= */
-
-.purchase-list{
+.ticket-top{
     display:flex;
-    flex-direction:column;
-    gap:9px;
-}
-
-.purchase{
-    display:flex;
-
-    align-items:center;
     justify-content:space-between;
-
-    padding:14px 16px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    border:
-        1px solid rgba(255,255,255,.05);
+    align-items:center;
+    gap:15px;
 }
 
-.purchase-name{
-    font-size:13px;
+.ticket-subject{
+    font-weight:900;
+    font-size:16px;
 }
 
-.purchase-price{
-    color:#c17aff;
+.ticket-meta{
+    color:#8f829a;
     font-size:12px;
+    margin-top:7px;
 }
 
 .status{
-    padding:5px 9px;
-
-    border-radius:7px;
-
-    font-size:10px;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:bold;
 }
 
-.status.pending{
-    color:#ffc66d;
-    background:rgba(255,193,7,.08);
+.status-open{
+    background:#281d05;
+    color:#ffd45c;
 }
 
-.status.delivered{
-    color:#67e69a;
-    background:rgba(46,204,113,.08);
+.status-answered{
+    background:#062b20;
+    color:#55e5b1;
 }
 
-/* =========================
-   MODAL
-========================= */
+.status-closed{
+    background:#201b24;
+    color:#9b91a3;
+}
 
-.modal{
+.empty{
+    padding:25px;
+    text-align:center;
+    color:#81768c;
+    border:1px dashed rgba(180,92,255,.2);
+    border-radius:14px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.modal-bg{
     position:fixed;
-
     inset:0;
-
-    z-index:500;
-
-    display:none;
-
+    background:rgba(0,0,0,.72);
+    display:flex;
     align-items:center;
     justify-content:center;
-
+    z-index:500;
     padding:20px;
-
-    background:
-        rgba(0,0,0,.70);
-
-    backdrop-filter:blur(8px);
 }
 
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(450px,100%);
-
-    padding:28px;
-
+.modal{
+    width:min(650px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#0e0715;
+    border:1px solid rgba(180,92,255,.3);
     border-radius:20px;
-
-    background:
-        #100b16;
-
-    border:
-        1px solid rgba(155,89,208,.25);
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.55);
+    padding:24px;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
 }
 
-.modal-header{
+.modal h2{
+    margin-bottom:18px;
+}
+
+.input{
+    width:100%;
+    padding:13px 14px;
+    background:#09040e;
+    color:#fff;
+    border:1px solid rgba(180,92,255,.22);
+    border-radius:10px;
+    outline:none;
+    margin-bottom:12px;
+}
+
+.input:focus{
+    border-color:#ad5cff;
+}
+
+textarea.input{
+    min-height:120px;
+    resize:vertical;
+}
+
+.modal-actions{
     display:flex;
+    gap:10px;
+    margin-top:10px;
+}
 
-    align-items:center;
+.modal-actions button{
+    flex:1;
+}
+
+.ticket-header{
+    display:flex;
     justify-content:space-between;
-
-    margin-bottom:20px;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:18px;
 }
 
-.modal-header h2{
-    font-size:19px;
+.ticket-messages{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin:18px 0;
 }
 
-.close{
-    width:32px;
-    height:32px;
-
-    border:none;
-
-    border-radius:9px;
-
-    background:
-        rgba(255,255,255,.05);
-
-    color:#aaa;
-
-    cursor:pointer;
-
-    font-size:18px;
+.message{
+    padding:14px;
+    border-radius:13px;
+    max-width:85%;
 }
 
-.modal-text{
-    color:#999;
+.message.user{
+    align-self:flex-start;
+    background:#17101f;
+    border:1px solid rgba(255,255,255,.07);
+}
 
+.message.admin{
+    align-self:flex-end;
+    background:#211033;
+    border:1px solid rgba(180,92,255,.2);
+}
+
+.message-author{
+    font-size:11px;
+    color:#b88cdb;
+    margin-bottom:7px;
+}
+
+.message-text{
+    line-height:1.8;
+    white-space:pre-wrap;
+}
+
+.message-time{
+    font-size:10px;
+    color:#756b7d;
+    margin-top:7px;
+}
+
+.notice{
+    padding:13px;
+    border-radius:10px;
+    background:#160b22;
+    border:1px solid rgba(180,92,255,.15);
+    color:#c6b8d0;
     font-size:13px;
+    line-height:1.7;
+}
 
-    line-height:1.9;
-
+.admin-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     margin-bottom:15px;
 }
 
-.coin-input{
-    width:100%;
-
-    padding:13px;
-
-    border-radius:11px;
-
-    border:
-        1px solid #342442;
-
-    background:
-        #0b0810;
-
-    color:white;
-
-    outline:none;
-
-    font-family:inherit;
-
-    margin-bottom:12px;
+.filter-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
 }
 
-.coin-input:focus{
-    border-color:#9b59d0;
-}
-
-.receipt{
-    width:100%;
-
-    min-height:85px;
-
-    resize:vertical;
-
-    padding:13px;
-
-    border-radius:11px;
-
-    border:
-        1px solid #342442;
-
-    background:#0b0810;
-
-    color:white;
-
-    outline:none;
-
-    font-family:inherit;
-
-    margin-bottom:12px;
-}
-
-.receipt:focus{
-    border-color:#9b59d0;
-}
-
-.modal-message{
-    display:none;
-
-    padding:10px;
-
+.filter-btn{
+    padding:9px 14px;
     border-radius:9px;
-
-    font-size:12px;
-
-    text-align:center;
-
-    margin-bottom:12px;
+    border:1px solid rgba(180,92,255,.2);
+    background:#11081a;
+    color:#b9a9c5;
 }
 
-.modal-message.show{
-    display:block;
+.filter-btn.active{
+    background:#2a1040;
+    color:#fff;
+    border-color:#a957f5;
 }
-
-.modal-message.error{
-    color:#ff9ca8;
-    background:rgba(255,60,80,.08);
-}
-
-.modal-message.success{
-    color:#67e69a;
-    background:rgba(46,204,113,.08);
-}
-
-/* =========================
-   LOADING
-========================= */
 
 .loading{
-    opacity:.65;
-    pointer-events:none;
-}
-
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
+    color:#9889a4;
     text-align:center;
+    padding:20px;
+}
 
+footer{
+    text-align:center;
+    color:#63596d;
     padding:25px;
-
-    color:#777;
-
-    font-size:13px;
+    font-size:12px;
 }
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-    position:fixed;
-
-    left:50%;
-
-    bottom:25px;
-
-    z-index:999;
-
-    transform:
-        translate(-50%,20px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    padding:13px 20px;
-
-    border-radius:12px;
-
-    background:#17101f;
-
-    border:
-        1px solid rgba(155,89,208,.25);
-
-    color:#fff;
-
-    font-size:13px;
-
-    transition:.25s;
-}
-
-.toast.show{
-    opacity:1;
-
-    transform:
-        translate(-50%,0);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media(max-width:900px){
-
     .grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:1fr;
     }
 
     .shop-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:600px){
-
     .navbar{
-        padding:0 4%;
+        padding:0 15px;
     }
 
     .logo{
-        font-size:19px;
-    }
-
-    .minecraft-ip{
-        display:none;
+        font-size:20px;
     }
 
     .container{
         width:92%;
-        padding-top:28px;
-    }
-
-    .welcome h1{
-        font-size:24px;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .profile{
-        grid-template-columns:1fr;
     }
 
     .shop-grid{
         grid-template-columns:1fr;
     }
 
-    .purchase{
-        gap:10px;
-        flex-wrap:wrap;
+    .ticket-top{
+        align-items:flex-start;
+        flex-direction:column;
     }
 
+    .message{
+        max-width:95%;
+    }
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
 <nav class="navbar">
-
-    <div class="logo">
-        ᴍᴜꜰꜰɪɴѕᴍᴘ
-    </div>
+    <div class="logo">ᴍᴜꜰꜰɪɴѕᴍᴘ</div>
 
     <div class="nav-right">
-
-        <div class="minecraft-ip">
-            🎮 play.muffinsmp.ir
-        </div>
-
-        <button
-            class="logout-btn"
-            onclick="logout()"
-        >
-            خروج
-        </button>
-
+        <button class="nav-btn" onclick="goHome()">خانه</button>
+        <button class="nav-btn" onclick="logout()">خروج</button>
     </div>
-
 </nav>
-
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main class="container">
 
+    <section class="welcome">
+        <h1>پنل کاربری 👋</h1>
+        <p id="welcomeText">در حال دریافت اطلاعات...</p>
+    </section>
 
-    <!-- WELCOME -->
+    <!-- PROFILE -->
+    <section class="grid">
 
-    <div class="welcome">
+        <div class="card">
+            <h2>👤 حساب کاربری</h2>
 
-        <h1>
-            سلام،
-            <span id="welcomeName">
-                ...
-            </span>
-            👋
-        </h1>
+            <div class="profile-row">
+                <span>Username</span>
+                <span class="value" id="username">---</span>
+            </div>
 
-        <p>
-            به پنل کاربری MuffinSMP خوش اومدی.
-        </p>
+            <div class="profile-row">
+                <span>Email</span>
+                <span class="value" id="email">---</span>
+            </div>
 
-    </div>
+            <div class="profile-row">
+                <span>Rank</span>
+                <span class="rank" id="rank">PLAYER</span>
+            </div>
+        </div>
 
+        <div class="card">
+            <h2>💰 Muffin Coin</h2>
 
-    <!-- =========================
-         STATS
-    ========================= -->
+            <div style="display:flex;align-items:center;">
+                <span class="balance" id="coins">0</span>
+                <button class="plus" onclick="openCoinModal()">+</button>
+            </div>
 
-    <div class="grid">
+            <div class="sub">
+                موجودی برای خرید Rank و Key
+            </div>
+        </div>
 
+        <div class="card">
+            <h2>💎 Shard</h2>
 
-        <!-- RANK -->
+            <div class="balance" id="shards">0</div>
+
+            <div class="sub">
+                موجودی Shard حساب
+            </div>
+        </div>
+
+    </section>
+
+    <!-- MINECRAFT -->
+    <section class="card" style="margin-top:18px;">
+        <h2>⛏️ اکانت Minecraft</h2>
+
+        <div id="linkedBox">
+
+            <div class="profile-row">
+                <span>Username</span>
+                <span class="value" id="minecraftUsername">متصل نیست</span>
+            </div>
+
+            <div class="profile-row">
+                <span>UUID</span>
+                <span class="value" id="minecraftUUID">---</span>
+            </div>
+
+            <div style="margin-top:15px;">
+                <button class="primary-btn" onclick="openLinkModal()">
+                    🔗 اتصال Minecraft
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="shop-section">
+        <h2 class="section-title">🛒 فروشگاه MuffinSMP</h2>
+
+        <div class="shop-grid" id="shopGrid">
+            <div class="loading">در حال دریافت فروشگاه...</div>
+        </div>
+    </section>
+
+    <!-- PURCHASES -->
+    <section class="card" style="margin-top:25px;">
+        <div class="admin-head">
+            <h2>📦 خریدهای من</h2>
+            <button class="secondary-btn" onclick="loadPurchases()">🔄 بروزرسانی</button>
+        </div>
+
+        <div id="purchaseList" class="ticket-list">
+            <div class="loading">در حال دریافت...</div>
+        </div>
+    </section>
+
+    <!-- USER TICKETS -->
+    <section class="ticket-section">
+        <div class="admin-head">
+            <h2 class="section-title" style="margin:0;">🎫 پشتیبانی</h2>
+
+            <button class="primary-btn" style="width:auto;" onclick="openCreateTicketModal()">
+                + تیکت جدید
+            </button>
+        </div>
+
+        <div class="card">
+            <div id="userTicketList" class="ticket-list">
+                <div class="loading">در حال دریافت تیکت‌ها...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section id="adminSection" class="admin-section hidden">
 
         <div class="card">
 
-            <div class="card-icon">
-                👑
+            <div class="admin-head">
+                <div>
+                    <h2>🛡️ Admin Ticket Panel</h2>
+                    <div class="sub">
+                        مدیریت تیکت‌های کاربران MuffinSMP
+                    </div>
+                </div>
+
+                <button class="secondary-btn" onclick="loadAdminTickets()">
+                    🔄 بروزرسانی
+                </button>
             </div>
 
-            <div class="card-title">
-                رتبه
+            <div class="filter-row">
+                <button class="filter-btn active"
+                        id="filterAll"
+                        onclick="setTicketFilter('all')">
+                    همه
+                </button>
+
+                <button class="filter-btn"
+                        id="filterOpen"
+                        onclick="setTicketFilter('open')">
+                    باز
+                </button>
+
+                <button class="filter-btn"
+                        id="filterAnswered"
+                        onclick="setTicketFilter('answered')">
+                    پاسخ داده شده
+                </button>
+
+                <button class="filter-btn"
+                        id="filterClosed"
+                        onclick="setTicketFilter('closed')">
+                    بسته
+                </button>
             </div>
 
-            <div
-                class="card-value rank"
-                id="rank"
-            >
-                ...
+            <div id="adminTicketList" class="ticket-list">
+                <div class="loading">در حال دریافت تیکت‌ها...</div>
             </div>
 
         </div>
 
+    </section>
 
-        <!-- COIN -->
+</main>
 
-        <div class="card coin-card">
+<footer>
+    MuffinSMP © 2026
+</footer>
 
-            <div class="card-icon">
-                🪙
+
+<!-- COIN MODAL -->
+<div id="coinModal" class="modal-bg hidden">
+
+    <div class="modal">
+
+        <h2>💰 خرید Muffin Coin</h2>
+
+        <div class="notice">
+            مقدار Coin موردنظر را وارد کن.
+            <br>
+            هر ۱ تومان = ۱ Muffin Coin
+        </div>
+
+        <br>
+
+        <input
+            id="coinAmount"
+            class="input"
+            type="number"
+            min="1"
+            placeholder="مثلاً 100000"
+        >
+
+        <input
+            id="coinReceipt"
+            class="input"
+            type="text"
+            placeholder="شماره پیگیری / رسید پرداخت"
+        >
+
+        <div class="modal-actions">
+            <button class="primary-btn" onclick="submitCoinOrder()">
+                ثبت درخواست
+            </button>
+
+            <button class="secondary-btn" onclick="closeModal('coinModal')">
+                بستن
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LINK MODAL -->
+<div id="linkModal" class="modal-bg hidden">
+
+    <div class="modal">
+
+        <h2>🔗 اتصال Minecraft</h2>
+
+        <div class="notice">
+            داخل Minecraft وارد سرور شو و دستور زیر را بزن:
+            <br><br>
+            <b>/link</b>
+            <br><br>
+            سپس کدی که دریافت می‌کنی را اینجا وارد کن.
+        </div>
+
+        <br>
+
+        <input
+            id="linkCode"
+            class="input"
+            maxlength="6"
+            inputmode="numeric"
+            placeholder="کد ۶ رقمی"
+        >
+
+        <div class="modal-actions">
+
+            <button class="primary-btn" onclick="verifyLinkCode()">
+                تأیید اتصال
+            </button>
+
+            <button class="secondary-btn" onclick="closeModal('linkModal')">
+                بستن
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CREATE TICKET -->
+<div id="createTicketModal" class="modal-bg hidden">
+
+    <div class="modal">
+
+        <h2>🎫 ایجاد تیکت</h2>
+
+        <input
+            id="ticketSubject"
+            class="input"
+            maxlength="100"
+            placeholder="موضوع تیکت"
+        >
+
+        <textarea
+            id="ticketMessage"
+            class="input"
+            maxlength="3000"
+            placeholder="مشکل یا درخواست خود را بنویسید..."
+        ></textarea>
+
+        <div class="modal-actions">
+
+            <button class="primary-btn" onclick="createTicket()">
+                ایجاد تیکت
+            </button>
+
+            <button class="secondary-btn"
+                    onclick="closeModal('createTicketModal')">
+                بستن
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TICKET VIEW -->
+<div id="ticketModal" class="modal-bg hidden">
+
+    <div class="modal">
+
+        <div class="ticket-header">
+
+            <div>
+                <h2 id="ticketTitle">تیکت</h2>
+                <div class="sub" id="ticketMeta"></div>
             </div>
 
-            <div class="card-title">
-                Muffin Coin
-            </div>
+            <div id="ticketStatus"></div>
 
-            <div class="coin-row">
+        </div>
 
-                <div
-                    class="card-value"
-                    id="coins"
-                >
-                    0
-                </div>
+        <div id="ticketMessages" class="ticket-messages">
+            <div class="loading">در حال دریافت...</div>
+        </div>
+
+        <div id="ticketReplyBox">
+
+            <textarea
+                id="ticketReply"
+                class="input"
+                maxlength="3000"
+                placeholder="پیام خود را بنویسید..."
+            ></textarea>
+
+            <div class="modal-actions">
+
+                <button class="primary-btn" onclick="sendTicketReply()">
+                    ارسال پاسخ
+                </button>
 
                 <button
-                    class="plus-btn"
-                    onclick="openCoinModal()"
-                >
-                    +
+                    id="closeTicketBtn"
+                    class="danger-btn"
+                    onclick="closeCurrentTicket()">
+                    بستن تیکت
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="closeModal('ticketModal')">
+                    خروج
                 </button>
 
             </div>
 
         </div>
 
-
-        <!-- SHARD -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                💎
-            </div>
-
-            <div class="card-title">
-                Shard
-            </div>
-
-            <div
-                class="card-value"
-                id="shards"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <!-- MINECRAFT -->
-
-        <div class="card">
-
-            <div class="card-icon">
-                🎮
-            </div>
-
-            <div class="card-title">
-                Minecraft
-            </div>
-
-            <div
-                class="card-value"
-                id="minecraft"
-                style="font-size:16px"
-            >
-                متصل نیست
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- =========================
-         PROFILE
-    ========================= -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                👤 اطلاعات حساب
-            </h2>
-
-        </div>
-
-
-        <div class="card profile">
-
-            <div class="info">
-
-                <div class="info-label">
-                    نام کاربری
-                </div>
-
-                <div
-                    class="info-value"
-                    id="username"
-                >
-                    ...
-                </div>
-
-            </div>
-
-
-            <div class="info">
-
-                <div class="info-label">
-                    ایمیل
-                </div>
-
-                <div
-                    class="info-value"
-                    id="email"
-                >
-                    ...
-                </div>
-
-            </div>
-
-
-            <div class="info">
-
-                <div class="info-label">
-                    رتبه
-                </div>
-
-                <div
-                    class="info-value rank"
-                    id="profileRank"
-                >
-                    ...
-                </div>
-
-            </div>
-
-
-            <div class="info">
-
-                <div class="info-label">
-                    Minecraft
-                </div>
-
-                <div
-                    class="info-value"
-                    id="profileMinecraft"
-                >
-                    متصل نیست
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MINECRAFT LINK
-    ========================= -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                🔗 اتصال Minecraft
-            </h2>
-
-            <span>
-                لینک اکانت
-            </span>
-
-        </div>
-
-
-        <div class="card link-box">
-
-
-            <div
-                class="link-status"
-                id="linkStatus"
-            >
-                در حال بررسی...
-            </div>
-
-
-            <button
-                class="primary-btn"
-                id="linkBtn"
-                onclick="createLinkCode()"
-            >
-                🔗 ساخت کد اتصال
-            </button>
-
-
-            <div
-                class="link-code"
-                id="linkCodeBox"
-            >
-
-                <div>
-                    کد اتصال شما:
-                </div>
-
-                <div
-                    class="code"
-                    id="linkCode"
-                >
-                    ------
-                </div>
-
-                <div class="code-help">
-
-                    داخل Minecraft وارد کن:
-
-                    <br>
-
-                    <strong>
-                        /link کد
-                    </strong>
-
-                    <br>
-
-                    کد تا ۱۰ دقیقه معتبر است.
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         SHOP
-    ========================= -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                🛒 فروشگاه
-            </h2>
-
-            <span>
-                خرید با Muffin Coin
-            </span>
-
-        </div>
-
-
-        <div
-            class="shop-grid"
-            id="shopGrid"
-        >
-
-            <div class="empty">
-                در حال دریافت فروشگاه...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         PURCHASES
-    ========================= -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                📦 خریدهای من
-            </h2>
-
-        </div>
-
-
-        <div
-            class="card"
-            id="purchaseList"
-        >
-
-            <div class="empty">
-                در حال دریافت خریدها...
-            </div>
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-<!-- =========================
-     COIN MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="coinModal"
-    onclick="closeCoinModal(event)"
->
-
-    <div
-        class="modal-box"
-        onclick="event.stopPropagation()"
-    >
-
-        <div class="modal-header">
-
-            <h2>
-                🪙 خرید Muffin Coin
-            </h2>
-
-            <button
-                class="close"
-                onclick="closeCoinModal()"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="modal-text">
-
-            مقدار Muffin Coin موردنظر را وارد کن.
-
-            <br>
-
-            هر
-            <strong>
-                ۱ تومان = ۱ Muffin Coin
-            </strong>
-
-            <br><br>
-
-            بعد از پرداخت، رسید را برای بررسی ثبت کن.
-
-        </div>
-
-
-        <input
-            class="coin-input"
-            id="coinAmount"
-            type="number"
-            min="1000"
-            placeholder="مثلاً 50000"
-        >
-
-
-        <textarea
-            class="receipt"
-            id="coinReceipt"
-            placeholder="شماره پیگیری / کد رسید پرداخت"
-        ></textarea>
-
-
-        <div
-            class="modal-message"
-            id="coinMessage"
-        ></div>
-
-
-        <button
-            class="primary-btn"
-            style="width:100%"
-            id="coinSubmit"
-            onclick="submitCoinOrder()"
-        >
-            ثبت درخواست خرید
-        </button>
-
     </div>
 
 </div>
 
 
-<!-- TOAST -->
-
-<div
-    class="toast"
-    id="toast"
-></div>
-
-
 <script>
-
-/* =====================================================
-   MUFFIN SMP API
-===================================================== */
 
 const API =
     "https://cullofduty63.cullofduty63.workers.dev/api";
 
+const TOKEN_KEY = "muffin_token";
 
-/* =====================================================
-   TOKEN
-===================================================== */
-
-const token =
-    localStorage.getItem("muffin_token");
+let currentUser = null;
+let currentTicketId = null;
+let adminTickets = [];
+let ticketFilter = "all";
 
 
-/* =====================================================
-   AUTH CHECK
-===================================================== */
+/* =========================
+   BASIC
+========================= */
 
-if(!token){
-
-    window.location.href =
-        "login.html";
-
+function token(){
+    return localStorage.getItem(TOKEN_KEY);
 }
 
+function authHeaders(){
+    return {
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + token()
+    };
+}
 
-/* =====================================================
-   API HELPER
-===================================================== */
+async function api(path, options = {}){
 
-async function api(
-    endpoint,
-    options = {}
-){
-
-    const headers = {
-
-        "Content-Type":
-            "application/json",
-
-        ...(options.headers || {})
-
+    options.headers = {
+        ...(options.headers || {}),
+        ...authHeaders()
     };
 
-
-    headers.Authorization =
-        `Bearer ${token}`;
-
-
-    const response =
-        await fetch(
-            `${API}${endpoint}`,
-            {
-                ...options,
-                headers
-            }
-        );
-
+    const response = await fetch(API + path, options);
 
     let data = {};
 
-
     try{
-
-        data =
-            await response.json();
-
-    }catch{
-
+        data = await response.json();
+    }catch(e){
         data = {};
-
     }
-
-
-    if(
-        response.status === 401 ||
-        response.status === 403
-    ){
-
-        localStorage.removeItem(
-            "muffin_token"
-        );
-
-        window.location.href =
-            "login.html";
-
-        throw new Error(
-            "جلسه منقضی شده است."
-        );
-
-    }
-
-
-    if(!response.ok){
-
-        throw new Error(
-            data.error ||
-            data.message ||
-            "خطایی رخ داد."
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function toast(text){
-
-    const element =
-        document.getElementById("toast");
-
-
-    element.textContent =
-        text;
-
-
-    element.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        () => {
-
-            element.classList.remove(
-                "show"
-            );
-
-        },
-        2500
-    );
-
-}
-
-
-/* =====================================================
-   LOAD PROFILE
-===================================================== */
-
-async function loadProfile(){
-
-    try{
-
-        const data =
-            await api("/me");
-
-
-        const user =
-            data.user ||
-            data;
-
-
-        document.getElementById(
-            "welcomeName"
-        ).textContent =
-            user.username ||
-            "Player";
-
-
-        document.getElementById(
-            "username"
-        ).textContent =
-            user.username ||
-            "-";
-
-
-        document.getElementById(
-            "email"
-        ).textContent =
-            user.email ||
-            "-";
-
-
-        document.getElementById(
-            "rank"
-        ).textContent =
-            user.rank ||
-            "PLAYER";
-
-
-        document.getElementById(
-            "profileRank"
-        ).textContent =
-            user.rank ||
-            "PLAYER";
-
-
-        document.getElementById(
-            "coins"
-        ).textContent =
-            Number(
-                user.coins || 0
-            ).toLocaleString();
-
-
-        document.getElementById(
-            "shards"
-        ).textContent =
-            Number(
-                user.shards || 0
-            ).toLocaleString();
-
-
-        const mc =
-            user.minecraft_username;
-
-
-        if(mc){
-
-            document.getElementById(
-                "minecraft"
-            ).textContent =
-                mc;
-
-
-            document.getElementById(
-                "profileMinecraft"
-            ).textContent =
-                mc;
-
-
-            document.getElementById(
-                "linkStatus"
-            ).innerHTML =
-                `<span class="linked">
-                    ✅ Minecraft متصل است:
-                    <strong>${escapeHtml(mc)}</strong>
-                </span>`;
-
-
-            document.getElementById(
-                "linkBtn"
-            ).style.display =
-                "none";
-
-        }else{
-
-            document.getElementById(
-                "minecraft"
-            ).textContent =
-                "متصل نیست";
-
-
-            document.getElementById(
-                "profileMinecraft"
-            ).textContent =
-                "متصل نیست";
-
-
-            document.getElementById(
-                "linkStatus"
-            ).innerHTML =
-                `<span class="not-linked">
-                    ⚠️ هنوز Minecraft متصل نشده است.
-                </span>`;
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Profile Error:",
-            error
-        );
-
-        toast(
-            error.message
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD SHOP
-===================================================== */
-
-async function loadShop(){
-
-    const container =
-        document.getElementById(
-            "shopGrid"
-        );
-
-
-    try{
-
-        const data =
-            await api(
-                "/shop",
-                {
-                    headers:{
-                        Authorization:""
-                    }
-                }
-            );
-
-
-        const shop =
-            data.shop ||
-            data;
-
-
-        let html = "";
-
-
-        if(shop.ranks){
-
-            for(
-                const [key,item]
-                of Object.entries(
-                    shop.ranks
-                )
-            ){
-
-                html +=
-                createShopItem(
-                    "👑",
-                    key,
-                    item,
-                    "rank"
-                );
-
-            }
-
-        }
-
-
-        if(shop.keys){
-
-            for(
-                const [key,item]
-                of Object.entries(
-                    shop.keys
-                )
-            ){
-
-                html +=
-                createShopItem(
-                    "🔑",
-                    key,
-                    item,
-                    "key"
-                );
-
-            }
-
-        }
-
-
-        if(!html){
-
-            html =
-                `<div class="empty">
-                    فروشگاهی برای نمایش وجود ندارد.
-                </div>`;
-
-        }
-
-
-        container.innerHTML =
-            html;
-
-
-    }catch(error){
-
-        console.error(
-            "Shop Error:",
-            error
-        );
-
-
-        container.innerHTML =
-            `<div class="empty">
-                خطا در دریافت فروشگاه.
-            </div>`;
-
-    }
-
-}
-
-
-/* =====================================================
-   CREATE SHOP ITEM
-===================================================== */
-
-function createShopItem(
-    icon,
-    key,
-    item,
-    type
-){
-
-    const name =
-        item.name ||
-        key.toUpperCase();
-
-
-    const price =
-        Number(
-            item.price || 0
-        );
-
-
-    return `
-
-        <div class="shop-item">
-
-            <div
-                style="
-                    font-size:28px;
-                    margin-bottom:10px;
-                "
-            >
-                ${icon}
-            </div>
-
-            <h3>
-                ${escapeHtml(name)}
-            </h3>
-
-            <p>
-                ${type === "rank"
-                    ? "ارتقای رتبه در MuffinSMP"
-                    : "کلید کریت MuffinSMP"
-                }
-            </p>
-
-            <div class="price">
-                🪙
-                ${price.toLocaleString()}
-                Coin
-            </div>
-
-            <button
-                class="buy-btn"
-                onclick="buyItem(
-                    '${escapeAttr(type)}',
-                    '${escapeAttr(key)}'
-                )"
-            >
-                خرید
-            </button>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   BUY
-===================================================== */
-
-async function buyItem(
-    type,
-    item
-){
-
-    const confirmed =
-        confirm(
-            `آیا از خرید ${item.toUpperCase()} مطمئنی؟`
-        );
-
-
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    try{
-
-        await api(
-            "/buy",
-            {
-                method:"POST",
-
-                body:JSON.stringify({
-                    type,
-                    item
-                })
-            }
-        );
-
-
-        toast(
-            "✅ خرید با موفقیت ثبت شد."
-        );
-
-
-        await loadProfile();
-
-        await loadPurchases();
-
-
-    }catch(error){
-
-        toast(
-            error.message
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD PURCHASES
-===================================================== */
-
-async function loadPurchases(){
-
-    const container =
-        document.getElementById(
-            "purchaseList"
-        );
-
-
-    try{
-
-        const data =
-            await api(
-                "/purchases"
-            );
-
-
-        const purchases =
-            data.purchases ||
-            [];
-
-
-        if(!purchases.length){
-
-            container.innerHTML =
-                `<div class="empty">
-                    هنوز خریدی انجام ندادی.
-                </div>`;
-
-            return;
-
-        }
-
-
-        let html =
-            `<div class="purchase-list">`;
-
-
-        for(
-            const purchase
-            of purchases
-        ){
-
-            const status =
-                purchase.status ||
-                "pending";
-
-
-            const statusText =
-                status === "delivered"
-                    ? "تحویل شده"
-                    : "در انتظار تحویل";
-
-
-            html += `
-
-                <div class="purchase">
-
-                    <div>
-
-                        <div class="purchase-name">
-                            ${
-                                escapeHtml(
-                                    (
-                                        purchase.type ||
-                                        ""
-                                    ).toUpperCase()
-                                )
-                            }
-                            -
-                            ${
-                                escapeHtml(
-                                    (
-                                        purchase.item ||
-                                        ""
-                                    ).toUpperCase()
-                                )
-                            }
-                        </div>
-
-                        <div class="purchase-price">
-                            🪙
-                            ${Number(
-                                purchase.price || 0
-                            ).toLocaleString()}
-                            Coin
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="status ${
-                            status === "delivered"
-                                ? "delivered"
-                                : "pending"
-                        }"
-                    >
-                        ${statusText}
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-
-
-        html +=
-            `</div>`;
-
-
-        container.innerHTML =
-            html;
-
-
-    }catch(error){
-
-        console.error(
-            "Purchases Error:",
-            error
-        );
-
-
-        container.innerHTML =
-            `<div class="empty">
-                خطا در دریافت خریدها.
-            </div>`;
-
-    }
-
-}
-
-
-/* =====================================================
-   CREATE LINK CODE
-===================================================== */
-
-async function createLinkCode(){
-
-    const button =
-        document.getElementById(
-            "linkBtn"
-        );
-
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "در حال ساخت کد...";
-
-
-    try{
-
-        /*
-         * Worker این endpoint را برای
-         * ساخت کد اتصال کاربر لاگین‌شده
-         * نیاز دارد.
-         */
-
-        const data =
-            await api(
-                "/link/create",
-                {
-                    method:"POST"
-                }
-            );
-
-
-        const code =
-            data.code ||
-            data.link_code;
-
-
-        if(!code){
-
-            throw new Error(
-                "کد اتصال دریافت نشد."
-            );
-
-        }
-
-
-        document.getElementById(
-            "linkCode"
-        ).textContent =
-            code;
-
-
-        document.getElementById(
-            "linkCodeBox"
-        ).classList.add(
-            "show"
-        );
-
-
-        toast(
-            "✅ کد اتصال ساخته شد."
-        );
-
-
-    }catch(error){
-
-        toast(
-            error.message
-        );
-
-    }finally{
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "🔗 ساخت کد اتصال";
-
-    }
-
-}
-
-
-/* =====================================================
-   COIN MODAL
-===================================================== */
-
-function openCoinModal(){
-
-    document
-        .getElementById(
-            "coinModal"
-        )
-        .classList.add(
-            "show"
-        );
-
-}
-
-
-function closeCoinModal(event){
-
-    if(
-        event &&
-        event.target !==
-        document.getElementById(
-            "coinModal"
-        )
-    ){
-
-        return;
-
-    }
-
-
-    document
-        .getElementById(
-            "coinModal"
-        )
-        .classList.remove(
-            "show"
-        );
-
-}
-
-
-/* =====================================================
-   SUBMIT COIN ORDER
-===================================================== */
-
-async function submitCoinOrder(){
-
-    const amount =
-        Number(
-            document.getElementById(
-                "coinAmount"
-            ).value
-        );
-
-
-    const receipt =
-        document.getElementById(
-            "coinReceipt"
-        ).value.trim();
-
-
-    const message =
-        document.getElementById(
-            "coinMessage"
-        );
-
-
-    const button =
-        document.getElementById(
-            "coinSubmit"
-        );
-
-
-    message.className =
-        "modal-message";
-
-
-    if(
-        !amount ||
-        amount < 1000
-    ){
-
-        message.textContent =
-            "حداقل مبلغ خرید ۱۰۰۰ تومان است.";
-
-        message.className =
-            "modal-message show error";
-
-        return;
-
-    }
-
-
-    if(!receipt){
-
-        message.textContent =
-            "لطفاً شماره پیگیری یا رسید پرداخت را وارد کن.";
-
-        message.className =
-            "modal-message show error";
-
-        return;
-
-    }
-
-
-    button.disabled =
-        true;
-
-    button.textContent =
-        "در حال ثبت...";
-
-
-    try{
-
-        await api(
-            "/coins/order",
-            {
-                method:"POST",
-
-                body:JSON.stringify({
-                    amount,
-                    receipt
-                })
-            }
-        );
-
-
-        message.textContent =
-            "✅ درخواست خرید ثبت شد و بعد از بررسی Coin اضافه می‌شود.";
-
-        message.className =
-            "modal-message show success";
-
-
-        document.getElementById(
-            "coinAmount"
-        ).value = "";
-
-
-        document.getElementById(
-            "coinReceipt"
-        ).value = "";
-
-
-        setTimeout(
-            () => {
-
-                closeCoinModal();
-
-            },
-            1800
-        );
-
-
-    }catch(error){
-
-        message.textContent =
-            error.message;
-
-        message.className =
-            "modal-message show error";
-
-
-    }finally{
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "ثبت درخواست خرید";
-
-    }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-    try{
-
-        await api(
-            "/logout",
-            {
-                method:"POST"
-            }
-        );
-
-    }catch(error){
-
-        console.log(
-            "Logout API:",
-            error
-        );
-
-    }
-
-
-    localStorage.removeItem(
-        "muffin_token"
-    );
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-function escapeAttr(value){
-
-    return String(value)
-        .replaceAll("\\","\\\\")
-        .replaceAll("'","\\'");
-
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-async function init(){
-
-    await loadProfile();
-
-    await loadShop();
-
-    await loadPurchases();
-
-}
-
-
-init();
-
-</script>
-
-</body>
-</html>
-            id="customCoin"
-            class="custom-input"
-            type="number"
-            min="1000"
-            placeholder="مقدار دلخواه Coin"
-        >
-
-        <div class="payment-box">
-
-            <div class="payment-title">
-                شماره کارت پرداخت
-            </div>
-
-            <div class="payment-number">
-                XXXX XXXX XXXX XXXX
-            </div>
-
-        </div>
-
-        <input
-            id="paymentRef"
-            class="custom-input"
-            style="margin-top:15px"
-            placeholder="شماره پیگیری / رسید"
-        >
-
-        <button
-            class="btn"
-            style="width:100%"
-            onclick="submitCoinOrder()"
-        >
-            ارسال درخواست شارژ
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- TOAST -->
-
-<div class="toast" id="toast"></div>
-
-
-<script>
-
-const API = "https://api.muffinsmp.ir/api";
-
-const TOKEN_KEY = "muffin_token";
-
-let selectedCoinAmount = 0;
-
-
-/* =========================
-   AUTH
-========================= */
-
-function getToken(){
-
-    return localStorage.getItem(TOKEN_KEY);
-
-}
-
-
-function requireLogin(){
-
-    const token = getToken();
-
-    if(!token){
-
-        window.location.href = "login.html";
-
-        return false;
-
-    }
-
-    return true;
-
-}
-
-
-/* =========================
-   API
-========================= */
-
-async function apiFetch(endpoint,options={}){
-
-    const token = getToken();
-
-    const headers = {
-        "Content-Type":"application/json",
-        ...(options.headers || {})
-    };
-
-    if(token){
-
-        headers.Authorization = `Bearer ${token}`;
-
-    }
-
-    const response = await fetch(
-        `${API}${endpoint}`,
-        {
-            ...options,
-            headers
-        }
-    );
-
-    const data = await response
-        .json()
-        .catch(()=>({}));
 
     if(response.status === 401){
-
         localStorage.removeItem(TOKEN_KEY);
-
-        window.location.href = "login.html";
-
-        throw new Error("جلسه شما منقضی شده است.");
-
+        location.href = "login.html";
+        throw new Error("Unauthorized");
     }
 
     if(!response.ok){
-
-        throw new Error(
-            data.error ||
-            data.message ||
-            "خطایی در ارتباط با سرور رخ داد."
-        );
-
+        throw new Error(data.error || "خطایی رخ داد");
     }
 
     return data;
+}
 
+function goHome(){
+    location.href = "index.html";
+}
+
+function logout(){
+
+    localStorage.removeItem(TOKEN_KEY);
+
+    location.href = "login.html";
+}
+
+function closeModal(id){
+    document.getElementById(id).classList.add("hidden");
 }
 
 
@@ -3306,460 +942,982 @@ async function apiFetch(endpoint,options={}){
 
 async function loadUser(){
 
-    if(!requireLogin()) return;
+    try{
+
+        const data = await api("/me");
+
+        currentUser = data.user || data;
+
+        renderUser();
+
+        if(
+            String(currentUser.rank || "").toUpperCase() === "ADMIN" ||
+            String(currentUser.rank || "").toUpperCase() === "OWNER"
+        ){
+
+            document
+                .getElementById("adminSection")
+                .classList.remove("hidden");
+
+            loadAdminTickets();
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+}
+
+
+function renderUser(){
+
+    if(!currentUser) return;
+
+    document.getElementById("username").textContent =
+        currentUser.username || "---";
+
+    document.getElementById("email").textContent =
+        currentUser.email || "---";
+
+    document.getElementById("rank").textContent =
+        currentUser.rank || "PLAYER";
+
+    document.getElementById("coins").textContent =
+        Number(currentUser.coins || 0).toLocaleString();
+
+    document.getElementById("shards").textContent =
+        Number(currentUser.shards || 0).toLocaleString();
+
+    document.getElementById("welcomeText").textContent =
+        `خوش اومدی ${currentUser.username || ""} ❤️`;
+
+    document.getElementById("minecraftUsername").textContent =
+        currentUser.minecraft_username || "متصل نیست";
+
+    document.getElementById("minecraftUUID").textContent =
+        currentUser.minecraft_uuid || "---";
+}
+
+
+/* =========================
+   SHOP
+========================= */
+
+async function loadShop(){
 
     try{
 
-        const data = await apiFetch("/me");
+        const data = await fetch(API + "/shop").then(r => r.json());
 
-        const user = data.user || data;
+        const shop =
+            data.shop || data;
 
-        document.getElementById("username").textContent =
-            user.username || "Player";
+        const grid =
+            document.getElementById("shopGrid");
 
-        document.getElementById("rank").textContent =
-            user.rank || "PLAYER";
+        grid.innerHTML = "";
 
-        const coins = Number(user.coins || 0);
-        const shards = Number(user.shards || 0);
+        const ranks =
+            shop.ranks || {};
 
-        document.getElementById("coins").textContent =
-            coins.toLocaleString();
+        const keys =
+            shop.keys || {};
 
-        document.getElementById("coinBig").textContent =
-            `${coins.toLocaleString()} Coin`;
+        Object.entries(ranks).forEach(([item, product]) => {
 
-        document.getElementById("shards").textContent =
-            shards.toLocaleString();
+            grid.innerHTML += productCard(
+                "👑",
+                item,
+                product.price,
+                "rank"
+            );
 
-        const mc =
-            user.minecraft_username ||
-            user.minecraftUsername ||
-            null;
+        });
 
-        if(mc){
+        Object.entries(keys).forEach(([item, product]) => {
 
-            document.getElementById("minecraft").textContent = mc;
+            grid.innerHTML += productCard(
+                "🔑",
+                item,
+                product.price,
+                "key"
+            );
 
-            document.getElementById("mcName").textContent =
-                `🎮 ${mc}`;
+        });
+
+        if(!grid.innerHTML){
+
+            grid.innerHTML =
+                `<div class="empty">فروشگاه خالی است.</div>`;
 
         }
 
     }catch(error){
 
-        showToast(error.message);
+        console.error(error);
 
+        document.getElementById("shopGrid").innerHTML =
+            `<div class="empty">خطا در دریافت فروشگاه.</div>`;
     }
-
 }
 
 
-/* =========================
-   LINK MINECRAFT
-========================= */
+function productCard(icon,item,price,type){
 
-async function verifyMinecraftLink(){
+    const title =
+        String(item).toUpperCase();
 
-    const code =
-        document.getElementById("linkCode").value.trim();
+    return `
+        <div class="product">
 
-    if(!code){
+            <div style="font-size:28px;margin-bottom:10px;">
+                ${icon}
+            </div>
 
-        showToast("کد Link را وارد کن.");
+            <h3>${escapeHtml(title)}</h3>
 
+            <div class="price">
+                ${Number(price || 0).toLocaleString()} Coin
+            </div>
+
+            <button
+                class="buy-btn"
+                onclick="buyProduct('${escapeAttr(type)}','${escapeAttr(item)}')">
+                خرید
+            </button>
+
+        </div>
+    `;
+}
+
+
+async function buyProduct(type,item){
+
+    if(!confirm(`خرید ${item} را تأیید می‌کنی؟`)){
         return;
-
     }
 
     try{
 
-        const data = await apiFetch(
-            "/link/verify",
-            {
+        const data = await api("/buy",{
+            method:"POST",
+            body:JSON.stringify({
+                type,
+                item
+            })
+        });
+
+        alert(
+            data.message ||
+            "خرید با موفقیت ثبت شد."
+        );
+
+        await loadUser();
+        await loadPurchases();
+
+    }catch(error){
+
+        alert(error.message);
+
+    }
+}
+
+
+/* =========================
+   PURCHASES
+========================= */
+
+async function loadPurchases(){
+
+    const box =
+        document.getElementById("purchaseList");
+
+    box.innerHTML =
+        `<div class="loading">در حال دریافت...</div>`;
+
+    try{
+
+        const data =
+            await api("/purchases");
+
+        const purchases =
+            data.purchases || [];
+
+        if(!purchases.length){
+
+            box.innerHTML =
+                `<div class="empty">
+                    هنوز خریدی ثبت نکرده‌ای.
+                </div>`;
+
+            return;
+        }
+
+        box.innerHTML = purchases.map(p => {
+
+            let status = p.status || "pending";
+
+            let statusText =
+                status === "delivered"
+                ? "تحویل شده"
+                : status === "pending"
+                ? "در انتظار تحویل"
+                : status;
+
+            return `
+                <div class="ticket-item">
+
+                    <div class="ticket-top">
+
+                        <div>
+                            <div class="ticket-subject">
+                                ${escapeHtml(
+                                    String(p.type || "") +
+                                    " - " +
+                                    String(p.item || "")
+                                )}
+                            </div>
+
+                            <div class="ticket-meta">
+                                قیمت:
+                                ${Number(p.price || 0).toLocaleString()}
+                                Coin
+                            </div>
+                        </div>
+
+                        <span class="status ${
+                            status === "delivered"
+                            ? "status-answered"
+                            : "status-open"
+                        }">
+                            ${escapeHtml(statusText)}
+                        </span>
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
+
+    }catch(error){
+
+        box.innerHTML =
+            `<div class="empty">${escapeHtml(error.message)}</div>`;
+    }
+}
+
+
+/* =========================
+   COIN
+========================= */
+
+function openCoinModal(){
+
+    document
+        .getElementById("coinModal")
+        .classList.remove("hidden");
+
+}
+
+
+async function submitCoinOrder(){
+
+    const amount =
+        Number(document.getElementById("coinAmount").value);
+
+    const receipt =
+        document.getElementById("coinReceipt").value.trim();
+
+    if(!amount || amount < 1){
+
+        alert("مقدار Coin را وارد کن.");
+
+        return;
+    }
+
+    try{
+
+        const data =
+            await api("/coins/order",{
+                method:"POST",
+                body:JSON.stringify({
+                    amount,
+                    receipt
+                })
+            });
+
+        alert(
+            data.message ||
+            "درخواست خرید Coin ثبت شد."
+        );
+
+        document.getElementById("coinAmount").value = "";
+        document.getElementById("coinReceipt").value = "";
+
+        closeModal("coinModal");
+
+    }catch(error){
+
+        alert(error.message);
+
+    }
+}
+
+
+/* =========================
+   MINECRAFT LINK
+========================= */
+
+function openLinkModal(){
+
+    document
+        .getElementById("linkModal")
+        .classList.remove("hidden");
+
+}
+
+
+/*
+    نکته:
+    /link در Minecraft کد اتصال را ایجاد می‌کند.
+    اینجا فقط همان کد را Verify می‌کنیم.
+*/
+
+async function verifyLinkCode(){
+
+    const code =
+        document.getElementById("linkCode").value.trim();
+
+    if(!/^\d{6}$/.test(code)){
+
+        alert("کد باید ۶ رقمی باشد.");
+
+        return;
+    }
+
+    try{
+
+        const data =
+            await api("/link/verify",{
                 method:"POST",
                 body:JSON.stringify({
                     code
                 })
-            }
-        );
+            });
 
-        showToast(
+        alert(
             data.message ||
             "اکانت Minecraft با موفقیت متصل شد."
         );
 
         document.getElementById("linkCode").value = "";
 
+        closeModal("linkModal");
+
         await loadUser();
 
     }catch(error){
 
-        showToast(error.message);
+        alert(error.message);
 
     }
-
 }
 
 
 /* =========================
-   BUY PRODUCT
+   USER TICKETS
 ========================= */
 
-async function buyProduct(type,name,price){
+async function loadUserTickets(){
 
-    if(!requireLogin()) return;
+    const box =
+        document.getElementById("userTicketList");
 
-    const userConfirmed =
-        confirm(
-            `خرید ${name}\n\nقیمت: ${price.toLocaleString()} Coin\n\nادامه می‌دهی؟`
-        );
-
-    if(!userConfirmed) return;
-
-    try{
-
-        const data = await apiFetch(
-            "/buy",
-            {
-                method:"POST",
-                body:JSON.stringify({
-                    type,
-                    item:name
-                })
-            }
-        );
-
-        showToast(
-            data.message ||
-            "خرید با موفقیت ثبت شد."
-        );
-
-        await loadUser();
-        await loadTransactions();
-
-    }catch(error){
-
-        showToast(error.message);
-
-    }
-
-}
-
-
-/* =========================
-   TRANSACTIONS
-========================= */
-
-async function loadTransactions(){
-
-    if(!requireLogin()) return;
+    box.innerHTML =
+        `<div class="loading">در حال دریافت تیکت‌ها...</div>`;
 
     try{
 
         const data =
-            await apiFetch("/purchases");
+            await api("/tickets");
 
-        const purchases =
-            data.purchases ||
-            data.transactions ||
-            [];
+        const tickets =
+            data.tickets || [];
 
-        const tbody =
-            document.getElementById("transactions");
+        if(!tickets.length){
 
-        tbody.innerHTML = "";
-
-        if(!purchases.length){
-
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="4"
-                        style="text-align:center;color:#777">
-                        هنوز خریدی ثبت نشده است.
-                    </td>
-                </tr>
-            `;
+            box.innerHTML =
+                `<div class="empty">
+                    هنوز تیکتی ایجاد نکرده‌ای.
+                </div>`;
 
             return;
-
         }
 
-        purchases.forEach(purchase => {
-
-            const tr =
-                document.createElement("tr");
-
-            const status =
-                String(
-                    purchase.status || "pending"
-                ).toLowerCase();
-
-            let statusText = "در انتظار";
-
-            if(status === "delivered")
-                statusText = "تحویل شد";
-
-            if(status === "failed")
-                statusText = "ناموفق";
-
-            const date =
-                purchase.created_at
-                    ? new Date(
-                        Number(purchase.created_at)
-                    ).toLocaleString("fa-IR")
-                    : "-";
-
-            tr.innerHTML = `
-                <td>${escapeHtml(
-                    purchase.item || "-"
-                )}</td>
-
-                <td>
-                    ${Number(
-                        purchase.price || 0
-                    ).toLocaleString()} Coin
-                </td>
-
-                <td>
-                    <span class="status ${escapeHtml(status)}">
-                        ${statusText}
-                    </span>
-                </td>
-
-                <td>${escapeHtml(date)}</td>
-            `;
-
-            tbody.appendChild(tr);
-
-        });
+        box.innerHTML =
+            tickets.map(ticketCard).join("");
 
     }catch(error){
 
-        document.getElementById("transactions").innerHTML = `
-            <tr>
-                <td colspan="4"
-                    style="text-align:center;color:#ff7183">
-                    دریافت تاریخچه خرید ناموفق بود.
-                </td>
-            </tr>
+        box.innerHTML =
+            `<div class="empty">${escapeHtml(error.message)}</div>`;
+    }
+}
+
+
+function ticketCard(ticket){
+
+    const status =
+        ticket.status || "open";
+
+    return `
+        <div
+            class="ticket-item"
+            onclick="openTicket('${escapeAttr(ticket.id)}')">
+
+            <div class="ticket-top">
+
+                <div>
+                    <div class="ticket-subject">
+                        🎫 ${escapeHtml(ticket.subject)}
+                    </div>
+
+                    <div class="ticket-meta">
+                        ${formatDate(ticket.created_at)}
+                    </div>
+                </div>
+
+                ${statusBadge(status)}
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function statusBadge(status){
+
+    const map = {
+        open:{
+            text:"باز",
+            className:"status-open"
+        },
+
+        answered:{
+            text:"پاسخ داده شده",
+            className:"status-answered"
+        },
+
+        closed:{
+            text:"بسته",
+            className:"status-closed"
+        }
+    };
+
+    const item =
+        map[status] || map.open;
+
+    return `
+        <span class="status ${item.className}">
+            ${item.text}
+        </span>
+    `;
+}
+
+
+function openCreateTicketModal(){
+
+    document
+        .getElementById("createTicketModal")
+        .classList.remove("hidden");
+
+}
+
+
+async function createTicket(){
+
+    const subject =
+        document.getElementById("ticketSubject")
+        .value.trim();
+
+    const message =
+        document.getElementById("ticketMessage")
+        .value.trim();
+
+    if(!subject){
+
+        alert("موضوع تیکت را وارد کن.");
+
+        return;
+    }
+
+    if(!message){
+
+        alert("پیام تیکت را وارد کن.");
+
+        return;
+    }
+
+    try{
+
+        const data =
+            await api("/tickets",{
+                method:"POST",
+                body:JSON.stringify({
+                    subject,
+                    message
+                })
+            });
+
+        alert(
+            data.message ||
+            "تیکت ایجاد شد."
+        );
+
+        document.getElementById("ticketSubject").value = "";
+        document.getElementById("ticketMessage").value = "";
+
+        closeModal("createTicketModal");
+
+        await loadUserTickets();
+
+        if(data.ticket && data.ticket.id){
+            openTicket(data.ticket.id);
+        }
+
+    }catch(error){
+
+        alert(error.message);
+
+    }
+}
+
+
+/* =========================
+   OPEN TICKET
+========================= */
+
+async function openTicket(id){
+
+    currentTicketId = id;
+
+    document
+        .getElementById("ticketModal")
+        .classList.remove("hidden");
+
+    document.getElementById("ticketMessages").innerHTML =
+        `<div class="loading">در حال دریافت پیام‌ها...</div>`;
+
+    try{
+
+        const data =
+            await api("/tickets/" + encodeURIComponent(id));
+
+        renderTicket(data);
+
+    }catch(error){
+
+        document.getElementById("ticketMessages").innerHTML =
+            `<div class="empty">${escapeHtml(error.message)}</div>`;
+    }
+}
+
+
+function renderTicket(data){
+
+    const ticket =
+        data.ticket || {};
+
+    const messages =
+        data.messages || [];
+
+    document.getElementById("ticketTitle").textContent =
+        ticket.subject || "تیکت";
+
+    document.getElementById("ticketMeta").textContent =
+        "ایجاد شده در " + formatDate(ticket.created_at);
+
+    document.getElementById("ticketStatus").innerHTML =
+        statusBadge(ticket.status || "open");
+
+    const messagesBox =
+        document.getElementById("ticketMessages");
+
+    if(!messages.length){
+
+        messagesBox.innerHTML =
+            `<div class="empty">پیامی وجود ندارد.</div>`;
+
+    }else{
+
+        messagesBox.innerHTML =
+            messages.map(message => {
+
+                const isAdmin =
+                    message.sender_type === "admin";
+
+                return `
+                    <div class="message ${
+                        isAdmin ? "admin" : "user"
+                    }">
+
+                        <div class="message-author">
+                            ${isAdmin ? "🛡️ پشتیبانی" : "👤 شما"}
+                        </div>
+
+                        <div class="message-text">
+                            ${escapeHtml(message.message)}
+                        </div>
+
+                        <div class="message-time">
+                            ${formatDate(message.created_at)}
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    }
+
+    const closed =
+        ticket.status === "closed";
+
+    document
+        .getElementById("ticketReplyBox")
+        .classList.toggle("hidden",closed);
+
+    if(closed){
+
+        messagesBox.innerHTML += `
+            <div class="notice">
+                این تیکت بسته شده است.
+            </div>
         `;
 
     }
-
 }
 
 
 /* =========================
-   COIN MODAL
+   TICKET REPLY
 ========================= */
 
-function openCoinModal(){
+async function sendTicketReply(){
 
-    selectedCoinAmount = 0;
+    if(!currentTicketId) return;
 
-    document.getElementById("coinModal")
-        .classList.add("show");
+    const message =
+        document.getElementById("ticketReply")
+        .value.trim();
 
-}
+    if(!message){
 
-
-function closeCoinModal(){
-
-    document.getElementById("coinModal")
-        .classList.remove("show");
-
-}
-
-
-function selectPackage(amount,element){
-
-    selectedCoinAmount = amount;
-
-    document
-        .querySelectorAll(".package")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-    element.classList.add("active");
-
-    document.getElementById("customCoin").value = "";
-
-}
-
-
-/* =========================
-   COIN ORDER
-========================= */
-
-async function submitCoinOrder(){
-
-    let amount = selectedCoinAmount;
-
-    const custom =
-        Number(
-            document.getElementById("customCoin").value
-        );
-
-    if(custom > 0){
-
-        amount = custom;
-
-    }
-
-    if(!amount || amount < 1000){
-
-        showToast(
-            "حداقل مقدار شارژ 1,000 Coin است."
-        );
+        alert("پیام را وارد کن.");
 
         return;
-
-    }
-
-    const paymentRef =
-        document.getElementById("paymentRef")
-            .value.trim();
-
-    if(!paymentRef){
-
-        showToast(
-            "شماره پیگیری یا رسید را وارد کن."
-        );
-
-        return;
-
     }
 
     try{
 
         const data =
-            await apiFetch(
-                "/coins/order",
+            await api(
+                "/tickets/" +
+                encodeURIComponent(currentTicketId) +
+                "/messages",
                 {
                     method:"POST",
                     body:JSON.stringify({
-                        amount,
-                        payment_ref:paymentRef
+                        message
                     })
                 }
             );
 
-        showToast(
-            data.message ||
-            "درخواست شارژ ثبت شد و پس از بررسی Coin اضافه می‌شود."
-        );
+        document.getElementById("ticketReply").value = "";
 
-        closeCoinModal();
+        renderTicket(data);
 
-        document.getElementById("paymentRef").value = "";
+        await loadUserTickets();
 
-        document.getElementById("customCoin").value = "";
-
-        selectedCoinAmount = 0;
+        if(
+            currentUser &&
+            isAdmin()
+        ){
+            await loadAdminTickets();
+        }
 
     }catch(error){
 
-        showToast(error.message);
+        alert(error.message);
 
     }
-
 }
 
 
 /* =========================
-   LOGOUT
+   CLOSE TICKET
 ========================= */
 
-async function logout(){
+async function closeCurrentTicket(){
+
+    if(!currentTicketId) return;
+
+    if(!confirm("تیکت بسته شود؟")){
+        return;
+    }
 
     try{
 
-        await apiFetch(
-            "/logout",
-            {
-                method:"POST"
-            }
-        );
+        const data =
+            await api(
+                "/tickets/" +
+                encodeURIComponent(currentTicketId) +
+                "/close",
+                {
+                    method:"POST"
+                }
+            );
+
+        renderTicket(data);
+
+        await loadUserTickets();
+
+        if(isAdmin()){
+            await loadAdminTickets();
+        }
 
     }catch(error){
 
-        console.log(error);
+        alert(error.message);
 
     }
-
-    localStorage.removeItem(TOKEN_KEY);
-
-    window.location.href = "login.html";
-
 }
 
 
 /* =========================
-   ESCAPE HTML
+   ADMIN
 ========================= */
+
+function isAdmin(){
+
+    if(!currentUser) return false;
+
+    const rank =
+        String(currentUser.rank || "").toUpperCase();
+
+    return (
+        rank === "ADMIN" ||
+        rank === "OWNER"
+    );
+}
+
+
+async function loadAdminTickets(){
+
+    if(!isAdmin()) return;
+
+    const box =
+        document.getElementById("adminTicketList");
+
+    box.innerHTML =
+        `<div class="loading">در حال دریافت تیکت‌ها...</div>`;
+
+    try{
+
+        const data =
+            await api("/tickets");
+
+        adminTickets =
+            data.tickets || [];
+
+        renderAdminTickets();
+
+    }catch(error){
+
+        box.innerHTML =
+            `<div class="empty">${escapeHtml(error.message)}</div>`;
+    }
+}
+
+
+function renderAdminTickets(){
+
+    const box =
+        document.getElementById("adminTicketList");
+
+    let tickets =
+        [...adminTickets];
+
+    if(ticketFilter !== "all"){
+
+        tickets =
+            tickets.filter(
+                ticket =>
+                    ticket.status === ticketFilter
+            );
+    }
+
+    if(!tickets.length){
+
+        box.innerHTML =
+            `<div class="empty">
+                تیکتی در این بخش وجود ندارد.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML =
+        tickets.map(ticket => {
+
+            return `
+                <div
+                    class="ticket-item"
+                    onclick="openTicket('${escapeAttr(ticket.id)}')">
+
+                    <div class="ticket-top">
+
+                        <div>
+
+                            <div class="ticket-subject">
+                                🎫 ${escapeHtml(ticket.subject)}
+                            </div>
+
+                            <div class="ticket-meta">
+                                👤 ${escapeHtml(
+                                    ticket.username ||
+                                    ticket.user_id ||
+                                    "کاربر"
+                                )}
+                                •
+                                ${formatDate(ticket.created_at)}
+                            </div>
+
+                        </div>
+
+                        ${statusBadge(ticket.status || "open")}
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+function setTicketFilter(filter){
+
+    ticketFilter = filter;
+
+    document
+        .querySelectorAll(".filter-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const map = {
+        all:"filterAll",
+        open:"filterOpen",
+        answered:"filterAnswered",
+        closed:"filterClosed"
+    };
+
+    document
+        .getElementById(map[filter])
+        .classList.add("active");
+
+    renderAdminTickets();
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function formatDate(timestamp){
+
+    if(!timestamp){
+        return "---";
+    }
+
+    let date;
+
+    if(typeof timestamp === "number"){
+
+        date =
+            new Date(
+                timestamp < 1000000000000
+                ? timestamp * 1000
+                : timestamp
+            );
+
+    }else{
+
+        date = new Date(timestamp);
+    }
+
+    if(isNaN(date.getTime())){
+        return "---";
+    }
+
+    return date.toLocaleString(
+        "fa-IR",
+        {
+            year:"numeric",
+            month:"2-digit",
+            day:"2-digit",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+}
+
 
 function escapeHtml(value){
 
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
+
+function escapeAttr(value){
+
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
 }
 
 
 /* =========================
-   TOAST
+   INIT
 ========================= */
 
-let toastTimer;
+async function init(){
 
-function showToast(message){
+    if(!token()){
 
-    const toast =
-        document.getElementById("toast");
+        location.href = "login.html";
 
-    toast.textContent = message;
+        return;
+    }
 
-    toast.classList.add("show");
+    await loadUser();
 
-    clearTimeout(toastTimer);
-
-    toastTimer =
-        setTimeout(()=>{
-            toast.classList.remove("show");
-        },3500);
+    await Promise.all([
+        loadShop(),
+        loadPurchases(),
+        loadUserTickets()
+    ]);
 
 }
 
-
-/* =========================
-   CLOSE MODAL
-========================= */
-
-document
-    .getElementById("coinModal")
-    .addEventListener("click",function(e){
-
-        if(e.target === this){
-
-            closeCoinModal();
-
-        }
-
-    });
-
-
-/* =========================
-   START
-========================= */
-
-loadUser();
-loadTransactions();
+init();
 
 </script>
 
