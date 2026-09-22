@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ثبت‌نام | MuffinSMP</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Tahoma,Arial,sans-serif;
+    background:
+      radial-gradient(circle at 20% 20%,rgba(123,71,161,.22),transparent 35%),
+      radial-gradient(circle at 80% 80%,rgba(76,35,110,.2),transparent 35%),
+      #07050b;
+    color:#fff;
+}
+.card{
+    width:min(430px,92%);
+    padding:35px;
+    border:1px solid rgba(155,90,220,.25);
+    border-radius:24px;
+    background:rgba(18,13,25,.88);
+    box-shadow:0 0 50px rgba(123,71,161,.18);
+}
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+    color:#b66cff;
+    margin-bottom:8px;
+}
+.subtitle{
+    text-align:center;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:28px;
+}
+label{
+    display:block;
+    margin:15px 0 7px;
+    color:#ddd;
+    font-size:13px;
+}
+input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #342442;
+    background:#0d0912;
+    color:white;
+    outline:none;
+}
+input:focus{
+    border-color:#9b59d0;
+    box-shadow:0 0 12px rgba(155,89,208,.2);
+}
+button{
+    width:100%;
+    margin-top:23px;
+    padding:14px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7b47a1,#a855f7);
+    transition:.2s;
+}
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 25px rgba(168,85,247,.25);
+}
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+.message{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:10px;
+    text-align:center;
+    font-size:13px;
+}
+.error{
+    display:block;
+    background:rgba(220,50,70,.12);
+    border:1px solid rgba(220,50,70,.25);
+    color:#ff8795;
+}
+.success{
+    display:block;
+    background:rgba(46,204,113,.12);
+    border:1px solid rgba(46,204,113,.25);
+    color:#67e69a;
+}
+.links{
+    margin-top:22px;
+    text-align:center;
+    font-size:13px;
+    color:#999;
+}
+.links a{
+    color:#b66cff;
+    text-decoration:none;
+}
+.links a:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="logo">ᴍᴜꜰꜰɪɴꜱᴍᴘ</div>
+    <div class="subtitle">ساخت حساب کاربری</div>
+
+    <form id="registerForm">
+
+        <label>نام کاربری</label>
+        <input
+            id="username"
+            type="text"
+            placeholder="مثلاً MuffinPlayer"
+            minlength="3"
+            maxlength="20"
+            required
+        >
+
+        <label>ایمیل</label>
+        <input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+            required
+        >
+
+        <label>رمز عبور</label>
+        <input
+            id="password"
+            type="password"
+            placeholder="حداقل 8 کاراکتر"
+            minlength="8"
+            required
+        >
+
+        <label>تکرار رمز عبور</label>
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="رمز عبور را دوباره وارد کنید"
+            minlength="8"
+            required
+        >
+
+        <button id="registerBtn" type="submit">
+            ساخت حساب
+        </button>
+
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div class="links">
+        قبلاً حساب داری؟
+        <a href="login.html">ورود به حساب</a>
+        <br><br>
+        <a href="index.html">← بازگشت به سایت</a>
+    </div>
+
+</div>
+
+<script>
+
+const API = "https://api.muffinsmp.ir/api";
+
+const form = document.getElementById("registerForm");
+const button = document.getElementById("registerBtn");
+const message = document.getElementById("message");
+
+function showMessage(text,type){
+    message.className = "message " + type;
+    message.textContent = text;
+}
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if(password !== confirmPassword){
+        showMessage("رمزهای عبور یکسان نیستند.","error");
+        return;
+    }
+
+    if(password.length < 8){
+        showMessage("رمز عبور باید حداقل ۸ کاراکتر باشد.","error");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "در حال ساخت حساب...";
+
+    try{
+
+        const response = await fetch(`${API}/register`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username,
+                email,
+                password
+            })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if(!response.ok){
+            throw new Error(
+                data.error ||
+                data.message ||
+                "ثبت‌نام انجام نشد."
+            );
+        }
+
+        showMessage(
+            "حساب با موفقیت ساخته شد! در حال انتقال به ورود...",
+            "success"
+        );
+
+        setTimeout(()=>{
+            window.location.href = "login.html";
+        },1500);
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            error.message || "خطایی رخ داد.",
+            "error"
+        );
+
+    }finally{
+
+        button.disabled = false;
+        button.textContent = "ساخت حساب";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
