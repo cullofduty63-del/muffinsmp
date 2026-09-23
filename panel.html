@@ -352,6 +352,34 @@ textarea.input{
     flex:1;
 }
 
+.delivery-info{
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        rgba(139,53,217,.12),
+        rgba(195,93,255,.05)
+    );
+    border:1px solid rgba(180,92,255,.2);
+    line-height:1.9;
+    color:#cbbdd6;
+}
+
+.delivery-product{
+    color:#d18aff;
+    font-weight:900;
+}
+
+.delivery-error{
+    padding:12px;
+    border-radius:10px;
+    background:#2a0d12;
+    border:1px solid rgba(255,70,70,.25);
+    color:#ff9b9b;
+    margin-bottom:12px;
+}
+
 .ticket-header{
     display:flex;
     justify-content:space-between;
@@ -537,7 +565,12 @@ footer{
 
             <div style="display:flex;align-items:center;">
                 <span class="balance" id="coins">0</span>
-                <button class="plus" onclick="openCoinModal()">+</button>
+
+                <button
+                    class="plus"
+                    onclick="openCoinModal()">
+                    +
+                </button>
             </div>
 
             <div class="sub">
@@ -548,7 +581,9 @@ footer{
         <div class="card">
             <h2>💎 Shard</h2>
 
-            <div class="balance" id="shards">0</div>
+            <div class="balance" id="shards">
+                0
+            </div>
 
             <div class="sub">
                 موجودی Shard حساب
@@ -559,24 +594,39 @@ footer{
 
     <!-- MINECRAFT -->
     <section class="card" style="margin-top:18px;">
+
         <h2>⛏️ اکانت Minecraft</h2>
 
         <div id="linkedBox">
 
             <div class="profile-row">
                 <span>Username</span>
-                <span class="value" id="minecraftUsername">متصل نیست</span>
+
+                <span
+                    class="value"
+                    id="minecraftUsername">
+                    متصل نیست
+                </span>
             </div>
 
             <div class="profile-row">
                 <span>UUID</span>
-                <span class="value" id="minecraftUUID">---</span>
+
+                <span
+                    class="value"
+                    id="minecraftUUID">
+                    ---
+                </span>
             </div>
 
             <div style="margin-top:15px;">
-                <button class="primary-btn" onclick="openLinkModal()">
+
+                <button
+                    class="primary-btn"
+                    onclick="openLinkModal()">
                     🔗 اتصال Minecraft
                 </button>
+
             </div>
 
         </div>
@@ -584,88 +634,155 @@ footer{
 
     <!-- SHOP -->
     <section class="shop-section">
-        <h2 class="section-title">🛒 فروشگاه MuffinSMP</h2>
 
-        <div class="shop-grid" id="shopGrid">
-            <div class="loading">در حال دریافت فروشگاه...</div>
+        <h2 class="section-title">
+            🛒 فروشگاه MuffinSMP
+        </h2>
+
+        <div
+            class="shop-grid"
+            id="shopGrid">
+
+            <div class="loading">
+                در حال دریافت فروشگاه...
+            </div>
+
         </div>
+
     </section>
 
     <!-- PURCHASES -->
     <section class="card" style="margin-top:25px;">
+
         <div class="admin-head">
+
             <h2>📦 خریدهای من</h2>
-            <button class="secondary-btn" onclick="loadPurchases()">🔄 بروزرسانی</button>
+
+            <button
+                class="secondary-btn"
+                onclick="loadPurchases()">
+                🔄 بروزرسانی
+            </button>
+
         </div>
 
-        <div id="purchaseList" class="ticket-list">
-            <div class="loading">در حال دریافت...</div>
+        <div
+            id="purchaseList"
+            class="ticket-list">
+
+            <div class="loading">
+                در حال دریافت...
+            </div>
+
         </div>
+
     </section>
 
     <!-- USER TICKETS -->
     <section class="ticket-section">
-        <div class="admin-head">
-            <h2 class="section-title" style="margin:0;">🎫 پشتیبانی</h2>
 
-            <button class="primary-btn" style="width:auto;" onclick="openCreateTicketModal()">
+        <div class="admin-head">
+
+            <h2
+                class="section-title"
+                style="margin:0;">
+                🎫 پشتیبانی
+            </h2>
+
+            <button
+                class="primary-btn"
+                style="width:auto;"
+                onclick="openCreateTicketModal()">
                 + تیکت جدید
             </button>
+
         </div>
 
         <div class="card">
-            <div id="userTicketList" class="ticket-list">
-                <div class="loading">در حال دریافت تیکت‌ها...</div>
+
+            <div
+                id="userTicketList"
+                class="ticket-list">
+
+                <div class="loading">
+                    در حال دریافت تیکت‌ها...
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- ADMIN PANEL -->
-    <section id="adminSection" class="admin-section hidden">
+    <section
+        id="adminSection"
+        class="admin-section hidden">
 
         <div class="card">
 
             <div class="admin-head">
+
                 <div>
-                    <h2>🛡️ Admin Ticket Panel</h2>
+
+                    <h2>
+                        🛡️ Admin Ticket Panel
+                    </h2>
+
                     <div class="sub">
                         مدیریت تیکت‌های کاربران MuffinSMP
                     </div>
+
                 </div>
 
-                <button class="secondary-btn" onclick="loadAdminTickets()">
+                <button
+                    class="secondary-btn"
+                    onclick="loadAdminTickets()">
                     🔄 بروزرسانی
                 </button>
+
             </div>
 
             <div class="filter-row">
-                <button class="filter-btn active"
-                        id="filterAll"
-                        onclick="setTicketFilter('all')">
+
+                <button
+                    class="filter-btn active"
+                    id="filterAll"
+                    onclick="setTicketFilter('all')">
                     همه
                 </button>
 
-                <button class="filter-btn"
-                        id="filterOpen"
-                        onclick="setTicketFilter('open')">
+                <button
+                    class="filter-btn"
+                    id="filterOpen"
+                    onclick="setTicketFilter('open')">
                     باز
                 </button>
 
-                <button class="filter-btn"
-                        id="filterAnswered"
-                        onclick="setTicketFilter('answered')">
+                <button
+                    class="filter-btn"
+                    id="filterAnswered"
+                    onclick="setTicketFilter('answered')">
                     پاسخ داده شده
                 </button>
 
-                <button class="filter-btn"
-                        id="filterClosed"
-                        onclick="setTicketFilter('closed')">
+                <button
+                    class="filter-btn"
+                    id="filterClosed"
+                    onclick="setTicketFilter('closed')">
                     بسته
                 </button>
+
             </div>
 
-            <div id="adminTicketList" class="ticket-list">
-                <div class="loading">در حال دریافت تیکت‌ها...</div>
+            <div
+                id="adminTicketList"
+                class="ticket-list">
+
+                <div class="loading">
+                    در حال دریافت تیکت‌ها...
+                </div>
+
             </div>
 
         </div>
@@ -673,14 +790,46 @@ footer{
     </section>
 
     <!-- ADMIN COIN PANEL -->
-    <section id="adminCoinSection" class="admin-section hidden">
+    <section
+        id="adminCoinSection"
+        class="admin-section hidden">
+
         <div class="card">
+
             <div class="admin-head">
-                <div><h2>💰 مدیریت Muffin Coin</h2><div class="sub">درخواست‌های خرید Coin کاربران MuffinSMP</div></div>
-                <button class="secondary-btn" onclick="loadAdminCoinOrders()">🔄 بروزرسانی</button>
+
+                <div>
+
+                    <h2>
+                        💰 مدیریت Muffin Coin
+                    </h2>
+
+                    <div class="sub">
+                        درخواست‌های خرید Coin کاربران MuffinSMP
+                    </div>
+
+                </div>
+
+                <button
+                    class="secondary-btn"
+                    onclick="loadAdminCoinOrders()">
+                    🔄 بروزرسانی
+                </button>
+
             </div>
-            <div id="adminCoinList" class="ticket-list"><div class="loading">در حال دریافت درخواست‌ها...</div></div>
+
+            <div
+                id="adminCoinList"
+                class="ticket-list">
+
+                <div class="loading">
+                    در حال دریافت درخواست‌ها...
+                </div>
+
+            </div>
+
         </div>
+
     </section>
 
 </main>
@@ -690,33 +839,157 @@ footer{
 </footer>
 
 
-<!-- COIN MODAL -->
-<div id="coinModal" class="modal-bg hidden">
+<!-- DELIVERY MODAL -->
+<div
+    id="deliveryModal"
+    class="modal-bg hidden">
+
     <div class="modal">
-        <h2>💰 خرید Muffin Coin</h2>
-        <div class="notice">مقدار Coin موردنظر را وارد کن.<br>هر ۱ تومان = ۱ Muffin Coin<br><br>💳 بعد از ثبت درخواست، مدیریت درخواست را بررسی می‌کند.<br>✅ پس از تأیید، Coin به حساب شما اضافه می‌شود.</div>
-        <br>
-        <input id="coinAmount" class="input" type="number" min="1" step="1" placeholder="مثلاً 100000">
-        <div class="modal-actions">
-            <button class="primary-btn" onclick="submitCoinOrder()">💳 ثبت درخواست خرید</button>
-            <button class="secondary-btn" onclick="closeModal('coinModal')">بستن</button>
+
+        <h2>
+            🎁 تحویل خرید
+        </h2>
+
+        <div class="delivery-info">
+
+            محصول:
+            <span
+                id="deliveryProduct"
+                class="delivery-product">
+                ---
+            </span>
+
+            <br>
+
+            <span style="color:#8f829a;">
+                برای دریافت محصول، ID بازیکنی که باید محصول
+                برای او ارسال شود را وارد کن.
+            </span>
+
+            <br><br>
+
+            ⚠️ بازیکن باید همین الان داخل سرور
+            <b>موجود و آنلاین</b> باشد.
+
         </div>
+
+        <div
+            id="deliveryError"
+            class="delivery-error hidden">
+        </div>
+
+        <input
+            id="deliveryUsername"
+            class="input"
+            maxlength="32"
+            autocomplete="off"
+            placeholder="ID بازیکن Minecraft">
+
+        <div class="modal-actions">
+
+            <button
+                id="deliverySubmitBtn"
+                class="primary-btn"
+                onclick="submitDeliveryPurchase()">
+                🚀 تأیید و خرید
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="closeDeliveryModal()">
+                بستن
+            </button>
+
+        </div>
+
     </div>
+
 </div>
 
-<!-- LINK MODAL -->
-<div id="linkModal" class="modal-bg hidden">
+
+<!-- COIN MODAL -->
+<div
+    id="coinModal"
+    class="modal-bg hidden">
 
     <div class="modal">
 
-        <h2>🔗 اتصال Minecraft</h2>
+        <h2>
+            💰 خرید Muffin Coin
+        </h2>
 
         <div class="notice">
+
+            مقدار Coin موردنظر را وارد کن.
+
+            <br>
+
+            هر ۱ تومان = ۱ Muffin Coin
+
+            <br><br>
+
+            💳 بعد از ثبت درخواست، مدیریت درخواست را بررسی می‌کند.
+
+            <br>
+
+            ✅ پس از تأیید، Coin به حساب شما اضافه می‌شود.
+
+        </div>
+
+        <br>
+
+        <input
+            id="coinAmount"
+            class="input"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="مثلاً 100000">
+
+        <div class="modal-actions">
+
+            <button
+                class="primary-btn"
+                onclick="submitCoinOrder()">
+                💳 ثبت درخواست خرید
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="closeModal('coinModal')">
+                بستن
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LINK MODAL -->
+<div
+    id="linkModal"
+    class="modal-bg hidden">
+
+    <div class="modal">
+
+        <h2>
+            🔗 اتصال Minecraft
+        </h2>
+
+        <div class="notice">
+
             داخل Minecraft وارد سرور شو و دستور زیر را بزن:
+
             <br><br>
+
             <b>/link</b>
+
             <br><br>
+
             سپس کدی که دریافت می‌کنی را اینجا وارد کن.
+
         </div>
 
         <br>
@@ -726,16 +999,19 @@ footer{
             class="input"
             maxlength="6"
             inputmode="numeric"
-            placeholder="کد ۶ رقمی"
-        >
+            placeholder="کد ۶ رقمی">
 
         <div class="modal-actions">
 
-            <button class="primary-btn" onclick="verifyLinkCode()">
+            <button
+                class="primary-btn"
+                onclick="verifyLinkCode()">
                 تأیید اتصال
             </button>
 
-            <button class="secondary-btn" onclick="closeModal('linkModal')">
+            <button
+                class="secondary-btn"
+                onclick="closeModal('linkModal')">
                 بستن
             </button>
 
@@ -747,18 +1023,21 @@ footer{
 
 
 <!-- CREATE TICKET -->
-<div id="createTicketModal" class="modal-bg hidden">
+<div
+    id="createTicketModal"
+    class="modal-bg hidden">
 
     <div class="modal">
 
-        <h2>🎫 ایجاد تیکت</h2>
+        <h2>
+            🎫 ایجاد تیکت
+        </h2>
 
         <input
             id="ticketSubject"
             class="input"
             maxlength="100"
-            placeholder="موضوع تیکت"
-        >
+            placeholder="موضوع تیکت">
 
         <textarea
             id="ticketMessage"
@@ -769,12 +1048,15 @@ footer{
 
         <div class="modal-actions">
 
-            <button class="primary-btn" onclick="createTicket()">
+            <button
+                class="primary-btn"
+                onclick="createTicket()">
                 ایجاد تیکت
             </button>
 
-            <button class="secondary-btn"
-                    onclick="closeModal('createTicketModal')">
+            <button
+                class="secondary-btn"
+                onclick="closeModal('createTicketModal')">
                 بستن
             </button>
 
@@ -786,23 +1068,39 @@ footer{
 
 
 <!-- TICKET VIEW -->
-<div id="ticketModal" class="modal-bg hidden">
+<div
+    id="ticketModal"
+    class="modal-bg hidden">
 
     <div class="modal">
 
         <div class="ticket-header">
 
             <div>
-                <h2 id="ticketTitle">تیکت</h2>
-                <div class="sub" id="ticketMeta"></div>
+
+                <h2 id="ticketTitle">
+                    تیکت
+                </h2>
+
+                <div
+                    class="sub"
+                    id="ticketMeta">
+                </div>
+
             </div>
 
             <div id="ticketStatus"></div>
 
         </div>
 
-        <div id="ticketMessages" class="ticket-messages">
-            <div class="loading">در حال دریافت...</div>
+        <div
+            id="ticketMessages"
+            class="ticket-messages">
+
+            <div class="loading">
+                در حال دریافت...
+            </div>
+
         </div>
 
         <div id="ticketReplyBox">
@@ -816,7 +1114,9 @@ footer{
 
             <div class="modal-actions">
 
-                <button class="primary-btn" onclick="sendTicketReply()">
+                <button
+                    class="primary-btn"
+                    onclick="sendTicketReply()">
                     ارسال پاسخ
                 </button>
 
@@ -847,12 +1147,174 @@ footer{
 const API =
     "https://cullofduty63.cullofduty63.workers.dev/api";
 
-const TOKEN_KEY = "muffin_token";
+const TOKEN_KEY =
+    "muffin_token";
 
 let currentUser = null;
 let currentTicketId = null;
 let adminTickets = [];
 let ticketFilter = "all";
+
+/* =========================
+   DELIVERY
+========================= */
+
+let pendingPurchase = {
+    type: null,
+    item: null
+};
+
+function openDeliveryModal(type,item,price,name){
+
+    pendingPurchase = {
+        type,
+        item
+    };
+
+    const productName =
+        name || String(item).toUpperCase();
+
+    document.getElementById(
+        "deliveryProduct"
+    ).textContent =
+        productName +
+        " • " +
+        Number(price || 0).toLocaleString() +
+        " Coin";
+
+    document.getElementById(
+        "deliveryUsername"
+    ).value = "";
+
+    document.getElementById(
+        "deliveryError"
+    ).classList.add("hidden");
+
+    document.getElementById(
+        "deliveryError"
+    ).textContent = "";
+
+    document.getElementById(
+        "deliverySubmitBtn"
+    ).disabled = false;
+
+    document.getElementById(
+        "deliveryModal"
+    ).classList.remove("hidden");
+
+    setTimeout(() => {
+        document.getElementById(
+            "deliveryUsername"
+        ).focus();
+    },100);
+}
+
+
+function closeDeliveryModal(){
+
+    document
+        .getElementById("deliveryModal")
+        .classList.add("hidden");
+
+    pendingPurchase = {
+        type:null,
+        item:null
+    };
+}
+
+
+async function submitDeliveryPurchase(){
+
+    const username =
+        document
+            .getElementById("deliveryUsername")
+            .value
+            .trim();
+
+    const errorBox =
+        document.getElementById("deliveryError");
+
+    const submitBtn =
+        document.getElementById("deliverySubmitBtn");
+
+    errorBox.classList.add("hidden");
+    errorBox.textContent = "";
+
+    if(!username){
+
+        errorBox.textContent =
+            "❌ لطفاً ID بازیکن را وارد کن.";
+
+        errorBox.classList.remove("hidden");
+
+        return;
+    }
+
+    if(username.length < 3){
+
+        errorBox.textContent =
+            "❌ ID بازیکن معتبر نیست.";
+
+        errorBox.classList.remove("hidden");
+
+        return;
+    }
+
+    if(
+        !pendingPurchase.type ||
+        !pendingPurchase.item
+    ){
+
+        errorBox.textContent =
+            "❌ اطلاعات خرید پیدا نشد.";
+
+        errorBox.classList.remove("hidden");
+
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent =
+        "⏳ در حال بررسی بازیکن...";
+
+    try{
+
+        const data =
+            await api("/buy",{
+                method:"POST",
+                body:JSON.stringify({
+                    type:pendingPurchase.type,
+                    item:pendingPurchase.item,
+                    delivery_username:username
+                })
+            });
+
+        alert(
+            data.message ||
+            "✅ خرید با موفقیت ثبت شد."
+        );
+
+        closeDeliveryModal();
+
+        await loadUser();
+        await loadPurchases();
+
+    }catch(error){
+
+        errorBox.textContent =
+            error.message ||
+            "❌ خطایی در ثبت خرید رخ داد.";
+
+        errorBox.classList.remove("hidden");
+
+    }finally{
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+            "🚀 تأیید و خرید";
+    }
+}
 
 
 /* =========================
@@ -864,55 +1326,83 @@ function token(){
 }
 
 function authHeaders(){
+
     return {
         "Content-Type":"application/json",
         "Authorization":"Bearer " + token()
     };
 }
 
-async function api(path, options = {}){
+
+async function api(path,options = {}){
 
     options.headers = {
         ...(options.headers || {}),
         ...authHeaders()
     };
 
-    const response = await fetch(API + path, options);
+    const response =
+        await fetch(API + path,options);
 
     let data = {};
 
     try{
-        data = await response.json();
+
+        data =
+            await response.json();
+
     }catch(e){
+
         data = {};
     }
 
     if(response.status === 401){
+
         localStorage.removeItem(TOKEN_KEY);
-        location.href = "login.html";
-        throw new Error("Unauthorized");
+
+        location.href =
+            "login.html";
+
+        throw new Error(
+            "Unauthorized"
+        );
     }
 
     if(!response.ok){
-        throw new Error(data.error || "خطایی رخ داد");
+
+        throw new Error(
+            data.error ||
+            "خطایی رخ داد"
+        );
     }
 
     return data;
 }
 
+
 function goHome(){
-    location.href = "index.html";
+
+    location.href =
+        "index.html";
 }
+
 
 function logout(){
 
-    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(
+        TOKEN_KEY
+    );
 
-    location.href = "login.html";
+    location.href =
+        "login.html";
 }
 
+
 function closeModal(id){
-    document.getElementById(id).classList.add("hidden");
+
+    document
+        .getElementById(id)
+        .classList.add("hidden");
 }
 
 
@@ -924,23 +1414,34 @@ async function loadUser(){
 
     try{
 
-        const data = await api("/me");
+        const data =
+            await api("/me");
 
-        currentUser = data.user || data;
+        currentUser =
+            data.user || data;
 
         renderUser();
 
         if(
-            String(currentUser.rank || "").toUpperCase() === "ADMIN" ||
-            String(currentUser.rank || "").toUpperCase() === "OWNER"
+            String(
+                currentUser.rank || ""
+            ).toUpperCase() === "ADMIN" ||
+
+            String(
+                currentUser.rank || ""
+            ).toUpperCase() === "OWNER"
         ){
 
             document
-                .getElementById("adminSection")
+                .getElementById(
+                    "adminSection"
+                )
                 .classList.remove("hidden");
 
             document
-                .getElementById("adminCoinSection")
+                .getElementById(
+                    "adminCoinSection"
+                )
                 .classList.remove("hidden");
 
             loadAdminTickets();
@@ -950,7 +1451,6 @@ async function loadUser(){
     }catch(error){
 
         console.error(error);
-
     }
 }
 
@@ -959,29 +1459,51 @@ function renderUser(){
 
     if(!currentUser) return;
 
-    document.getElementById("username").textContent =
+    document.getElementById(
+        "username"
+    ).textContent =
         currentUser.username || "---";
 
-    document.getElementById("email").textContent =
+    document.getElementById(
+        "email"
+    ).textContent =
         currentUser.email || "---";
 
-    document.getElementById("rank").textContent =
+    document.getElementById(
+        "rank"
+    ).textContent =
         currentUser.rank || "PLAYER";
 
-    document.getElementById("coins").textContent =
-        Number(currentUser.coins || 0).toLocaleString();
+    document.getElementById(
+        "coins"
+    ).textContent =
+        Number(
+            currentUser.coins || 0
+        ).toLocaleString();
 
-    document.getElementById("shards").textContent =
-        Number(currentUser.shards || 0).toLocaleString();
+    document.getElementById(
+        "shards"
+    ).textContent =
+        Number(
+            currentUser.shards || 0
+        ).toLocaleString();
 
-    document.getElementById("welcomeText").textContent =
+    document.getElementById(
+        "welcomeText"
+    ).textContent =
         `خوش اومدی ${currentUser.username || ""} ❤️`;
 
-    document.getElementById("minecraftUsername").textContent =
-        currentUser.minecraft_username || "متصل نیست";
+    document.getElementById(
+        "minecraftUsername"
+    ).textContent =
+        currentUser.minecraft_username ||
+        "متصل نیست";
 
-    document.getElementById("minecraftUUID").textContent =
-        currentUser.minecraft_uuid || "---";
+    document.getElementById(
+        "minecraftUUID"
+    ).textContent =
+        currentUser.minecraft_uuid ||
+        "---";
 }
 
 
@@ -991,121 +1513,135 @@ function renderUser(){
 
 async function loadShop(){
 
+    const grid =
+        document.getElementById(
+            "shopGrid"
+        );
+
+    grid.innerHTML =
+        `<div class="loading">
+            در حال دریافت فروشگاه...
+        </div>`;
+
     try{
 
-        const data = await fetch(API + "/shop").then(r => r.json());
+        const data =
+            await api("/shop");
 
         const shop =
-            data.shop || data;
-
-        const grid =
-            document.getElementById("shopGrid");
+            data.shop || {};
 
         grid.innerHTML = "";
 
-        const ranks =
-            shop.ranks || {};
+        Object.entries(shop)
+            .forEach(
+                ([item,product]) => {
 
-        const keys =
-            shop.keys || {};
+                    const type =
+                        product.type ||
+                        (
+                            [
+                                "nova",
+                                "vanta",
+                                "apex",
+                                "sponsor"
+                            ].includes(item)
+                            ? "rank"
+                            : "key"
+                        );
 
-        Object.entries(ranks).forEach(([item, product]) => {
+                    const icon =
+                        type === "rank"
+                        ? "👑"
+                        : "🔑";
 
-            grid.innerHTML += productCard(
-                "👑",
-                item,
-                product.price,
-                "rank"
+                    grid.innerHTML +=
+                        productCard(
+                            icon,
+                            item,
+                            product.price,
+                            type,
+                            product.name ||
+                            item.toUpperCase()
+                        );
+                }
             );
 
-        });
-
-        Object.entries(keys).forEach(([item, product]) => {
-
-            grid.innerHTML += productCard(
-                "🔑",
-                item,
-                product.price,
-                "key"
-            );
-
-        });
-
-        if(!grid.innerHTML){
+        if(
+            !Object.keys(shop).length
+        ){
 
             grid.innerHTML =
-                `<div class="empty">فروشگاه خالی است.</div>`;
-
+                `<div class="empty">
+                    فروشگاه خالی است.
+                </div>`;
         }
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "SHOP ERROR:",
+            error
+        );
 
-        document.getElementById("shopGrid").innerHTML =
-            `<div class="empty">خطا در دریافت فروشگاه.</div>`;
+        grid.innerHTML =
+            `<div class="empty">
+                خطا در دریافت فروشگاه:
+                ${escapeHtml(error.message)}
+            </div>`;
     }
 }
 
 
-function productCard(icon,item,price,type){
+function productCard(
+    icon,
+    item,
+    price,
+    type,
+    name
+){
 
     const title =
+        name ||
         String(item).toUpperCase();
 
     return `
         <div class="product">
 
-            <div style="font-size:28px;margin-bottom:10px;">
+            <div
+                style="
+                    font-size:28px;
+                    margin-bottom:10px;
+                ">
                 ${icon}
             </div>
 
-            <h3>${escapeHtml(title)}</h3>
+            <h3>
+                ${escapeHtml(title)}
+            </h3>
 
             <div class="price">
-                ${Number(price || 0).toLocaleString()} Coin
+                ${Number(
+                    price || 0
+                ).toLocaleString()}
+                Coin
             </div>
 
             <button
                 class="buy-btn"
-                onclick="buyProduct('${escapeAttr(type)}','${escapeAttr(item)}')">
+                onclick="
+                    openDeliveryModal(
+                        '${escapeAttr(type)}',
+                        '${escapeAttr(item)}',
+                        '${escapeAttr(price)}',
+                        '${escapeAttr(title)}'
+                    )
+                ">
                 خرید
             </button>
 
         </div>
     `;
-}
-
-
-async function buyProduct(type,item){
-
-    if(!confirm(`خرید ${item} را تأیید می‌کنی؟`)){
-        return;
-    }
-
-    try{
-
-        const data = await api("/buy",{
-            method:"POST",
-            body:JSON.stringify({
-                type,
-                item
-            })
-        });
-
-        alert(
-            data.message ||
-            "خرید با موفقیت ثبت شد."
-        );
-
-        await loadUser();
-        await loadPurchases();
-
-    }catch(error){
-
-        alert(error.message);
-
-    }
 }
 
 
@@ -1116,10 +1652,14 @@ async function buyProduct(type,item){
 async function loadPurchases(){
 
     const box =
-        document.getElementById("purchaseList");
+        document.getElementById(
+            "purchaseList"
+        );
 
     box.innerHTML =
-        `<div class="loading">در حال دریافت...</div>`;
+        `<div class="loading">
+            در حال دریافت...
+        </div>`;
 
     try{
 
@@ -1139,57 +1679,113 @@ async function loadPurchases(){
             return;
         }
 
-        box.innerHTML = purchases.map(p => {
+        box.innerHTML =
+            purchases
+                .map(p => {
 
-            let status = p.status || "pending";
+                    const status =
+                        p.status ||
+                        "pending";
 
-            let statusText =
-                status === "delivered"
-                ? "تحویل شده"
-                : status === "pending"
-                ? "در انتظار تحویل"
-                : status;
+                    let statusText =
+                        status === "delivered"
+                        ? "تحویل شده"
+                        : status === "pending"
+                        ? "در انتظار تحویل"
+                        : status;
 
-            return `
-                <div class="ticket-item">
+                    const target =
+                        p.delivery_username ||
+                        p.minecraft_username ||
+                        "---";
 
-                    <div class="ticket-top">
+                    return `
+                        <div
+                            class="ticket-item"
+                            style="cursor:default;">
 
-                        <div>
-                            <div class="ticket-subject">
-                                ${escapeHtml(
-                                    String(p.type || "") +
-                                    " - " +
-                                    String(p.item || "")
-                                )}
+                            <div
+                                class="ticket-top">
+
+                                <div>
+
+                                    <div
+                                        class="ticket-subject">
+
+                                        ${escapeHtml(
+                                            String(
+                                                p.type || ""
+                                            ) +
+                                            " - " +
+                                            String(
+                                                p.item || ""
+                                            )
+                                        )}
+
+                                    </div>
+
+                                    <div
+                                        class="ticket-meta">
+
+                                        قیمت:
+                                        ${Number(
+                                            p.price || 0
+                                        ).toLocaleString()}
+                                        Coin
+
+                                    </div>
+
+                                    <div
+                                        class="ticket-meta">
+
+                                        🎮 تحویل به:
+                                        ${escapeHtml(
+                                            target
+                                        )}
+
+                                    </div>
+
+                                    <div
+                                        class="ticket-meta">
+
+                                        🆔 خرید:
+                                        ${escapeHtml(
+                                            p.id || "---"
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                                <span
+                                    class="status ${
+                                        status === "delivered"
+                                        ? "status-answered"
+                                        : "status-open"
+                                    }">
+
+                                    ${escapeHtml(
+                                        statusText
+                                    )}
+
+                                </span>
+
                             </div>
 
-                            <div class="ticket-meta">
-                                قیمت:
-                                ${Number(p.price || 0).toLocaleString()}
-                                Coin
-                            </div>
                         </div>
+                    `;
 
-                        <span class="status ${
-                            status === "delivered"
-                            ? "status-answered"
-                            : "status-open"
-                        }">
-                            ${escapeHtml(statusText)}
-                        </span>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
+                })
+                .join("");
 
     }catch(error){
 
         box.innerHTML =
-            `<div class="empty">${escapeHtml(error.message)}</div>`;
+            `<div class="empty">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>`;
     }
 }
 
@@ -1201,33 +1797,74 @@ async function loadPurchases(){
 function openCoinModal(){
 
     document
-        .getElementById("coinModal")
+        .getElementById(
+            "coinModal"
+        )
         .classList.remove("hidden");
-
 }
 
 
 async function submitCoinOrder(){
 
-    const amount = Number(document.getElementById("coinAmount").value);
+    const amount =
+        Number(
+            document.getElementById(
+                "coinAmount"
+            ).value
+        );
 
-    if(!Number.isInteger(amount) || amount < 1){
-        alert("مقدار Coin را به صورت عدد صحیح وارد کن.");
+    if(
+        !Number.isInteger(amount) ||
+        amount < 1
+    ){
+
+        alert(
+            "مقدار Coin را به صورت عدد صحیح وارد کن."
+        );
+
         return;
     }
 
-    if(!confirm(`درخواست خرید ${amount.toLocaleString()} Muffin Coin ثبت شود؟`)) return;
+    if(
+        !confirm(
+            `درخواست خرید ${amount.toLocaleString()} Muffin Coin ثبت شود؟`
+        )
+    ){
+
+        return;
+    }
 
     try{
-        const data = await api("/coins/order",{
-            method:"POST",
-            body:JSON.stringify({amount})
-        });
-        alert(data.message || "درخواست خرید Coin ثبت شد.");
-        document.getElementById("coinAmount").value = "";
-        closeModal("coinModal");
+
+        const data =
+            await api(
+                "/coins/order",
+                {
+                    method:"POST",
+                    body:JSON.stringify({
+                        amount
+                    })
+                }
+            );
+
+        alert(
+            data.message ||
+            "درخواست خرید Coin ثبت شد."
+        );
+
+        document.getElementById(
+            "coinAmount"
+        ).value = "";
+
+        closeModal(
+            "coinModal"
+        );
+
     }catch(error){
-        alert(error.message);
+
+        alert(
+            error.message
+        );
     }
 }
 
@@ -1239,26 +1876,30 @@ async function submitCoinOrder(){
 function openLinkModal(){
 
     document
-        .getElementById("linkModal")
+        .getElementById(
+            "linkModal"
+        )
         .classList.remove("hidden");
-
 }
 
-
-/*
-    نکته:
-    /link در Minecraft کد اتصال را ایجاد می‌کند.
-    اینجا فقط همان کد را Verify می‌کنیم.
-*/
 
 async function verifyLinkCode(){
 
     const code =
-        document.getElementById("linkCode").value.trim();
+        document
+            .getElementById(
+                "linkCode"
+            )
+            .value
+            .trim();
 
-    if(!/^\d{6}$/.test(code)){
+    if(
+        !/^\d{6}$/.test(code)
+    ){
 
-        alert("کد باید ۶ رقمی باشد.");
+        alert(
+            "کد باید ۶ رقمی باشد."
+        );
 
         return;
     }
@@ -1266,28 +1907,36 @@ async function verifyLinkCode(){
     try{
 
         const data =
-            await api("/link/verify",{
-                method:"POST",
-                body:JSON.stringify({
-                    code
-                })
-            });
+            await api(
+                "/link/verify",
+                {
+                    method:"POST",
+                    body:JSON.stringify({
+                        code
+                    })
+                }
+            );
 
         alert(
             data.message ||
             "اکانت Minecraft با موفقیت متصل شد."
         );
 
-        document.getElementById("linkCode").value = "";
+        document.getElementById(
+            "linkCode"
+        ).value = "";
 
-        closeModal("linkModal");
+        closeModal(
+            "linkModal"
+        );
 
         await loadUser();
 
     }catch(error){
 
-        alert(error.message);
-
+        alert(
+            error.message
+        );
     }
 }
 
@@ -1299,10 +1948,14 @@ async function verifyLinkCode(){
 async function loadUserTickets(){
 
     const box =
-        document.getElementById("userTicketList");
+        document.getElementById(
+            "userTicketList"
+        );
 
     box.innerHTML =
-        `<div class="loading">در حال دریافت تیکت‌ها...</div>`;
+        `<div class="loading">
+            در حال دریافت تیکت‌ها...
+        </div>`;
 
     try{
 
@@ -1323,12 +1976,18 @@ async function loadUserTickets(){
         }
 
         box.innerHTML =
-            tickets.map(ticketCard).join("");
+            tickets
+                .map(ticketCard)
+                .join("");
 
     }catch(error){
 
         box.innerHTML =
-            `<div class="empty">${escapeHtml(error.message)}</div>`;
+            `<div class="empty">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>`;
     }
 }
 
@@ -1336,26 +1995,47 @@ async function loadUserTickets(){
 function ticketCard(ticket){
 
     const status =
-        ticket.status || "open";
+        ticket.status ||
+        "open";
 
     return `
         <div
             class="ticket-item"
-            onclick="openTicket('${escapeAttr(ticket.id)}')">
+            onclick="
+                openTicket(
+                    '${escapeAttr(ticket.id)}'
+                )
+            ">
 
-            <div class="ticket-top">
+            <div
+                class="ticket-top">
 
                 <div>
-                    <div class="ticket-subject">
-                        🎫 ${escapeHtml(ticket.subject)}
+
+                    <div
+                        class="ticket-subject">
+
+                        🎫
+                        ${escapeHtml(
+                            ticket.subject
+                        )}
+
                     </div>
 
-                    <div class="ticket-meta">
-                        ${formatDate(ticket.created_at)}
+                    <div
+                        class="ticket-meta">
+
+                        ${formatDate(
+                            ticket.created_at
+                        )}
+
                     </div>
+
                 </div>
 
-                ${statusBadge(status)}
+                ${statusBadge(
+                    status
+                )}
 
             </div>
 
@@ -1367,6 +2047,7 @@ function ticketCard(ticket){
 function statusBadge(status){
 
     const map = {
+
         open:{
             text:"باز",
             className:"status-open"
@@ -1384,10 +2065,12 @@ function statusBadge(status){
     };
 
     const item =
-        map[status] || map.open;
+        map[status] ||
+        map.open;
 
     return `
-        <span class="status ${item.className}">
+        <span
+            class="status ${item.className}">
             ${item.text}
         </span>
     `;
@@ -1397,32 +2080,45 @@ function statusBadge(status){
 function openCreateTicketModal(){
 
     document
-        .getElementById("createTicketModal")
+        .getElementById(
+            "createTicketModal"
+        )
         .classList.remove("hidden");
-
 }
 
 
 async function createTicket(){
 
     const subject =
-        document.getElementById("ticketSubject")
-        .value.trim();
+        document
+            .getElementById(
+                "ticketSubject"
+            )
+            .value
+            .trim();
 
     const message =
-        document.getElementById("ticketMessage")
-        .value.trim();
+        document
+            .getElementById(
+                "ticketMessage"
+            )
+            .value
+            .trim();
 
     if(!subject){
 
-        alert("موضوع تیکت را وارد کن.");
+        alert(
+            "موضوع تیکت را وارد کن."
+        );
 
         return;
     }
 
     if(!message){
 
-        alert("پیام تیکت را وارد کن.");
+        alert(
+            "پیام تیکت را وارد کن."
+        );
 
         return;
     }
@@ -1430,34 +2126,51 @@ async function createTicket(){
     try{
 
         const data =
-            await api("/tickets",{
-                method:"POST",
-                body:JSON.stringify({
-                    subject,
-                    message
-                })
-            });
+            await api(
+                "/tickets",
+                {
+                    method:"POST",
+                    body:JSON.stringify({
+                        subject,
+                        message
+                    })
+                }
+            );
 
         alert(
             data.message ||
             "تیکت ایجاد شد."
         );
 
-        document.getElementById("ticketSubject").value = "";
-        document.getElementById("ticketMessage").value = "";
+        document.getElementById(
+            "ticketSubject"
+        ).value = "";
 
-        closeModal("createTicketModal");
+        document.getElementById(
+            "ticketMessage"
+        ).value = "";
+
+        closeModal(
+            "createTicketModal"
+        );
 
         await loadUserTickets();
 
-        if(data.ticket && data.ticket.id){
-            openTicket(data.ticket.id);
+        if(
+            data.ticket &&
+            data.ticket.id
+        ){
+
+            openTicket(
+                data.ticket.id
+            );
         }
 
     }catch(error){
 
-        alert(error.message);
-
+        alert(
+            error.message
+        );
     }
 }
 
@@ -1471,23 +2184,38 @@ async function openTicket(id){
     currentTicketId = id;
 
     document
-        .getElementById("ticketModal")
+        .getElementById(
+            "ticketModal"
+        )
         .classList.remove("hidden");
 
-    document.getElementById("ticketMessages").innerHTML =
-        `<div class="loading">در حال دریافت پیام‌ها...</div>`;
+    document.getElementById(
+        "ticketMessages"
+    ).innerHTML =
+        `<div class="loading">
+            در حال دریافت پیام‌ها...
+        </div>`;
 
     try{
 
         const data =
-            await api("/tickets/" + encodeURIComponent(id));
+            await api(
+                "/tickets/" +
+                encodeURIComponent(id)
+            );
 
         renderTicket(data);
 
     }catch(error){
 
-        document.getElementById("ticketMessages").innerHTML =
-            `<div class="empty">${escapeHtml(error.message)}</div>`;
+        document.getElementById(
+            "ticketMessages"
+        ).innerHTML =
+            `<div class="empty">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>`;
     }
 }
 
@@ -1500,61 +2228,106 @@ function renderTicket(data){
     const messages =
         data.messages || [];
 
-    document.getElementById("ticketTitle").textContent =
-        ticket.subject || "تیکت";
+    document.getElementById(
+        "ticketTitle"
+    ).textContent =
+        ticket.subject ||
+        "تیکت";
 
-    document.getElementById("ticketMeta").textContent =
-        "ایجاد شده در " + formatDate(ticket.created_at);
+    document.getElementById(
+        "ticketMeta"
+    ).textContent =
+        "ایجاد شده در " +
+        formatDate(
+            ticket.created_at
+        );
 
-    document.getElementById("ticketStatus").innerHTML =
-        statusBadge(ticket.status || "open");
+    document.getElementById(
+        "ticketStatus"
+    ).innerHTML =
+        statusBadge(
+            ticket.status ||
+            "open"
+        );
 
     const messagesBox =
-        document.getElementById("ticketMessages");
+        document.getElementById(
+            "ticketMessages"
+        );
 
     if(!messages.length){
 
         messagesBox.innerHTML =
-            `<div class="empty">پیامی وجود ندارد.</div>`;
+            `<div class="empty">
+                پیامی وجود ندارد.
+            </div>`;
 
     }else{
 
         messagesBox.innerHTML =
-            messages.map(message => {
+            messages
+                .map(message => {
 
-                const isAdmin =
-                    message.sender_type === "admin";
+                    const isAdmin =
+                        message.sender_type ===
+                        "admin";
 
-                return `
-                    <div class="message ${
-                        isAdmin ? "admin" : "user"
-                    }">
+                    return `
+                        <div
+                            class="message ${
+                                isAdmin
+                                ? "admin"
+                                : "user"
+                            }">
 
-                        <div class="message-author">
-                            ${isAdmin ? "🛡️ پشتیبانی" : "👤 شما"}
+                            <div
+                                class="message-author">
+
+                                ${
+                                    isAdmin
+                                    ? "🛡️ پشتیبانی"
+                                    : "👤 شما"
+                                }
+
+                            </div>
+
+                            <div
+                                class="message-text">
+
+                                ${escapeHtml(
+                                    message.message
+                                )}
+
+                            </div>
+
+                            <div
+                                class="message-time">
+
+                                ${formatDate(
+                                    message.created_at
+                                )}
+
+                            </div>
+
                         </div>
+                    `;
 
-                        <div class="message-text">
-                            ${escapeHtml(message.message)}
-                        </div>
-
-                        <div class="message-time">
-                            ${formatDate(message.created_at)}
-                        </div>
-
-                    </div>
-                `;
-
-            }).join("");
-
+                })
+                .join("");
     }
 
     const closed =
-        ticket.status === "closed";
+        ticket.status ===
+        "closed";
 
     document
-        .getElementById("ticketReplyBox")
-        .classList.toggle("hidden",closed);
+        .getElementById(
+            "ticketReplyBox"
+        )
+        .classList.toggle(
+            "hidden",
+            closed
+        );
 
     if(closed){
 
@@ -1563,7 +2336,6 @@ function renderTicket(data){
                 این تیکت بسته شده است.
             </div>
         `;
-
     }
 }
 
@@ -1574,15 +2346,22 @@ function renderTicket(data){
 
 async function sendTicketReply(){
 
-    if(!currentTicketId) return;
+    if(!currentTicketId)
+        return;
 
     const message =
-        document.getElementById("ticketReply")
-        .value.trim();
+        document
+            .getElementById(
+                "ticketReply"
+            )
+            .value
+            .trim();
 
     if(!message){
 
-        alert("پیام را وارد کن.");
+        alert(
+            "پیام را وارد کن."
+        );
 
         return;
     }
@@ -1592,7 +2371,9 @@ async function sendTicketReply(){
         const data =
             await api(
                 "/tickets/" +
-                encodeURIComponent(currentTicketId) +
+                encodeURIComponent(
+                    currentTicketId
+                ) +
                 "/messages",
                 {
                     method:"POST",
@@ -1602,9 +2383,13 @@ async function sendTicketReply(){
                 }
             );
 
-        document.getElementById("ticketReply").value = "";
+        document.getElementById(
+            "ticketReply"
+        ).value = "";
 
-        renderTicket(data);
+        renderTicket(
+            data
+        );
 
         await loadUserTickets();
 
@@ -1612,13 +2397,15 @@ async function sendTicketReply(){
             currentUser &&
             isAdmin()
         ){
+
             await loadAdminTickets();
         }
 
     }catch(error){
 
-        alert(error.message);
-
+        alert(
+            error.message
+        );
     }
 }
 
@@ -1629,9 +2416,15 @@ async function sendTicketReply(){
 
 async function closeCurrentTicket(){
 
-    if(!currentTicketId) return;
+    if(!currentTicketId)
+        return;
 
-    if(!confirm("تیکت بسته شود؟")){
+    if(
+        !confirm(
+            "تیکت بسته شود؟"
+        )
+    ){
+
         return;
     }
 
@@ -1640,25 +2433,31 @@ async function closeCurrentTicket(){
         const data =
             await api(
                 "/tickets/" +
-                encodeURIComponent(currentTicketId) +
+                encodeURIComponent(
+                    currentTicketId
+                ) +
                 "/close",
                 {
                     method:"POST"
                 }
             );
 
-        renderTicket(data);
+        renderTicket(
+            data
+        );
 
         await loadUserTickets();
 
         if(isAdmin()){
+
             await loadAdminTickets();
         }
 
     }catch(error){
 
-        alert(error.message);
-
+        alert(
+            error.message
+        );
     }
 }
 
@@ -1669,10 +2468,13 @@ async function closeCurrentTicket(){
 
 function isAdmin(){
 
-    if(!currentUser) return false;
+    if(!currentUser)
+        return false;
 
     const rank =
-        String(currentUser.rank || "").toUpperCase();
+        String(
+            currentUser.rank || ""
+        ).toUpperCase();
 
     return (
         rank === "ADMIN" ||
@@ -1686,52 +2488,265 @@ function isAdmin(){
 ========================= */
 
 async function loadAdminCoinOrders(){
-    if(!isAdmin()) return;
-    const box=document.getElementById("adminCoinList");
-    if(!box) return;
-    box.innerHTML=`<div class="loading">در حال دریافت درخواست‌های Coin...</div>`;
-    try{
-        const data=await api("/admin/coin-orders");
-        const orders=data.orders||[];
-        if(!orders.length){ box.innerHTML=`<div class="empty">هیچ درخواست خرید Coin وجود ندارد.</div>`; return; }
-        box.innerHTML=orders.map(order=>{
-            const status=String(order.status||"pending").toLowerCase();
-            const cls=status==="verified"?"status-answered":status==="rejected"?"status-closed":"status-open";
-            const text=status==="verified"?"تأیید شده":status==="rejected"?"رد شده":"در انتظار بررسی";
-            const amount=Number(order.amount||0).toLocaleString();
-            const payment=Number(order.payment_amount||0).toLocaleString();
-            const username=order.username||order.user_username||order.user_id||"کاربر";
-            const action=status==="pending"?`<button class="primary-btn" style="width:auto;" onclick="event.stopPropagation();approveCoinOrder('${escapeAttr(order.id)}','${escapeAttr(username)}','${escapeAttr(amount)}')">✅ تأیید و شارژ</button>`:"";
-            return `<div class="ticket-item"><div class="ticket-top"><div><div class="ticket-subject">💰 ${escapeHtml(username)}</div><div class="ticket-meta">مقدار: ${escapeHtml(amount)} Coin • مبلغ: ${escapeHtml(payment)} تومان</div><div class="ticket-meta">🆔 ${escapeHtml(order.id)} • ${formatDate(order.created_at)}</div></div><span class="status ${cls}">${text}</span></div>${action?`<div style="margin-top:12px;">${action}</div>`:""}</div>`;
-        }).join("");
-    }catch(error){ box.innerHTML=`<div class="empty">${escapeHtml(error.message)}</div>`; }
-}
 
-async function approveCoinOrder(orderId,username,amount){
-    if(!isAdmin()) return;
-    if(!confirm(`درخواست ${amount} Coin برای ${username} تأیید شود؟`)) return;
-    try{
-        const data=await api("/admin/coin-orders/verify",{method:"POST",body:JSON.stringify({order_id:orderId})});
-        alert(data.message||"Coin با موفقیت به حساب کاربر اضافه شد.");
-        await loadAdminCoinOrders();
-    }catch(error){ alert(error.message); }
-}
-
-
-async function loadAdminTickets(){
-
-    if(!isAdmin()) return;
+    if(!isAdmin())
+        return;
 
     const box =
-        document.getElementById("adminTicketList");
+        document.getElementById(
+            "adminCoinList"
+        );
+
+    if(!box)
+        return;
 
     box.innerHTML =
-        `<div class="loading">در حال دریافت تیکت‌ها...</div>`;
+        `<div class="loading">
+            در حال دریافت درخواست‌های Coin...
+        </div>`;
 
     try{
 
         const data =
-            await api("/tickets");
+            await api(
+                "/admin/coin-orders"
+            );
+
+        const orders =
+            data.orders || [];
+
+        if(!orders.length){
+
+            box.innerHTML =
+                `<div class="empty">
+                    هیچ درخواست خرید Coin وجود ندارد.
+                </div>`;
+
+            return;
+        }
+
+        box.innerHTML =
+            orders
+                .map(order => {
+
+                    const status =
+                        String(
+                            order.status ||
+                            "pending"
+                        ).toLowerCase();
+
+                    const cls =
+                        status === "verified"
+                        ? "status-answered"
+                        : status === "rejected"
+                        ? "status-closed"
+                        : "status-open";
+
+                    const text =
+                        status === "verified"
+                        ? "تأیید شده"
+                        : status === "rejected"
+                        ? "رد شده"
+                        : "در انتظار بررسی";
+
+                    const amount =
+                        Number(
+                            order.amount || 0
+                        ).toLocaleString();
+
+                    const payment =
+                        Number(
+                            order.payment_amount ||
+                            0
+                        ).toLocaleString();
+
+                    const username =
+                        order.username ||
+                        order.user_username ||
+                        order.user_id ||
+                        "کاربر";
+
+                    const action =
+                        status === "pending"
+                        ? `
+                            <button
+                                class="primary-btn"
+                                style="width:auto;"
+                                onclick="
+                                    event.stopPropagation();
+                                    approveCoinOrder(
+                                        '${escapeAttr(order.id)}',
+                                        '${escapeAttr(username)}',
+                                        '${escapeAttr(amount)}'
+                                    )
+                                ">
+                                ✅ تأیید و شارژ
+                            </button>
+                        `
+                        : "";
+
+                    return `
+                        <div
+                            class="ticket-item">
+
+                            <div
+                                class="ticket-top">
+
+                                <div>
+
+                                    <div
+                                        class="ticket-subject">
+
+                                        💰
+                                        ${escapeHtml(
+                                            username
+                                        )}
+
+                                    </div>
+
+                                    <div
+                                        class="ticket-meta">
+
+                                        مقدار:
+                                        ${escapeHtml(
+                                            amount
+                                        )}
+                                        Coin
+
+                                        • مبلغ:
+                                        ${escapeHtml(
+                                            payment
+                                        )}
+                                        تومان
+
+                                    </div>
+
+                                    <div
+                                        class="ticket-meta">
+
+                                        🆔
+                                        ${escapeHtml(
+                                            order.id
+                                        )}
+
+                                        •
+                                        ${formatDate(
+                                            order.created_at
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                                <span
+                                    class="status ${cls}">
+
+                                    ${text}
+
+                                </span>
+
+                            </div>
+
+                            ${
+                                action
+                                ? `
+                                    <div
+                                        style="margin-top:12px;">
+                                        ${action}
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                        </div>
+                    `;
+                })
+                .join("");
+
+    }catch(error){
+
+        box.innerHTML =
+            `<div class="empty">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>`;
+    }
+}
+
+
+async function approveCoinOrder(
+    orderId,
+    username,
+    amount
+){
+
+    if(!isAdmin())
+        return;
+
+    if(
+        !confirm(
+            `درخواست ${amount} Coin برای ${username} تأیید شود؟`
+        )
+    ){
+
+        return;
+    }
+
+    try{
+
+        const data =
+            await api(
+                "/admin/coin-orders/verify",
+                {
+                    method:"POST",
+                    body:JSON.stringify({
+                        order_id:orderId
+                    })
+                }
+            );
+
+        alert(
+            data.message ||
+            "Coin با موفقیت به حساب کاربر اضافه شد."
+        );
+
+        await loadAdminCoinOrders();
+
+    }catch(error){
+
+        alert(
+            error.message
+        );
+    }
+}
+
+
+/* =========================
+   ADMIN TICKETS
+========================= */
+
+async function loadAdminTickets(){
+
+    if(!isAdmin())
+        return;
+
+    const box =
+        document.getElementById(
+            "adminTicketList"
+        );
+
+    box.innerHTML =
+        `<div class="loading">
+            در حال دریافت تیکت‌ها...
+        </div>`;
+
+    try{
+
+        const data =
+            await api(
+                "/tickets"
+            );
 
         adminTickets =
             data.tickets || [];
@@ -1741,7 +2756,11 @@ async function loadAdminTickets(){
     }catch(error){
 
         box.innerHTML =
-            `<div class="empty">${escapeHtml(error.message)}</div>`;
+            `<div class="empty">
+                ${escapeHtml(
+                    error.message
+                )}
+            </div>`;
     }
 }
 
@@ -1749,17 +2768,23 @@ async function loadAdminTickets(){
 function renderAdminTickets(){
 
     const box =
-        document.getElementById("adminTicketList");
+        document.getElementById(
+            "adminTicketList"
+        );
 
     let tickets =
         [...adminTickets];
 
-    if(ticketFilter !== "all"){
+    if(
+        ticketFilter !==
+        "all"
+    ){
 
         tickets =
             tickets.filter(
                 ticket =>
-                    ticket.status === ticketFilter
+                    ticket.status ===
+                    ticketFilter
             );
     }
 
@@ -1774,62 +2799,100 @@ function renderAdminTickets(){
     }
 
     box.innerHTML =
-        tickets.map(ticket => {
+        tickets
+            .map(ticket => {
 
-            return `
-                <div
-                    class="ticket-item"
-                    onclick="openTicket('${escapeAttr(ticket.id)}')">
+                return `
+                    <div
+                        class="ticket-item"
+                        onclick="
+                            openTicket(
+                                '${escapeAttr(ticket.id)}'
+                            )
+                        ">
 
-                    <div class="ticket-top">
+                        <div
+                            class="ticket-top">
 
-                        <div>
+                            <div>
 
-                            <div class="ticket-subject">
-                                🎫 ${escapeHtml(ticket.subject)}
+                                <div
+                                    class="ticket-subject">
+
+                                    🎫
+                                    ${escapeHtml(
+                                        ticket.subject
+                                    )}
+
+                                </div>
+
+                                <div
+                                    class="ticket-meta">
+
+                                    👤
+                                    ${escapeHtml(
+                                        ticket.username ||
+                                        ticket.user_id ||
+                                        "کاربر"
+                                    )}
+
+                                    •
+
+                                    ${formatDate(
+                                        ticket.created_at
+                                    )}
+
+                                </div>
+
                             </div>
 
-                            <div class="ticket-meta">
-                                👤 ${escapeHtml(
-                                    ticket.username ||
-                                    ticket.user_id ||
-                                    "کاربر"
-                                )}
-                                •
-                                ${formatDate(ticket.created_at)}
-                            </div>
+                            ${statusBadge(
+                                ticket.status ||
+                                "open"
+                            )}
 
                         </div>
 
-                        ${statusBadge(ticket.status || "open")}
-
                     </div>
+                `;
 
-                </div>
-            `;
-
-        }).join("");
+            })
+            .join("");
 }
 
 
 function setTicketFilter(filter){
 
-    ticketFilter = filter;
+    ticketFilter =
+        filter;
 
     document
-        .querySelectorAll(".filter-btn")
-        .forEach(btn => btn.classList.remove("active"));
+        .querySelectorAll(
+            ".filter-btn"
+        )
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
 
     const map = {
+
         all:"filterAll",
         open:"filterOpen",
         answered:"filterAnswered",
         closed:"filterClosed"
+
     };
 
     document
-        .getElementById(map[filter])
-        .classList.add("active");
+        .getElementById(
+            map[filter]
+        )
+        .classList.add(
+            "active"
+        );
 
     renderAdminTickets();
 }
@@ -1841,27 +2904,38 @@ function setTicketFilter(filter){
 
 function formatDate(timestamp){
 
-    if(!timestamp){
+    if(!timestamp)
         return "---";
-    }
 
     let date;
 
-    if(typeof timestamp === "number"){
+    if(
+        typeof timestamp ===
+        "number"
+    ){
 
         date =
             new Date(
-                timestamp < 1000000000000
+                timestamp <
+                1000000000000
                 ? timestamp * 1000
                 : timestamp
             );
 
     }else{
 
-        date = new Date(timestamp);
+        date =
+            new Date(
+                timestamp
+            );
     }
 
-    if(isNaN(date.getTime())){
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
         return "---";
     }
 
@@ -1880,20 +2954,45 @@ function formatDate(timestamp){
 
 function escapeHtml(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 }
 
 
 function escapeAttr(value){
 
-    return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    );
 }
 
 
@@ -1905,7 +3004,8 @@ async function init(){
 
     if(!token()){
 
-        location.href = "login.html";
+        location.href =
+            "login.html";
 
         return;
     }
@@ -1917,7 +3017,6 @@ async function init(){
         loadPurchases(),
         loadUserTickets()
     ]);
-
 }
 
 init();
