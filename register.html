@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -98,6 +99,7 @@ button:disabled{
     border-radius:10px;
     text-align:center;
     font-size:13px;
+    word-break:break-word;
 }
 
 .error{
@@ -130,118 +132,97 @@ button:disabled{
     text-decoration:underline;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="card">
 
-    <div class="logo">ᴍᴜꜰꜰɪɴꜱᴍᴘ</div>
+```
+<div class="logo">ᴍᴜꜰꜰɪɴꜱᴍᴘ</div>
 
-    <div class="subtitle">
-        ساخت حساب کاربری
-    </div>
+<div class="subtitle">
+    ساخت حساب کاربری
+</div>
 
-    <form id="registerForm">
+<form id="registerForm">
 
-        <label>
-            نام کاربری
-        </label>
+    <label>نام کاربری</label>
 
-        <input
-            id="username"
-            type="text"
-            placeholder="مثلاً MuffinPlayer"
-            minlength="3"
-            maxlength="20"
-            autocomplete="username"
-            required
-        >
+    <input
+        id="username"
+        type="text"
+        placeholder="مثلاً MuffinPlayer"
+        minlength="3"
+        maxlength="20"
+        autocomplete="username"
+        required
+    >
 
-        <label>
-            ایمیل
-        </label>
+    <label>ایمیل</label>
 
-        <input
-            id="email"
-            type="email"
-            placeholder="example@gmail.com"
-            autocomplete="email"
-            required
-        >
+    <input
+        id="email"
+        type="email"
+        placeholder="example@gmail.com"
+        autocomplete="email"
+        required
+    >
 
-        <label>
-            رمز عبور
-        </label>
+    <label>رمز عبور</label>
 
-        <input
-            id="password"
-            type="password"
-            placeholder="حداقل 8 کاراکتر"
-            minlength="8"
-            autocomplete="new-password"
-            required
-        >
+    <input
+        id="password"
+        type="password"
+        placeholder="حداقل 8 کاراکتر"
+        minlength="8"
+        autocomplete="new-password"
+        required
+    >
 
-        <label>
-            تکرار رمز عبور
-        </label>
+    <label>تکرار رمز عبور</label>
 
-        <input
-            id="confirmPassword"
-            type="password"
-            placeholder="رمز عبور را دوباره وارد کنید"
-            minlength="8"
-            autocomplete="new-password"
-            required
-        >
+    <input
+        id="confirmPassword"
+        type="password"
+        placeholder="رمز عبور را دوباره وارد کنید"
+        minlength="8"
+        autocomplete="new-password"
+        required
+    >
 
-        <button
-            id="registerBtn"
-            type="submit"
-        >
-            ساخت حساب
-        </button>
+    <button id="registerBtn" type="submit">
+        ساخت حساب
+    </button>
 
-    </form>
+</form>
 
-    <div
-        id="message"
-        class="message"
-    ></div>
+<div id="message" class="message"></div>
 
-    <div class="links">
+<div class="links">
 
-        قبلاً حساب داری؟
+    قبلاً حساب داری؟
 
-        <a href="login.html">
-            ورود به حساب
-        </a>
+    <a href="login.html">
+        ورود به حساب
+    </a>
 
-        <br><br>
+    <br><br>
 
-        <a href="index.html">
-            ← بازگشت به سایت
-        </a>
+    <a href="index.html">
+        ← بازگشت به سایت
+    </a>
 
-    </div>
+</div>
+```
 
 </div>
 
-
 <script>
-
-/* =========================================
-   MUFFIN SMP API
-   ========================================= */
 
 const API =
     "https://cullofduty63.cullofduty63.workers.dev/api";
-
-
-/* =========================================
-   ELEMENTS
-   ========================================= */
 
 const form =
     document.getElementById("registerForm");
@@ -251,11 +232,6 @@ const button =
 
 const message =
     document.getElementById("message");
-
-
-/* =========================================
-   MESSAGE
-   ========================================= */
 
 function showMessage(text, type){
 
@@ -267,17 +243,11 @@ function showMessage(text, type){
 
 }
 
-
-/* =========================================
-   REGISTER
-   ========================================= */
-
 form.addEventListener(
     "submit",
     async (e) => {
 
         e.preventDefault();
-
 
         const username =
             document
@@ -285,27 +255,21 @@ form.addEventListener(
                 .value
                 .trim();
 
-
         const email =
             document
                 .getElementById("email")
                 .value
                 .trim();
 
-
         const password =
             document
                 .getElementById("password")
                 .value;
 
-
         const confirmPassword =
             document
                 .getElementById("confirmPassword")
                 .value;
-
-
-        /* بررسی رمز */
 
         if(password !== confirmPassword){
 
@@ -317,9 +281,6 @@ form.addEventListener(
             return;
         }
 
-
-        /* حداقل طول رمز */
-
         if(password.length < 8){
 
             showMessage(
@@ -329,9 +290,6 @@ form.addEventListener(
 
             return;
         }
-
-
-        /* بررسی نام کاربری */
 
         if(username.length < 3){
 
@@ -343,14 +301,10 @@ form.addEventListener(
             return;
         }
 
-
-        /* Loading */
-
         button.disabled = true;
 
         button.textContent =
             "در حال ساخت حساب...";
-
 
         try{
 
@@ -373,9 +327,7 @@ form.addEventListener(
                     }
                 );
 
-
             let data = {};
-
 
             try{
 
@@ -388,27 +340,31 @@ form.addEventListener(
 
             }
 
+            console.log(
+                "Register HTTP Status:",
+                response.status
+            );
 
-            /* خطای API */
+            console.log(
+                "Register API Response:",
+                data
+            );
 
             if(!response.ok){
 
-                throw new Error(
+                const realError =
+                    data.detail ||
                     data.error ||
                     data.message ||
-                    "ثبت‌نام انجام نشد."
-                );
+                    `خطای سرور (${response.status})`;
 
+                throw new Error(realError);
             }
-
-
-            /* موفقیت */
 
             showMessage(
                 "✅ حساب با موفقیت ساخته شد! در حال انتقال به ورود...",
                 "success"
             );
-
 
             setTimeout(
                 () => {
@@ -420,7 +376,6 @@ form.addEventListener(
                 1500
             );
 
-
         }catch(error){
 
             console.error(
@@ -428,13 +383,11 @@ form.addEventListener(
                 error
             );
 
-
             showMessage(
                 error.message ||
                 "خطایی رخ داد.",
                 "error"
             );
-
 
         }finally{
 
