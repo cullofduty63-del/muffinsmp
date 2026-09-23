@@ -1,406 +1,445 @@
-```js
-/* =========================================
-   MUFFIN SMP - MAIN SCRIPT
-   ========================================= */
+/* =========================================================
+   MUFFINSMP WEBSITE SCRIPT
+   ========================================================= */
 
 const SERVER_IP = "play.muffinsmp.ir";
+
 const API = "https://cullofduty63.cullofduty63.workers.dev/api";
 
+const TOKEN_KEY = "muffin_token";
 
-/* =========================================
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+}
+
+
+function setToken(token) {
+    localStorage.setItem(TOKEN_KEY, token);
+}
+
+
+function removeToken() {
+    localStorage.removeItem(TOKEN_KEY);
+}
+
+
+async function apiFetch(endpoint, options = {}) {
+
+    const token = getToken();
+
+    const headers = {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+    };
+
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    return fetch(`${API}${endpoint}`, {
+        ...options,
+        headers
+    });
+}
+
+
+/* =========================================================
+   NAVBAR AUTH
+   ========================================================= */
+
+async function updateNavbar() {
+
+    const authArea = document.getElementById("authArea");
+    const heroAuthButton = document.getElementById("heroAuthButton");
+
+    if (!authArea) return;
+
+    const token = getToken();
+
+    /* -------------------------
+       NOT LOGGED IN
+       ------------------------- */
+
+    if (!token) {
+
+        authArea.innerHTML = `
+            <a href="login.html" class="nav-login">
+                ورود
+            </a>
+        `;
+
+        if (heroAuthButton) {
+
+            heroAuthButton.href = "login.html";
+
+            heroAuthButton.innerHTML = `
+                👤 ورود به حساب
+            `;
+        }
+
+        return;
+    }
+
+
+    /* -------------------------
+       CHECK USER
+       ------------------------- */
+
+    try {
+
+        const response = await apiFetch("/me");
+
+        const data = await response.json();
+
+
+        /* -------------------------
+           TOKEN INVALID
+           ------------------------- */
+
+        if (!response.ok || !data.success || !data.user) {
+
+            removeToken();
+
+            authArea.innerHTML = `
+                <a href="login.html" class="nav-login">
+                    ورود
+                </a>
+            `;
+
+            if (heroAuthButton) {
+
+                heroAuthButton.href = "login.html";
+
+                heroAuthButton.innerHTML = `
+                    👤 ورود به حساب
+                `;
+            }
+
+            return;
+        }
+
+
+        /* -------------------------
+           USER LOGGED IN
+           ------------------------- */
+
+        const username = data.user.username || "کاربر";
+
+
+        authArea.innerHTML = `
+            <a
+                href="panel.html"
+                class="nav-user"
+                title="ورود به پنل"
+            >
+                👤 ${escapeHtml(username)}
+            </a>
+
+            <a
+                href="#"
+                class="nav-logout"
+                onclick="logout(); return false;"
+            >
+                🚪 خروج
+            </a>
+        `;
+
+
+        if (heroAuthButton) {
+
+            heroAuthButton.href = "panel.html";
+
+            heroAuthButton.innerHTML = `
+                👤 پنل کاربری
+            `;
+        }
+
+
+    } catch (error) {
+
+        console.error("Auth check error:", error);
+
+        /*
+         * اگر API موقتاً در دسترس نبود،
+         * توکن را حذف نمی‌کنیم.
+         */
+
+        authArea.innerHTML = `
+            <a href="login.html" class="nav-login">
+                ورود
+            </a>
+        `;
+    }
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+    removeToken();
+
+    window.location.href = "index.html";
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
    COPY SERVER IP
-   ========================================= */
+   ========================================================= */
 
-function copyServerIP() {
+async function copyServerIP() {
 
-    const message =
-        document.getElementById("copyMessage");
+    try {
 
-    navigator.clipboard.writeText(SERVER_IP)
-        .then(() => {
+        await navigator.clipboard.writeText(SERVER_IP);
 
-            if (!message) return;
+        const message = document.getElementById("copyMessage");
+
+        if (message) {
 
             message.classList.add("show");
 
             setTimeout(() => {
                 message.classList.remove("show");
-            }, 2000);
-
-        })
-        .catch(() => {
-
-            const input =
-                document.createElement("input");
-
-            input.value = SERVER_IP;
-
-            document.body.appendChild(input);
-
-            input.select();
-
-            document.execCommand("copy");
-
-            input.remove();
-
-            if (message) {
-
-                message.classList.add("show");
-
-                setTimeout(() => {
-                    message.classList.remove("show");
-                }, 2000);
-
-            }
-
-        });
-
-}
-
-
-/* =========================================
-   SERVER STATUS
-   ========================================= */
-
-async function updateServerStatus() {
-
-    const status =
-        document.getElementById("serverStatus");
-
-    const players =
-        document.getElementById("playerCount");
-
-    const dot =
-        document.getElementById("statusDot");
-
-
-    if (!status || !players || !dot) {
-        return;
-    }
-
-
-    status.textContent =
-        "در حال بررسی...";
-
-    players.textContent =
-        "Checking...";
-
-    dot.style.background =
-        "#f1c40f";
-
-    dot.style.boxShadow =
-        "0 0 15px rgba(241,196,60,.7)";
-
-
-    const controller =
-        new AbortController();
-
-    const timeout =
-        setTimeout(
-            () => controller.abort(),
-            8000
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                `https://api.mcsrvstat.us/3/${SERVER_IP}`,
-                {
-                    cache: "no-store",
-                    signal: controller.signal
-                }
-            );
-
-
-        clearTimeout(timeout);
-
-
-        if (!response.ok) {
-            throw new Error(
-                "Status API error"
-            );
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if (data.online) {
-
-            const online =
-                data.players?.online ?? 0;
-
-            const max =
-                data.players?.max ?? 0;
-
-
-            status.textContent =
-                "🟢 سرور آنلاین است";
-
-
-            players.textContent =
-                `${online} / ${max} Players Online`;
-
-
-            dot.style.background =
-                "#2ecc71";
-
-
-            dot.style.boxShadow =
-                "0 0 15px rgba(46,204,113,.8)";
-
-        } else {
-
-            status.textContent =
-                "🔴 سرور آفلاین است";
-
-
-            players.textContent =
-                "Server Offline";
-
-
-            dot.style.background =
-                "#e74c3c";
-
-
-            dot.style.boxShadow =
-                "0 0 15px rgba(231,76,60,.8)";
-
+            }, 2500);
         }
 
     } catch (error) {
 
-        clearTimeout(timeout);
+        console.error("Copy error:", error);
 
+        /*
+         * Fallback
+         */
 
-        console.error(
-            "MuffinSMP Server Status:",
-            error
-        );
+        const textarea = document.createElement("textarea");
 
+        textarea.value = SERVER_IP;
 
-        status.textContent =
-            "⚠️ وضعیت سرور نامشخص";
+        document.body.appendChild(textarea);
 
+        textarea.select();
 
-        players.textContent =
-            "Unable to check server";
+        document.execCommand("copy");
 
+        textarea.remove();
 
-        dot.style.background =
-            "#f1c40f";
+        const message = document.getElementById("copyMessage");
 
+        if (message) {
 
-        dot.style.boxShadow =
-            "0 0 15px rgba(241,196,60,.7)";
+            message.classList.add("show");
 
+            setTimeout(() => {
+                message.classList.remove("show");
+            }, 2500);
+        }
     }
-
 }
 
 
-/* =========================================
-   LOAD SHOP FROM CLOUDFLARE API
-   ========================================= */
+/* =========================================================
+   SERVER STATUS
+   ========================================================= */
+
+async function checkServerStatus() {
+
+    const statusText = document.getElementById("serverStatus");
+    const statusDot = document.getElementById("statusDot");
+    const playerCount = document.getElementById("playerCount");
+
+    if (!statusText || !statusDot || !playerCount) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `https://api.mcsrvstat.us/3/${SERVER_IP}`
+        );
+
+        const data = await response.json();
+
+
+        if (data.online) {
+
+            statusText.textContent = "سرور آنلاین است";
+
+            statusDot.classList.add("online");
+
+            statusDot.classList.remove("offline");
+
+
+            const onlinePlayers =
+                data.players?.online ?? 0;
+
+            const maxPlayers =
+                data.players?.max ?? 0;
+
+
+            playerCount.textContent =
+                `${onlinePlayers} / ${maxPlayers} بازیکن`;
+
+
+        } else {
+
+            statusText.textContent =
+                "سرور آفلاین است";
+
+            statusDot.classList.add("offline");
+
+            statusDot.classList.remove("online");
+
+            playerCount.textContent =
+                "0 بازیکن";
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Server status error:",
+            error
+        );
+
+        statusText.textContent =
+            "خطا در بررسی سرور";
+
+        statusDot.classList.add("offline");
+
+        statusDot.classList.remove("online");
+
+        playerCount.textContent =
+            "نامشخص";
+    }
+}
+
+
+/* =========================================================
+   LOAD SHOP
+   ========================================================= */
 
 async function loadShop() {
 
     try {
 
-        const response =
-            await fetch(
-                `${API}/shop`,
-                {
-                    method: "GET",
-                    cache: "no-store"
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "MuffinSMP Shop API:",
-            data
+        const response = await fetch(
+            `${API}/shop`
         );
 
-
-        if (!response.ok || !data.success) {
-
-            throw new Error(
-                data.error ||
-                "Shop API error"
-            );
-
-        }
+        const data = await response.json();
 
 
-        const shop =
-            data.shop;
-
-
-        if (!shop) {
-
-            throw new Error(
-                "Shop data not found"
-            );
-
+        if (!data.success || !data.shop) {
+            return;
         }
 
 
         /*
-         * =====================================
-         * RANKS
-         * =====================================
+         * Update every product price
          */
 
-        updateShopPrice(
-            "nova",
-            shop.nova?.price
+        Object.entries(data.shop).forEach(
+            ([item, product]) => {
+
+                updateShopPrice(
+                    item,
+                    product.price
+                );
+
+            }
         );
 
-        updateShopPrice(
-            "vanta",
-            shop.vanta?.price
-        );
-
-        updateShopPrice(
-            "apex",
-            shop.apex?.price
-        );
-
-        updateShopPrice(
-            "sponsor",
-            shop.sponsor?.price
-        );
-
-
-        /*
-         * =====================================
-         * KEYS
-         * =====================================
-         */
-
-        updateShopPrice(
-            "prime",
-            shop.prime?.price
-        );
-
-        updateShopPrice(
-            "gold",
-            shop.gold?.price
-        );
-
-        updateShopPrice(
-            "crimson",
-            shop.crimson?.price
-        );
-
-        updateShopPrice(
-            "amethyst",
-            shop.amethyst?.price
-        );
-
-
-        console.log(
-            "MuffinSMP Shop Loaded"
-        );
 
     } catch (error) {
 
         console.error(
-            "MuffinSMP Shop Error:",
+            "Shop loading error:",
             error
         );
-
     }
-
 }
 
 
-/* =========================================
+/* =========================================================
    UPDATE SHOP PRICE
-   ========================================= */
+   ========================================================= */
 
-function updateShopPrice(
-    item,
-    price
-) {
-
-    if (
-        price === undefined ||
-        price === null
-    ) {
-        return;
-    }
-
+function updateShopPrice(item, price) {
 
     /*
-     * چند روش مختلف برای پیدا کردن
-     * قیمت در HTML
+     * Supports:
+     *
+     * data-shop-item="nova"
+     *
+     * OR
+     *
+     * id="price-nova"
      */
 
-    const elements =
-        document.querySelectorAll(
-            `[data-shop-item="${item}"]`
-        );
+    const selectors = [
+
+        `[data-shop-item="${item}"]`,
+
+        `#price-${item}`,
+
+        `#price-${String(item).toLowerCase()}`
+
+    ];
 
 
-    elements.forEach(element => {
+    selectors.forEach(selector => {
 
-        element.textContent =
-            Number(price).toLocaleString(
-                "en-US"
-            ) + " Coin";
+        const elements =
+            document.querySelectorAll(selector);
+
+
+        elements.forEach(element => {
+
+            element.textContent =
+                `${Number(price).toLocaleString("en-US")} Coin`;
+
+        });
 
     });
-
-
-    /*
-     * اگر HTML با ID ساخته شده باشد
-     */
-
-    const idElement =
-        document.getElementById(
-            `price-${item}`
-        );
-
-
-    if (idElement) {
-
-        idElement.textContent =
-            Number(price).toLocaleString(
-                "en-US"
-            ) + " Coin";
-
-    }
-
 }
 
 
-/* =========================================
+/* =========================================================
    BUY PRODUCT
-   ========================================= */
+   ========================================================= */
 
-function buyProduct(
-    type,
-    item
-) {
+async function buyProduct(type, item) {
 
-    const token =
-        localStorage.getItem(
-            "muffin_token"
-        );
+    const token = getToken();
 
 
-    /*
-     * اگر لاگین نشده باشد
-     */
+    /* -------------------------
+       NOT LOGGED IN
+       ------------------------- */
 
     if (!token) {
 
@@ -408,171 +447,418 @@ function buyProduct(
             "login.html";
 
         return;
-
     }
 
 
-    /*
-     * اگر لاگین باشد
-     */
+    /* -------------------------
+       NORMALIZE
+       ------------------------- */
 
-    window.location.href =
-        "panel.html?shop=" +
-        encodeURIComponent(type) +
-        "&item=" +
-        encodeURIComponent(item);
+    const normalizedType =
+        String(type).toLowerCase();
 
-}
+    const normalizedItem =
+        String(item).toLowerCase();
 
 
-/* =========================================
-   NAVBAR SCROLL
-   ========================================= */
+    try {
 
-window.addEventListener(
-    "scroll",
-    () => {
+        /*
+         * First check account
+         */
 
-        const navbar =
-            document.querySelector(
-                ".navbar"
-            );
+        const meResponse =
+            await apiFetch("/me");
+
+        const meData =
+            await meResponse.json();
 
 
-        if (!navbar) {
+        if (
+            !meResponse.ok ||
+            !meData.success ||
+            !meData.user
+        ) {
+
+            removeToken();
+
+            window.location.href =
+                "login.html";
+
             return;
         }
 
 
-        if (window.scrollY > 30) {
+        const username =
+            meData.user.username;
 
-            navbar.style.background =
-                "rgba(7,5,11,.96)";
 
-            navbar.style.boxShadow =
-                "0 10px 40px rgba(0,0,0,.25)";
+        /*
+         * Confirmation
+         */
 
-        } else {
+        const productName =
+            String(item).toUpperCase();
 
-            navbar.style.background =
-                "rgba(7,5,11,.82)";
 
-            navbar.style.boxShadow =
-                "none";
+        const confirmed = confirm(
+            `آیا مطمئنی می‌خواهی ${productName} را خریداری کنی؟`
+        );
 
+
+        if (!confirmed) {
+            return;
         }
 
+
+        /*
+         * Send purchase request
+         */
+
+        const response =
+            await apiFetch("/buy", {
+
+                method: "POST",
+
+                body: JSON.stringify({
+
+                    type: normalizedType,
+
+                    item: normalizedItem
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        /* -------------------------
+           SUCCESS
+           ------------------------- */
+
+        if (
+            response.ok &&
+            data.success
+        ) {
+
+            alert(
+                `✅ خرید با موفقیت ثبت شد!\n\n` +
+                `👤 حساب: ${username}\n` +
+                `📦 محصول: ${productName}\n\n` +
+                `پس از پردازش، محصول به Minecraft شما ارسال می‌شود.`
+            );
+
+
+            /*
+             * Optional panel redirect
+             */
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "panel.html";
+
+            }, 500);
+
+            return;
+        }
+
+
+        /* -------------------------
+           ERROR
+           ------------------------- */
+
+        alert(
+            `❌ ${data.error || "خرید انجام نشد."}`
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Purchase error:",
+            error
+        );
+
+        alert(
+            "❌ خطا در ارتباط با سرور."
+        );
     }
-);
+}
 
 
-/* =========================================
+/* =========================================================
+   SMOOTH NAVIGATION
+   ========================================================= */
+
+function setupSmoothNavigation() {
+
+    const links =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    links.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            function(event) {
+
+                const targetId =
+                    this.getAttribute("href");
+
+
+                if (
+                    !targetId ||
+                    targetId === "#"
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    document.querySelector(
+                        targetId
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+        );
+
+    });
+}
+
+
+/* =========================================================
    REVEAL ANIMATION
-   ========================================= */
+   ========================================================= */
 
-const revealElements =
-    document.querySelectorAll(
-        ".shop-card, .feature, .rules-box, .telegram-section"
-    );
+function setupRevealAnimation() {
+
+    const elements =
+        document.querySelectorAll(
+            ".shop-card, .feature, .rules-box, .telegram-section, .section-title"
+        );
 
 
-if (
-    "IntersectionObserver" in window
-) {
+    if (!elements.length) {
+        return;
+    }
 
-    const observer =
-        new IntersectionObserver(
-            entries => {
 
-                entries.forEach(
-                    entry => {
+    /*
+     * If IntersectionObserver exists
+     */
+
+    if ("IntersectionObserver" in window) {
+
+        const observer =
+            new IntersectionObserver(
+
+                entries => {
+
+                    entries.forEach(entry => {
 
                         if (
                             entry.isIntersecting
                         ) {
 
-                            entry.target.style.opacity =
-                                "1";
-
-                            entry.target.style.transform =
-                                "translateY(0)";
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
                             observer.unobserve(
                                 entry.target
                             );
-
                         }
 
-                    }
-                );
+                    });
 
-            },
-            {
-                threshold: 0.08
-            }
-        );
+                },
+
+                {
+                    threshold: 0.12
+                }
+
+            );
 
 
-    revealElements.forEach(
-        element => {
+        elements.forEach(element => {
 
-            element.style.opacity =
-                "0";
-
-            element.style.transform =
-                "translateY(25px)";
-
-            element.style.transition =
-                "opacity .6s ease, transform .6s ease";
+            element.classList.add(
+                "reveal"
+            );
 
             observer.observe(
                 element
             );
 
-        }
-    );
+        });
 
+        return;
+    }
+
+
+    /*
+     * Fallback
+     */
+
+    elements.forEach(element => {
+
+        element.classList.add(
+            "visible"
+        );
+
+    });
 }
 
 
-/* =========================================
+/* =========================================================
    TELEGRAM
-   ========================================= */
+   ========================================================= */
+
+function setupTelegram() {
+
+    const telegramLinks =
+        document.querySelectorAll(
+            'a[href*="t.me/muffinsmp"]'
+        );
+
+
+    telegramLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "MuffinSMP Telegram opened"
+                );
+
+            }
+        );
+
+    });
+}
+
+
+/* =========================================================
+   PREVENT DOUBLE BUY CLICK
+   ========================================================= */
+
+function setupBuyButtons() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".buy-btn"
+        );
+
+
+    buttons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    this.dataset.loading === "true"
+                ) {
+                    return;
+                }
+
+                this.dataset.loading =
+                    "true";
+
+
+                const originalText =
+                    this.innerHTML;
+
+
+                setTimeout(() => {
+
+                    this.dataset.loading =
+                        "false";
+
+                    this.innerHTML =
+                        originalText;
+
+                }, 1500);
+
+            }
+        );
+
+    });
+}
+
+
+/* =========================================================
+   PAGE START
+   ========================================================= */
 
 document.addEventListener(
-    "click",
-    event => {
+    "DOMContentLoaded",
+    async () => {
 
-        const telegram =
-            event.target.closest(
-                'a[href*="t.me/muffinsmp"]'
-            );
+        /*
+         * Navbar
+         */
 
-
-        if (!telegram) {
-            return;
-        }
+        await updateNavbar();
 
 
-        console.log(
-            "MuffinSMP Telegram opened"
+        /*
+         * Server status
+         */
+
+        checkServerStatus();
+
+
+        /*
+         * Refresh server status
+         * every 30 seconds
+         */
+
+        setInterval(
+            checkServerStatus,
+            30000
         );
+
+
+        /*
+         * Shop prices
+         */
+
+        loadShop();
+
+
+        /*
+         * UI
+         */
+
+        setupSmoothNavigation();
+
+        setupRevealAnimation();
+
+        setupTelegram();
+
+        setupBuyButtons();
 
     }
 );
-
-
-/* =========================================
-   START
-   ========================================= */
-
-updateServerStatus();
-
-loadShop();
-
-
-setInterval(
-    updateServerStatus,
-    30000
-);
-```
