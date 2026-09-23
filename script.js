@@ -1,6 +1,8 @@
+```js
 /* =========================================
    MUFFIN SMP - MAIN SCRIPT
    ========================================= */
+
 const SERVER_IP = "play.muffinsmp.ir";
 const API = "https://cullofduty63.cullofduty63.workers.dev/api";
 
@@ -11,7 +13,8 @@ const API = "https://cullofduty63.cullofduty63.workers.dev/api";
 
 function copyServerIP() {
 
-    const message = document.getElementById("copyMessage");
+    const message =
+        document.getElementById("copyMessage");
 
     navigator.clipboard.writeText(SERVER_IP)
         .then(() => {
@@ -27,7 +30,8 @@ function copyServerIP() {
         })
         .catch(() => {
 
-            const input = document.createElement("input");
+            const input =
+                document.createElement("input");
 
             input.value = SERVER_IP;
 
@@ -75,38 +79,48 @@ async function updateServerStatus() {
     }
 
 
-    status.textContent = "در حال بررسی...";
+    status.textContent =
+        "در حال بررسی...";
 
-    players.textContent = "Checking...";
+    players.textContent =
+        "Checking...";
 
-    dot.style.background = "#f1c40f";
+    dot.style.background =
+        "#f1c40f";
 
     dot.style.boxShadow =
         "0 0 15px rgba(241,196,60,.7)";
 
 
-    const controller = new AbortController();
+    const controller =
+        new AbortController();
 
     const timeout =
-        setTimeout(() => controller.abort(), 8000);
+        setTimeout(
+            () => controller.abort(),
+            8000
+        );
 
 
     try {
 
-        const response = await fetch(
-            `https://api.mcsrvstat.us/3/${SERVER_IP}`,
-            {
-                cache: "no-store",
-                signal: controller.signal
-            }
-        );
+        const response =
+            await fetch(
+                `https://api.mcsrvstat.us/3/${SERVER_IP}`,
+                {
+                    cache: "no-store",
+                    signal: controller.signal
+                }
+            );
 
 
         clearTimeout(timeout);
 
 
         if (!response.ok) {
-            throw new Error("Status API error");
+            throw new Error(
+                "Status API error"
+            );
         }
 
 
@@ -189,19 +203,204 @@ async function updateServerStatus() {
 
 
 /* =========================================
-   SHOP
+   LOAD SHOP FROM CLOUDFLARE API
    ========================================= */
 
-function buyProduct(type, item) {
+async function loadShop() {
 
-    const token =
-        localStorage.getItem("muffin_token");
+    try {
+
+        const response =
+            await fetch(
+                `${API}/shop`,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "MuffinSMP Shop API:",
+            data
+        );
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.error ||
+                "Shop API error"
+            );
+
+        }
+
+
+        const shop =
+            data.shop;
+
+
+        if (!shop) {
+
+            throw new Error(
+                "Shop data not found"
+            );
+
+        }
+
+
+        /*
+         * =====================================
+         * RANKS
+         * =====================================
+         */
+
+        updateShopPrice(
+            "nova",
+            shop.nova?.price
+        );
+
+        updateShopPrice(
+            "vanta",
+            shop.vanta?.price
+        );
+
+        updateShopPrice(
+            "apex",
+            shop.apex?.price
+        );
+
+        updateShopPrice(
+            "sponsor",
+            shop.sponsor?.price
+        );
+
+
+        /*
+         * =====================================
+         * KEYS
+         * =====================================
+         */
+
+        updateShopPrice(
+            "prime",
+            shop.prime?.price
+        );
+
+        updateShopPrice(
+            "gold",
+            shop.gold?.price
+        );
+
+        updateShopPrice(
+            "crimson",
+            shop.crimson?.price
+        );
+
+        updateShopPrice(
+            "amethyst",
+            shop.amethyst?.price
+        );
+
+
+        console.log(
+            "MuffinSMP Shop Loaded"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "MuffinSMP Shop Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   UPDATE SHOP PRICE
+   ========================================= */
+
+function updateShopPrice(
+    item,
+    price
+) {
+
+    if (
+        price === undefined ||
+        price === null
+    ) {
+        return;
+    }
 
 
     /*
-       اگر وارد نشده باشد،
-       اول میره صفحه Login.
-    */
+     * چند روش مختلف برای پیدا کردن
+     * قیمت در HTML
+     */
+
+    const elements =
+        document.querySelectorAll(
+            `[data-shop-item="${item}"]`
+        );
+
+
+    elements.forEach(element => {
+
+        element.textContent =
+            Number(price).toLocaleString(
+                "en-US"
+            ) + " Coin";
+
+    });
+
+
+    /*
+     * اگر HTML با ID ساخته شده باشد
+     */
+
+    const idElement =
+        document.getElementById(
+            `price-${item}`
+        );
+
+
+    if (idElement) {
+
+        idElement.textContent =
+            Number(price).toLocaleString(
+                "en-US"
+            ) + " Coin";
+
+    }
+
+}
+
+
+/* =========================================
+   BUY PRODUCT
+   ========================================= */
+
+function buyProduct(
+    type,
+    item
+) {
+
+    const token =
+        localStorage.getItem(
+            "muffin_token"
+        );
+
+
+    /*
+     * اگر لاگین نشده باشد
+     */
 
     if (!token) {
 
@@ -214,10 +413,8 @@ function buyProduct(type, item) {
 
 
     /*
-       اگر لاگین باشد،
-       میره پنل تا خرید واقعی
-       از موجودی Coin انجام شود.
-    */
+     * اگر لاگین باشد
+     */
 
     window.location.href =
         "panel.html?shop=" +
@@ -237,7 +434,9 @@ window.addEventListener(
     () => {
 
         const navbar =
-            document.querySelector(".navbar");
+            document.querySelector(
+                ".navbar"
+            );
 
 
         if (!navbar) {
@@ -277,28 +476,35 @@ const revealElements =
     );
 
 
-if ("IntersectionObserver" in window) {
+if (
+    "IntersectionObserver" in window
+) {
 
     const observer =
         new IntersectionObserver(
             entries => {
 
-                entries.forEach(entry => {
+                entries.forEach(
+                    entry => {
 
-                    if (entry.isIntersecting) {
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                        entry.target.style.opacity = "1";
+                            entry.target.style.opacity =
+                                "1";
 
-                        entry.target.style.transform =
-                            "translateY(0)";
+                            entry.target.style.transform =
+                                "translateY(0)";
 
-                        observer.unobserve(
-                            entry.target
-                        );
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
 
                     }
-
-                });
+                );
 
             },
             {
@@ -307,19 +513,24 @@ if ("IntersectionObserver" in window) {
         );
 
 
-    revealElements.forEach(element => {
+    revealElements.forEach(
+        element => {
 
-        element.style.opacity = "0";
+            element.style.opacity =
+                "0";
 
-        element.style.transform =
-            "translateY(25px)";
+            element.style.transform =
+                "translateY(25px)";
 
-        element.style.transition =
-            "opacity .6s ease, transform .6s ease";
+            element.style.transition =
+                "opacity .6s ease, transform .6s ease";
 
-        observer.observe(element);
+            observer.observe(
+                element
+            );
 
-    });
+        }
+    );
 
 }
 
@@ -357,7 +568,11 @@ document.addEventListener(
 
 updateServerStatus();
 
+loadShop();
+
+
 setInterval(
     updateServerStatus,
     30000
 );
+```
