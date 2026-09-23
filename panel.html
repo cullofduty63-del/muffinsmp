@@ -672,6 +672,17 @@ footer{
 
     </section>
 
+    <!-- ADMIN COIN PANEL -->
+    <section id="adminCoinSection" class="admin-section hidden">
+        <div class="card">
+            <div class="admin-head">
+                <div><h2>💰 مدیریت Muffin Coin</h2><div class="sub">درخواست‌های خرید Coin کاربران MuffinSMP</div></div>
+                <button class="secondary-btn" onclick="loadAdminCoinOrders()">🔄 بروزرسانی</button>
+            </div>
+            <div id="adminCoinList" class="ticket-list"><div class="loading">در حال دریافت درخواست‌ها...</div></div>
+        </div>
+    </section>
+
 </main>
 
 <footer>
@@ -681,48 +692,17 @@ footer{
 
 <!-- COIN MODAL -->
 <div id="coinModal" class="modal-bg hidden">
-
     <div class="modal">
-
         <h2>💰 خرید Muffin Coin</h2>
-
-        <div class="notice">
-            مقدار Coin موردنظر را وارد کن.
-            <br>
-            هر ۱ تومان = ۱ Muffin Coin
-        </div>
-
+        <div class="notice">مقدار Coin موردنظر را وارد کن.<br>هر ۱ تومان = ۱ Muffin Coin<br><br>💳 بعد از ثبت درخواست، مدیریت درخواست را بررسی می‌کند.<br>✅ پس از تأیید، Coin به حساب شما اضافه می‌شود.</div>
         <br>
-
-        <input
-            id="coinAmount"
-            class="input"
-            type="number"
-            min="1"
-            placeholder="مثلاً 100000"
-        >
-
-        <input
-            id="coinReceipt"
-            class="input"
-            type="text"
-            placeholder="شماره پیگیری / رسید پرداخت"
-        >
-
+        <input id="coinAmount" class="input" type="number" min="1" step="1" placeholder="مثلاً 100000">
         <div class="modal-actions">
-            <button class="primary-btn" onclick="submitCoinOrder()">
-                ثبت درخواست
-            </button>
-
-            <button class="secondary-btn" onclick="closeModal('coinModal')">
-                بستن
-            </button>
+            <button class="primary-btn" onclick="submitCoinOrder()">💳 ثبت درخواست خرید</button>
+            <button class="secondary-btn" onclick="closeModal('coinModal')">بستن</button>
         </div>
-
     </div>
-
 </div>
-
 
 <!-- LINK MODAL -->
 <div id="linkModal" class="modal-bg hidden">
@@ -959,7 +939,12 @@ async function loadUser(){
                 .getElementById("adminSection")
                 .classList.remove("hidden");
 
+            document
+                .getElementById("adminCoinSection")
+                .classList.remove("hidden");
+
             loadAdminTickets();
+            loadAdminCoinOrders();
         }
 
     }catch(error){
@@ -1224,44 +1209,25 @@ function openCoinModal(){
 
 async function submitCoinOrder(){
 
-    const amount =
-        Number(document.getElementById("coinAmount").value);
+    const amount = Number(document.getElementById("coinAmount").value);
 
-    const receipt =
-        document.getElementById("coinReceipt").value.trim();
-
-    if(!amount || amount < 1){
-
-        alert("مقدار Coin را وارد کن.");
-
+    if(!Number.isInteger(amount) || amount < 1){
+        alert("مقدار Coin را به صورت عدد صحیح وارد کن.");
         return;
     }
 
+    if(!confirm(`درخواست خرید ${amount.toLocaleString()} Muffin Coin ثبت شود؟`)) return;
+
     try{
-
-        const data =
-            await api("/coins/order",{
-                method:"POST",
-                body:JSON.stringify({
-                    amount,
-                    receipt
-                })
-            });
-
-        alert(
-            data.message ||
-            "درخواست خرید Coin ثبت شد."
-        );
-
+        const data = await api("/coins/order",{
+            method:"POST",
+            body:JSON.stringify({amount})
+        });
+        alert(data.message || "درخواست خرید Coin ثبت شد.");
         document.getElementById("coinAmount").value = "";
-        document.getElementById("coinReceipt").value = "";
-
         closeModal("coinModal");
-
     }catch(error){
-
         alert(error.message);
-
     }
 }
 
@@ -1712,6 +1678,43 @@ function isAdmin(){
         rank === "ADMIN" ||
         rank === "OWNER"
     );
+}
+
+
+/* =========================
+   ADMIN COIN
+========================= */
+
+async function loadAdminCoinOrders(){
+    if(!isAdmin()) return;
+    const box=document.getElementById("adminCoinList");
+    if(!box) return;
+    box.innerHTML=`<div class="loading">در حال دریافت درخواست‌های Coin...</div>`;
+    try{
+        const data=await api("/admin/coin-orders");
+        const orders=data.orders||[];
+        if(!orders.length){ box.innerHTML=`<div class="empty">هیچ درخواست خرید Coin وجود ندارد.</div>`; return; }
+        box.innerHTML=orders.map(order=>{
+            const status=String(order.status||"pending").toLowerCase();
+            const cls=status==="verified"?"status-answered":status==="rejected"?"status-closed":"status-open";
+            const text=status==="verified"?"تأیید شده":status==="rejected"?"رد شده":"در انتظار بررسی";
+            const amount=Number(order.amount||0).toLocaleString();
+            const payment=Number(order.payment_amount||0).toLocaleString();
+            const username=order.username||order.user_username||order.user_id||"کاربر";
+            const action=status==="pending"?`<button class="primary-btn" style="width:auto;" onclick="event.stopPropagation();approveCoinOrder('${escapeAttr(order.id)}','${escapeAttr(username)}','${escapeAttr(amount)}')">✅ تأیید و شارژ</button>`:"";
+            return `<div class="ticket-item"><div class="ticket-top"><div><div class="ticket-subject">💰 ${escapeHtml(username)}</div><div class="ticket-meta">مقدار: ${escapeHtml(amount)} Coin • مبلغ: ${escapeHtml(payment)} تومان</div><div class="ticket-meta">🆔 ${escapeHtml(order.id)} • ${formatDate(order.created_at)}</div></div><span class="status ${cls}">${text}</span></div>${action?`<div style="margin-top:12px;">${action}</div>`:""}</div>`;
+        }).join("");
+    }catch(error){ box.innerHTML=`<div class="empty">${escapeHtml(error.message)}</div>`; }
+}
+
+async function approveCoinOrder(orderId,username,amount){
+    if(!isAdmin()) return;
+    if(!confirm(`درخواست ${amount} Coin برای ${username} تأیید شود؟`)) return;
+    try{
+        const data=await api("/admin/coin-orders/verify",{method:"POST",body:JSON.stringify({order_id:orderId})});
+        alert(data.message||"Coin با موفقیت به حساب کاربر اضافه شد.");
+        await loadAdminCoinOrders();
+    }catch(error){ alert(error.message); }
 }
 
 
