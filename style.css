@@ -34,7 +34,6 @@ button {
     color: #fff;
 }
 
-
 /* ================= NAVBAR ================= */
 
 .navbar {
@@ -60,9 +59,7 @@ button {
     font-size: 25px;
     font-weight: 900;
     letter-spacing: 1px;
-
     color: #fff;
-
     transition: .25s;
 }
 
@@ -91,12 +88,10 @@ button {
     color: #fff;
 }
 
-
-/* ================= NAV LOGIN ================= */
+/* ================= LOGIN ================= */
 
 .nav-login {
     padding: 9px 18px;
-
     border-radius: 11px;
 
     color: #fff !important;
@@ -107,18 +102,15 @@ button {
         #a95cff
     );
 
-    box-shadow:
-        0 8px 25px rgba(169,92,255,.18);
+    box-shadow: 0 8px 25px rgba(169,92,255,.18);
 
     transition: .25s;
 }
 
 .nav-login:hover {
     transform: translateY(-2px);
-    box-shadow:
-        0 12px 35px rgba(169,92,255,.35);
+    box-shadow: 0 12px 35px rgba(169,92,255,.35);
 }
-
 
 /* ================= HERO ================= */
 
@@ -173,7 +165,6 @@ button {
 .hero-content {
     position: relative;
     z-index: 2;
-
     max-width: 850px;
 }
 
@@ -193,8 +184,7 @@ button {
     font-size: 13px;
     font-weight: 700;
 
-    box-shadow:
-        0 0 30px rgba(169,92,255,.08);
+    box-shadow: 0 0 30px rgba(169,92,255,.08);
 }
 
 .hero h1 {
@@ -255,7 +245,6 @@ button {
 .buy-btn,
 .telegram-btn {
     border: 0;
-
     cursor: pointer;
 
     transition:
@@ -280,15 +269,13 @@ button {
             #b65cff
         );
 
-    box-shadow:
-        0 12px 35px rgba(169,92,255,.22);
+    box-shadow: 0 12px 35px rgba(169,92,255,.22);
 }
 
 .main-btn:hover {
     transform: translateY(-3px);
 
-    box-shadow:
-        0 17px 45px rgba(169,92,255,.35);
+    box-shadow: 0 17px 45px rgba(169,92,255,.35);
 }
 
 .second-btn {
@@ -305,7 +292,6 @@ button {
 
 .second-btn:hover {
     transform: translateY(-3px);
-
     background: rgba(255,255,255,.08);
 }
 
@@ -325,7 +311,6 @@ button {
     opacity: 1;
 }
 
-
 /* ================= SERVER STATUS ================= */
 
 .server-status {
@@ -339,7 +324,9 @@ button {
     padding: 22px 25px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
+
+    grid-template-columns:
+        1fr 1fr auto;
 
     gap: 20px;
 
@@ -356,8 +343,7 @@ button {
 
     border: 1px solid rgba(255,255,255,.08);
 
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.45);
+    box-shadow: 0 25px 80px rgba(0,0,0,.45);
 }
 
 .status-item {
@@ -379,13 +365,11 @@ button {
 
     background: #f1c40f;
 
-    box-shadow:
-        0 0 15px rgba(241,196,60,.5);
+    box-shadow: 0 0 15px rgba(241,196,60,.5);
 }
 
 #playerCount {
     color: #9d94a7;
-
     text-align: center;
 }
 
@@ -403,7 +387,6 @@ button {
     border: 1px solid rgba(169,92,255,.10);
 }
 
-
 /* ================= SECTIONS ================= */
 
 .section {
@@ -416,7 +399,6 @@ button {
 
 .section-title {
     text-align: center;
-
     margin-bottom: 42px;
 }
 
@@ -445,7 +427,6 @@ button {
 
     font-size: 14px;
 }
-
 
 /* ================= CARDS ================= */
 
@@ -476,8 +457,7 @@ button {
 
     border: 1px solid rgba(255,255,255,.08);
 
-    box-shadow:
-        0 18px 55px rgba(0,0,0,.25);
+    box-shadow: 0 18px 55px rgba(0,0,0,.25);
 
     transition:
         transform .3s,
@@ -505,8 +485,7 @@ button {
 .shop-card:hover {
     transform: translateY(-8px);
 
-    border-color:
-        rgba(169,92,255,.30);
+    border-color: rgba(169,92,255,.30);
 
     box-shadow:
         0 25px 70px rgba(0,0,0,.45),
@@ -526,7 +505,6 @@ button {
 .rank-icon,
 .key-icon {
     position: relative;
-
     font-size: 29px;
 }
 
@@ -598,10 +576,8 @@ button {
 
     filter: brightness(1.12);
 
-    box-shadow:
-        0 10px 30px rgba(169,92,255,.23);
+    box-shadow: 0 10px 30px rgba(169,92,255,.23);
 }
-
 
 /* ================= RANK COLORS ================= */
 
@@ -637,12 +613,15 @@ button {
     filter: drop-shadow(0 0 12px #ffd34d55);
 }
 
-
-/* ================= KEY GRID ================= */
+/* ================= KEYS ================= */
 
 .keys-grid {
+    display: grid;
+
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
 }
 
 .keys-grid .shop-card {
@@ -652,7 +631,6 @@ button {
 .keys-grid .buy-btn {
     margin-top: 25px;
 }
-
 
 /* ================= FEATURES ================= */
 
@@ -679,11 +657,20 @@ button {
     background: rgba(255,255,255,.025);
 
     border: 1px solid rgba(255,255,255,.07);
+
+    transition: .25s;
+}
+
+.feature:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(169,92,255,.25);
+
+    background: rgba(169,92,255,.045);
 }
 
 .feature b {
     display: block;
-
     font-size: 17px;
 }
 
@@ -696,7 +683,6 @@ button {
 
     font-size: 12px;
 }
-
 
 /* ================= RULES ================= */
 
@@ -718,8 +704,7 @@ button {
 
     border: 1px solid rgba(255,255,255,.08);
 
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.25);
+    box-shadow: 0 20px 70px rgba(0,0,0,.25);
 }
 
 .rules-box p {
@@ -735,7 +720,6 @@ button {
 .rules-box p:last-child {
     border-bottom: 0;
 }
-
 
 /* ================= TELEGRAM ================= */
 
@@ -778,13 +762,11 @@ button {
 
 .telegram-section h2 {
     margin-top: 6px;
-
     font-size: 28px;
 }
 
 .telegram-section p {
     margin-top: 5px;
-
     color: #93899d;
 }
 
@@ -799,17 +781,14 @@ button {
 
     font-weight: 800;
 
-    box-shadow:
-        0 12px 30px rgba(34,158,217,.15);
+    box-shadow: 0 12px 30px rgba(34,158,217,.15);
 }
 
 .telegram-btn:hover {
     transform: translateY(-3px);
 
-    box-shadow:
-        0 17px 40px rgba(34,158,217,.25);
+    box-shadow: 0 17px 40px rgba(34,158,217,.25);
 }
-
 
 /* ================= FOOTER ================= */
 
@@ -835,12 +814,73 @@ footer {
 
 footer p {
     margin-top: 6px;
-
     font-size: 12px;
 }
 
+/* ================= COMING SOON ================= */
 
-/* ================= RESPONSIVE ================= */
+.coming-soon {
+    position: relative;
+
+    overflow: hidden;
+
+    opacity: .62;
+
+    filter: saturate(.45);
+
+    cursor: not-allowed;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,10,16,.98),
+            rgba(7,6,10,.98)
+        ) !important;
+
+    border-color: rgba(255,255,255,.055) !important;
+}
+
+.coming-soon::after {
+    content: "COMING SOON";
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: #b7a9c5;
+
+    background:
+        rgba(5,4,8,.68);
+
+    backdrop-filter: blur(3px);
+
+    -webkit-backdrop-filter: blur(3px);
+
+    z-index: 10;
+}
+
+.coming-soon:hover {
+    transform: none;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.25);
+}
+
+/* ================= MOBILE ================= */
 
 @media (max-width: 1050px) {
 
@@ -859,7 +899,6 @@ footer p {
             repeat(2, 1fr);
     }
 }
-
 
 @media (max-width: 700px) {
 
@@ -885,7 +924,6 @@ footer p {
 
     .hero h1 {
         font-size: 45px;
-
         letter-spacing: -1px;
     }
 
@@ -900,7 +938,6 @@ footer p {
     .main-btn,
     .second-btn {
         width: 100%;
-
         text-align: center;
     }
 
@@ -945,7 +982,6 @@ footer p {
 
     .telegram-btn {
         width: 100%;
-
         text-align: center;
     }
 
@@ -953,7 +989,6 @@ footer p {
         min-height: auto;
     }
 }
-
 
 @media (max-width: 420px) {
 
