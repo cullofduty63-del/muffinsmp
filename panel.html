@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MuffinSMP Panel</title>
+<title>MuffinMC Panel</title>
 
 <style>
 *{
@@ -523,7 +523,7 @@ footer{
 <body>
 
 <nav class="navbar">
-    <div class="logo">ᴍᴜꜰꜰɪɴѕᴍᴘ</div>
+    <div class="logo">ᴍᴜꜰꜰɪɴᴍᴄ</div>
 
     <div class="nav-right">
         <button class="nav-btn" onclick="goHome()">خانه</button>
@@ -636,7 +636,7 @@ footer{
     <section class="shop-section">
 
         <h2 class="section-title">
-            🛒 فروشگاه MuffinSMP
+            🛒 فروشگاه MuffinMC
         </h2>
 
         <div
@@ -730,7 +730,7 @@ footer{
                     </h2>
 
                     <div class="sub">
-                        مدیریت تیکت‌های کاربران MuffinSMP
+                        مدیریت تیکت‌های کاربران MuffinMC
                     </div>
 
                 </div>
@@ -805,7 +805,7 @@ footer{
                     </h2>
 
                     <div class="sub">
-                        درخواست‌های خرید Coin کاربران MuffinSMP
+                        درخواست‌های خرید Coin کاربران MuffinMC
                     </div>
 
                 </div>
@@ -835,7 +835,7 @@ footer{
 </main>
 
 <footer>
-    MuffinSMP © 2026
+    MuffinMC © 2026
 </footer>
 
 
@@ -1155,14 +1155,15 @@ let currentTicketId = null;
 let adminTickets = [];
 let ticketFilter = "all";
 
-/* =========================
-   DELIVERY
-========================= */
-
 let pendingPurchase = {
     type: null,
     item: null
 };
+
+
+/* =========================
+   DELIVERY
+========================= */
 
 function openDeliveryModal(type,item,price,name){
 
@@ -1322,14 +1323,18 @@ async function submitDeliveryPurchase(){
 ========================= */
 
 function token(){
-    return localStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(
+        TOKEN_KEY
+    );
 }
+
 
 function authHeaders(){
 
     return {
         "Content-Type":"application/json",
-        "Authorization":"Bearer " + token()
+        "Authorization":
+            "Bearer " + token()
     };
 }
 
@@ -1342,23 +1347,25 @@ async function api(path,options = {}){
     };
 
     const response =
-        await fetch(API + path,options);
+        await fetch(
+            API + path,
+            options
+        );
 
     let data = {};
 
     try{
-
         data =
             await response.json();
-
     }catch(e){
-
         data = {};
     }
 
     if(response.status === 401){
 
-        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(
+            TOKEN_KEY
+        );
 
         location.href =
             "login.html";
@@ -1422,15 +1429,7 @@ async function loadUser(){
 
         renderUser();
 
-        if(
-            String(
-                currentUser.rank || ""
-            ).toUpperCase() === "ADMIN" ||
-
-            String(
-                currentUser.rank || ""
-            ).toUpperCase() === "OWNER"
-        ){
+        if(isAdmin()){
 
             document
                 .getElementById(
@@ -1457,7 +1456,8 @@ async function loadUser(){
 
 function renderUser(){
 
-    if(!currentUser) return;
+    if(!currentUser)
+        return;
 
     document.getElementById(
         "username"
@@ -1830,7 +1830,6 @@ async function submitCoinOrder(){
             `درخواست خرید ${amount.toLocaleString()} Muffin Coin ثبت شود؟`
         )
     ){
-
         return;
     }
 
@@ -2424,7 +2423,6 @@ async function closeCurrentTicket(){
             "تیکت بسته شود؟"
         )
     ){
-
         return;
     }
 
@@ -2449,7 +2447,6 @@ async function closeCurrentTicket(){
         await loadUserTickets();
 
         if(isAdmin()){
-
             await loadAdminTickets();
         }
 
@@ -2536,14 +2533,14 @@ async function loadAdminCoinOrders(){
                         ).toLowerCase();
 
                     const cls =
-                        status === "verified"
+                        status === "approved"
                         ? "status-answered"
                         : status === "rejected"
                         ? "status-closed"
                         : "status-open";
 
                     const text =
-                        status === "verified"
+                        status === "approved"
                         ? "تأیید شده"
                         : status === "rejected"
                         ? "رد شده"
@@ -2689,7 +2686,6 @@ async function approveCoinOrder(
             `درخواست ${amount} Coin برای ${username} تأیید شود؟`
         )
     ){
-
         return;
     }
 
@@ -2935,7 +2931,6 @@ function formatDate(timestamp){
             date.getTime()
         )
     ){
-
         return "---";
     }
 
