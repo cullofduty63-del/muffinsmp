@@ -1,8 +1,8 @@
 /* =========================================================
-   MUFFINSMP WEBSITE SCRIPT
+   MUFFINMC WEBSITE SCRIPT
    ========================================================= */
 
-const SERVER_IP = "play.muffinsmp.ir";
+const SERVER_IP = "play.muffinmc.ir";
 
 const API = "https://cullofduty63.cullofduty63.workers.dev/api";
 
@@ -17,16 +17,13 @@ function getToken() {
     return localStorage.getItem(TOKEN_KEY);
 }
 
-
 function setToken(token) {
     localStorage.setItem(TOKEN_KEY, token);
 }
 
-
 function removeToken() {
     localStorage.removeItem(TOKEN_KEY);
 }
-
 
 async function apiFetch(endpoint, options = {}) {
 
@@ -61,10 +58,6 @@ async function updateNavbar() {
 
     const token = getToken();
 
-    /* -------------------------
-       NOT LOGGED IN
-       ------------------------- */
-
     if (!token) {
 
         authArea.innerHTML = `
@@ -74,7 +67,6 @@ async function updateNavbar() {
         `;
 
         if (heroAuthButton) {
-
             heroAuthButton.href = "login.html";
 
             heroAuthButton.innerHTML = `
@@ -85,21 +77,10 @@ async function updateNavbar() {
         return;
     }
 
-
-    /* -------------------------
-       CHECK USER
-       ------------------------- */
-
     try {
 
         const response = await apiFetch("/me");
-
         const data = await response.json();
-
-
-        /* -------------------------
-           TOKEN INVALID
-           ------------------------- */
 
         if (!response.ok || !data.success || !data.user) {
 
@@ -112,7 +93,6 @@ async function updateNavbar() {
             `;
 
             if (heroAuthButton) {
-
                 heroAuthButton.href = "login.html";
 
                 heroAuthButton.innerHTML = `
@@ -123,13 +103,8 @@ async function updateNavbar() {
             return;
         }
 
-
-        /* -------------------------
-           USER LOGGED IN
-           ------------------------- */
-
-        const username = data.user.username || "کاربر";
-
+        const username =
+            data.user.username || "کاربر";
 
         authArea.innerHTML = `
             <a
@@ -149,7 +124,6 @@ async function updateNavbar() {
             </a>
         `;
 
-
         if (heroAuthButton) {
 
             heroAuthButton.href = "panel.html";
@@ -159,15 +133,12 @@ async function updateNavbar() {
             `;
         }
 
-
     } catch (error) {
 
-        console.error("Auth check error:", error);
-
-        /*
-         * اگر API موقتاً در دسترس نبود،
-         * توکن را حذف نمی‌کنیم.
-         */
+        console.error(
+            "Auth check error:",
+            error
+        );
 
         authArea.innerHTML = `
             <a href="login.html" class="nav-login">
@@ -213,32 +184,27 @@ async function copyServerIP() {
 
     try {
 
-        await navigator.clipboard.writeText(SERVER_IP);
+        await navigator.clipboard.writeText(
+            SERVER_IP
+        );
 
-        const message = document.getElementById("copyMessage");
-
-        if (message) {
-
-            message.classList.add("show");
-
-            setTimeout(() => {
-                message.classList.remove("show");
-            }, 2500);
-        }
+        showCopyMessage();
 
     } catch (error) {
 
-        console.error("Copy error:", error);
+        console.error(
+            "Copy error:",
+            error
+        );
 
-        /*
-         * Fallback
-         */
-
-        const textarea = document.createElement("textarea");
+        const textarea =
+            document.createElement("textarea");
 
         textarea.value = SERVER_IP;
 
-        document.body.appendChild(textarea);
+        document.body.appendChild(
+            textarea
+        );
 
         textarea.select();
 
@@ -246,17 +212,23 @@ async function copyServerIP() {
 
         textarea.remove();
 
-        const message = document.getElementById("copyMessage");
-
-        if (message) {
-
-            message.classList.add("show");
-
-            setTimeout(() => {
-                message.classList.remove("show");
-            }, 2500);
-        }
+        showCopyMessage();
     }
+}
+
+
+function showCopyMessage() {
+
+    const message =
+        document.getElementById("copyMessage");
+
+    if (!message) return;
+
+    message.classList.add("show");
+
+    setTimeout(() => {
+        message.classList.remove("show");
+    }, 2500);
 }
 
 
@@ -266,14 +238,22 @@ async function copyServerIP() {
 
 async function checkServerStatus() {
 
-    const statusText = document.getElementById("serverStatus");
-    const statusDot = document.getElementById("statusDot");
-    const playerCount = document.getElementById("playerCount");
+    const statusText =
+        document.getElementById("serverStatus");
 
-    if (!statusText || !statusDot || !playerCount) {
+    const statusDot =
+        document.getElementById("statusDot");
+
+    const playerCount =
+        document.getElementById("playerCount");
+
+    if (
+        !statusText ||
+        !statusDot ||
+        !playerCount
+    ) {
         return;
     }
-
 
     try {
 
@@ -281,17 +261,21 @@ async function checkServerStatus() {
             `https://api.mcsrvstat.us/3/${SERVER_IP}`
         );
 
-        const data = await response.json();
-
+        const data =
+            await response.json();
 
         if (data.online) {
 
-            statusText.textContent = "سرور آنلاین است";
+            statusText.textContent =
+                "سرور آنلاین است";
 
-            statusDot.classList.add("online");
+            statusDot.classList.add(
+                "online"
+            );
 
-            statusDot.classList.remove("offline");
-
+            statusDot.classList.remove(
+                "offline"
+            );
 
             const onlinePlayers =
                 data.players?.online ?? 0;
@@ -299,24 +283,25 @@ async function checkServerStatus() {
             const maxPlayers =
                 data.players?.max ?? 0;
 
-
             playerCount.textContent =
                 `${onlinePlayers} / ${maxPlayers} بازیکن`;
-
 
         } else {
 
             statusText.textContent =
                 "سرور آفلاین است";
 
-            statusDot.classList.add("offline");
+            statusDot.classList.add(
+                "offline"
+            );
 
-            statusDot.classList.remove("online");
+            statusDot.classList.remove(
+                "online"
+            );
 
             playerCount.textContent =
                 "0 بازیکن";
         }
-
 
     } catch (error) {
 
@@ -328,9 +313,13 @@ async function checkServerStatus() {
         statusText.textContent =
             "خطا در بررسی سرور";
 
-        statusDot.classList.add("offline");
+        statusDot.classList.add(
+            "offline"
+        );
 
-        statusDot.classList.remove("online");
+        statusDot.classList.remove(
+            "online"
+        );
 
         playerCount.textContent =
             "نامشخص";
@@ -346,21 +335,18 @@ async function loadShop() {
 
     try {
 
-        const response = await fetch(
-            `${API}/shop`
-        );
+        const response =
+            await fetch(`${API}/shop`);
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
-
-        if (!data.success || !data.shop) {
+        if (
+            !data.success ||
+            !data.shop
+        ) {
             return;
         }
-
-
-        /*
-         * Update every product price
-         */
 
         Object.entries(data.shop).forEach(
             ([item, product]) => {
@@ -372,7 +358,6 @@ async function loadShop() {
 
             }
         );
-
 
     } catch (error) {
 
@@ -390,16 +375,6 @@ async function loadShop() {
 
 function updateShopPrice(item, price) {
 
-    /*
-     * Supports:
-     *
-     * data-shop-item="nova"
-     *
-     * OR
-     *
-     * id="price-nova"
-     */
-
     const selectors = [
 
         `[data-shop-item="${item}"]`,
@@ -410,12 +385,12 @@ function updateShopPrice(item, price) {
 
     ];
 
-
     selectors.forEach(selector => {
 
         const elements =
-            document.querySelectorAll(selector);
-
+            document.querySelectorAll(
+                selector
+            );
 
         elements.forEach(element => {
 
@@ -436,11 +411,6 @@ async function buyProduct(type, item) {
 
     const token = getToken();
 
-
-    /* -------------------------
-       NOT LOGGED IN
-       ------------------------- */
-
     if (!token) {
 
         window.location.href =
@@ -449,30 +419,19 @@ async function buyProduct(type, item) {
         return;
     }
 
-
-    /* -------------------------
-       NORMALIZE
-       ------------------------- */
-
     const normalizedType =
         String(type).toLowerCase();
 
     const normalizedItem =
         String(item).toLowerCase();
 
-
     try {
-
-        /*
-         * First check account
-         */
 
         const meResponse =
             await apiFetch("/me");
 
         const meData =
             await meResponse.json();
-
 
         if (
             !meResponse.ok ||
@@ -488,32 +447,19 @@ async function buyProduct(type, item) {
             return;
         }
 
-
         const username =
             meData.user.username;
 
-
-        /*
-         * Confirmation
-         */
-
         const productName =
             String(item).toUpperCase();
-
 
         const confirmed = confirm(
             `آیا مطمئنی می‌خواهی ${productName} را خریداری کنی؟`
         );
 
-
         if (!confirmed) {
             return;
         }
-
-
-        /*
-         * Send purchase request
-         */
 
         const response =
             await apiFetch("/buy", {
@@ -530,14 +476,8 @@ async function buyProduct(type, item) {
 
             });
 
-
         const data =
             await response.json();
-
-
-        /* -------------------------
-           SUCCESS
-           ------------------------- */
 
         if (
             response.ok &&
@@ -551,11 +491,6 @@ async function buyProduct(type, item) {
                 `پس از پردازش، محصول به Minecraft شما ارسال می‌شود.`
             );
 
-
-            /*
-             * Optional panel redirect
-             */
-
             setTimeout(() => {
 
                 window.location.href =
@@ -566,15 +501,9 @@ async function buyProduct(type, item) {
             return;
         }
 
-
-        /* -------------------------
-           ERROR
-           ------------------------- */
-
         alert(
             `❌ ${data.error || "خرید انجام نشد."}`
         );
-
 
     } catch (error) {
 
@@ -601,7 +530,6 @@ function setupSmoothNavigation() {
             'a[href^="#"]'
         );
 
-
     links.forEach(link => {
 
         link.addEventListener(
@@ -609,8 +537,9 @@ function setupSmoothNavigation() {
             function(event) {
 
                 const targetId =
-                    this.getAttribute("href");
-
+                    this.getAttribute(
+                        "href"
+                    );
 
                 if (
                     !targetId ||
@@ -619,20 +548,16 @@ function setupSmoothNavigation() {
                     return;
                 }
 
-
                 const target =
                     document.querySelector(
                         targetId
                     );
 
-
                 if (!target) {
                     return;
                 }
 
-
                 event.preventDefault();
-
 
                 target.scrollIntoView({
                     behavior: "smooth",
@@ -657,17 +582,13 @@ function setupRevealAnimation() {
             ".shop-card, .feature, .rules-box, .telegram-section, .section-title"
         );
 
-
     if (!elements.length) {
         return;
     }
 
-
-    /*
-     * If IntersectionObserver exists
-     */
-
-    if ("IntersectionObserver" in window) {
+    if (
+        "IntersectionObserver" in window
+    ) {
 
         const observer =
             new IntersectionObserver(
@@ -699,7 +620,6 @@ function setupRevealAnimation() {
 
             );
 
-
         elements.forEach(element => {
 
             element.classList.add(
@@ -714,11 +634,6 @@ function setupRevealAnimation() {
 
         return;
     }
-
-
-    /*
-     * Fallback
-     */
 
     elements.forEach(element => {
 
@@ -741,7 +656,6 @@ function setupTelegram() {
             'a[href*="t.me/muffinsmp"]'
         );
 
-
     telegramLinks.forEach(link => {
 
         link.addEventListener(
@@ -749,7 +663,7 @@ function setupTelegram() {
             () => {
 
                 console.log(
-                    "MuffinSMP Telegram opened"
+                    "MuffinMC Telegram opened"
                 );
 
             }
@@ -770,7 +684,6 @@ function setupBuyButtons() {
             ".buy-btn"
         );
 
-
     buttons.forEach(button => {
 
         button.addEventListener(
@@ -778,7 +691,8 @@ function setupBuyButtons() {
             function() {
 
                 if (
-                    this.dataset.loading === "true"
+                    this.dataset.loading ===
+                    "true"
                 ) {
                     return;
                 }
@@ -786,10 +700,8 @@ function setupBuyButtons() {
                 this.dataset.loading =
                     "true";
 
-
                 const originalText =
                     this.innerHTML;
-
 
                 setTimeout(() => {
 
@@ -816,41 +728,16 @@ document.addEventListener(
     "DOMContentLoaded",
     async () => {
 
-        /*
-         * Navbar
-         */
-
         await updateNavbar();
 
-
-        /*
-         * Server status
-         */
-
         checkServerStatus();
-
-
-        /*
-         * Refresh server status
-         * every 30 seconds
-         */
 
         setInterval(
             checkServerStatus,
             30000
         );
 
-
-        /*
-         * Shop prices
-         */
-
         loadShop();
-
-
-        /*
-         * UI
-         */
 
         setupSmoothNavigation();
 
