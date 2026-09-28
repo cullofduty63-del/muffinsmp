@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MuffinSMP | DonutSMP</title>
+<title>MuffinMC | Minecraft Server</title>
 
 <style>
 *{
@@ -13,9 +13,7 @@
     padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
     font-family:Tahoma,Arial,sans-serif;
@@ -82,6 +80,7 @@ button{
 .auth-area{
     display:flex;
     align-items:center;
+    gap:5px;
 }
 
 .nav-login{
@@ -235,6 +234,125 @@ button{
     margin-bottom:35px;
 }
 
+
+/* =========================
+   GAME MODES
+========================= */
+
+.game-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.game-card{
+    position:relative;
+    min-height:270px;
+    padding:30px;
+    border-radius:22px;
+    background:linear-gradient(
+        145deg,
+        rgba(26,12,39,.96),
+        rgba(10,5,16,.98)
+    );
+    border:1px solid rgba(181,91,255,.2);
+    overflow:hidden;
+    transition:.3s;
+}
+
+.game-card.active{
+    box-shadow:0 20px 70px rgba(132,45,205,.14);
+}
+
+.game-card.active:hover{
+    transform:translateY(-7px);
+    border-color:rgba(190,92,255,.65);
+}
+
+.game-card.disabled{
+    filter:brightness(.58);
+    opacity:.78;
+}
+
+.game-card.disabled:hover{
+    transform:none;
+    border-color:rgba(181,91,255,.2);
+}
+
+.game-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(
+        circle at top right,
+        rgba(190,88,255,.14),
+        transparent 55%
+    );
+    pointer-events:none;
+}
+
+.game-icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.game-card h3{
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.game-card p{
+    color:#9d91a7;
+    line-height:1.9;
+    font-size:14px;
+}
+
+.game-status{
+    display:inline-block;
+    margin-top:20px;
+    padding:8px 13px;
+    border-radius:9px;
+    font-size:12px;
+    font-weight:900;
+}
+
+.game-status.online{
+    color:#61efaa;
+    background:rgba(43,190,119,.1);
+    border:1px solid rgba(43,190,119,.2);
+}
+
+.game-status.soon{
+    color:#a99cae;
+    background:#151019;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.soon-overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+}
+
+.soon-overlay span{
+    padding:12px 20px;
+    border-radius:12px;
+    background:rgba(5,3,8,.82);
+    border:1px solid rgba(190,92,255,.18);
+    color:#a79aa9;
+    font-size:14px;
+    font-weight:1000;
+    letter-spacing:2px;
+}
+
+
+/* =========================
+   SHOP
+========================= */
+
 .shop-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -245,7 +363,11 @@ button{
     position:relative;
     padding:24px;
     border-radius:18px;
-    background:linear-gradient(145deg,rgba(26,12,39,.95),rgba(10,5,16,.95));
+    background:linear-gradient(
+        145deg,
+        rgba(26,12,39,.95),
+        rgba(10,5,16,.95)
+    );
     border:1px solid rgba(181,91,255,.17);
     transition:.25s;
     overflow:hidden;
@@ -255,7 +377,11 @@ button{
     content:"";
     position:absolute;
     inset:0;
-    background:radial-gradient(circle at top right,rgba(190,88,255,.12),transparent 50%);
+    background:radial-gradient(
+        circle at top right,
+        rgba(190,88,255,.12),
+        transparent 50%
+    );
     pointer-events:none;
 }
 
@@ -300,6 +426,11 @@ button{
     font-weight:900;
 }
 
+
+/* =========================
+   FEATURES
+========================= */
+
 .features{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -329,6 +460,11 @@ button{
     line-height:1.8;
 }
 
+
+/* =========================
+   RULES
+========================= */
+
 .rules{
     max-width:800px;
     margin:auto;
@@ -344,12 +480,21 @@ button{
     color:#c7bccd;
 }
 
+
+/* =========================
+   COMMUNITY
+========================= */
+
 .community{
     text-align:center;
     padding:55px 20px;
     border-radius:25px;
     background:
-        radial-gradient(circle at center,rgba(139,53,217,.18),transparent 60%),
+        radial-gradient(
+            circle at center,
+            rgba(139,53,217,.18),
+            transparent 60%
+        ),
         #10071a;
     border:1px solid rgba(180,92,255,.2);
 }
@@ -367,6 +512,7 @@ button{
     color:#fff;
     font-weight:900;
 }
+
 
 footer{
     text-align:center;
@@ -387,7 +533,13 @@ footer{
     transform:translateY(0);
 }
 
+
 @media(max-width:900px){
+
+    .game-grid{
+        grid-template-columns:1fr;
+    }
+
     .shop-grid{
         grid-template-columns:repeat(2,1fr);
     }
@@ -402,6 +554,7 @@ footer{
 }
 
 @media(max-width:600px){
+
     .navbar{
         padding:0 15px;
     }
@@ -431,17 +584,15 @@ footer{
 <nav class="navbar">
 
     <a href="index.html" class="logo">
-        ᴍᴜꜰꜰɪɴѕᴍᴘ
+        ᴍᴜꜰꜰɪɴᴍᴄ
     </a>
 
     <div class="nav-links">
 
         <a href="#home">خانه</a>
-
+        <a href="#modes">گیم مودها</a>
         <a href="#ranks">رنک‌ها</a>
-
         <a href="#keys">Key Shop</a>
-
         <a href="#rules">قوانین</a>
 
         <div id="authArea" class="auth-area">
@@ -458,7 +609,7 @@ footer{
 <section id="home" class="hero reveal">
 
     <div class="hero-badge">
-        🔥 MUFFIN SMP • DONUT SMP
+        🔥 MUFFINMC • MINECRAFT NETWORK
     </div>
 
     <h1>
@@ -467,9 +618,9 @@ footer{
     </h1>
 
     <p>
-        یک تجربه متفاوت از DonutSMP
-        با اقتصاد، Crate، PvP، Shard
-        و امکانات اختصاصی MuffinSMP
+        به MuffinMC خوش آمدی؛
+        یک تجربه متفاوت با اقتصاد، Crate، PvP،
+        Shard و امکانات اختصاصی.
     </p>
 
     <div class="hero-buttons">
@@ -504,7 +655,7 @@ footer{
         </div>
 
         <div class="server-ip">
-            play.muffinsmp.ir
+            play.muffinmc.ir
         </div>
 
     </div>
@@ -514,6 +665,107 @@ footer{
 
 <main class="container">
 
+
+<!-- =========================
+     GAME MODES
+========================= -->
+
+<section id="modes" class="section reveal">
+
+    <div class="section-label">
+        MUFFINMC NETWORK
+    </div>
+
+    <h2 class="section-title">
+        گیم مودهای MuffinMC
+    </h2>
+
+    <p class="section-desc">
+        گیم مود مورد علاقه‌ات رو انتخاب کن.
+    </p>
+
+    <div class="game-grid">
+
+
+        <!-- ACTIVE SMP -->
+
+        <div class="game-card active">
+
+            <div class="game-icon">⚔️</div>
+
+            <h3>SMP</h3>
+
+            <p>
+                گیم مود اصلی MuffinMC با اقتصاد،
+                PvP، Shard، Crate و امکانات اختصاصی.
+            </p>
+
+            <span class="game-status online">
+                ● ONLINE
+            </span>
+
+        </div>
+
+
+        <!-- SURVIVAL -->
+
+        <div class="game-card disabled">
+
+            <div class="game-icon">🌲</div>
+
+            <h3>Survival</h3>
+
+            <p>
+                یک تجربه Survival متفاوت در MuffinMC.
+                این گیم مود به‌زودی فعال خواهد شد.
+            </p>
+
+            <span class="game-status soon">
+                COMING SOON
+            </span>
+
+            <div class="soon-overlay">
+                <span>
+                    COMING SOON
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- SKYMINE -->
+
+        <div class="game-card disabled">
+
+            <div class="game-icon">⛏️</div>
+
+            <h3>SkyMine</h3>
+
+            <p>
+                یک گیم مود جدید با Mining،
+                پیشرفت و امکانات اختصاصی.
+            </p>
+
+            <span class="game-status soon">
+                COMING SOON
+            </span>
+
+            <div class="soon-overlay">
+                <span>
+                    COMING SOON
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RANKS
+========================= -->
 
 <section id="ranks" class="section reveal">
 
@@ -537,9 +789,7 @@ footer{
 
             <h3>NOVA</h3>
 
-            <div
-                class="price"
-                id="price-nova">
+            <div class="price" id="price-nova">
                 180,000 Coin
             </div>
 
@@ -568,9 +818,7 @@ footer{
 
             <h3>VANTA</h3>
 
-            <div
-                class="price"
-                id="price-vanta">
+            <div class="price" id="price-vanta">
                 240,000 Coin
             </div>
 
@@ -599,9 +847,7 @@ footer{
 
             <h3>APEX</h3>
 
-            <div
-                class="price"
-                id="price-apex">
+            <div class="price" id="price-apex">
                 480,000 Coin
             </div>
 
@@ -630,9 +876,7 @@ footer{
 
             <h3>SPONSOR</h3>
 
-            <div
-                class="price"
-                id="price-sponsor">
+            <div class="price" id="price-sponsor">
                 750,000 Coin
             </div>
 
@@ -661,6 +905,10 @@ footer{
 </section>
 
 
+<!-- =========================
+     KEYS
+========================= -->
+
 <section id="keys" class="section reveal">
 
     <div class="section-label">
@@ -678,14 +926,10 @@ footer{
     <div class="shop-grid">
 
         <div class="product">
-
             <div class="product-icon">🔑</div>
-
             <h3>Prime Key</h3>
 
-            <div
-                class="price"
-                id="price-prime">
+            <div class="price" id="price-prime">
                 35,000 Coin
             </div>
 
@@ -694,19 +938,14 @@ footer{
                 onclick="buyProduct('key','prime')">
                 خرید Key
             </button>
-
         </div>
 
 
         <div class="product">
-
             <div class="product-icon">🔑</div>
-
             <h3>Gold Key</h3>
 
-            <div
-                class="price"
-                id="price-gold">
+            <div class="price" id="price-gold">
                 45,000 Coin
             </div>
 
@@ -715,19 +954,14 @@ footer{
                 onclick="buyProduct('key','gold')">
                 خرید Key
             </button>
-
         </div>
 
 
         <div class="product">
-
             <div class="product-icon">🔑</div>
-
             <h3>Crimson Key</h3>
 
-            <div
-                class="price"
-                id="price-crimson">
+            <div class="price" id="price-crimson">
                 55,000 Coin
             </div>
 
@@ -736,19 +970,14 @@ footer{
                 onclick="buyProduct('key','crimson')">
                 خرید Key
             </button>
-
         </div>
 
 
         <div class="product">
-
             <div class="product-icon">💜</div>
-
             <h3>Amethyst Key</h3>
 
-            <div
-                class="price"
-                id="price-amethyst">
+            <div class="price" id="price-amethyst">
                 100,000 Coin
             </div>
 
@@ -757,13 +986,16 @@ footer{
                 onclick="buyProduct('key','amethyst')">
                 خرید Key
             </button>
-
         </div>
 
     </div>
 
 </section>
 
+
+<!-- =========================
+     FEATURES
+========================= -->
 
 <section class="section reveal">
 
@@ -797,6 +1029,10 @@ footer{
 
 </section>
 
+
+<!-- =========================
+     RULES
+========================= -->
 
 <section id="rules" class="section reveal">
 
@@ -839,12 +1075,16 @@ footer{
 </section>
 
 
+<!-- =========================
+     COMMUNITY
+========================= -->
+
 <section class="section reveal">
 
     <div class="community">
 
         <div class="section-label">
-            MUFFIN COMMUNITY
+            MUFFINMC COMMUNITY
         </div>
 
         <h2 class="section-title">
@@ -852,7 +1092,7 @@ footer{
         </h2>
 
         <p>
-            اخبار، آپدیت‌ها و اطلاعیه‌های MuffinSMP
+            اخبار، آپدیت‌ها و اطلاعیه‌های MuffinMC
         </p>
 
         <a
@@ -873,23 +1113,23 @@ footer{
 <footer>
 
     <div class="logo">
-        ᴍᴜꜰꜰɪɴѕᴍᴘ
+        ᴍᴜꜰꜰɪɴᴍᴄ
     </div>
 
     <br>
 
-    © 2026 MuffinSMP
+    © 2026 MuffinMC
 
     <br><br>
 
-    play.muffinsmp.ir
+    play.muffinmc.ir
 
 </footer>
 
 
 <script>
 
-const SERVER_IP = "play.muffinsmp.ir";
+const SERVER_IP = "play.muffinmc.ir";
 
 const API =
     "https://cullofduty63.cullofduty63.workers.dev/api";
@@ -997,7 +1237,7 @@ async function loadServerStatus(){
 
 
 /* =========================
-   AUTH NAVBAR
+   AUTH
 ========================= */
 
 async function updateNavbar(){
@@ -1237,11 +1477,8 @@ document.addEventListener(
     () => {
 
         loadServerStatus();
-
         loadShop();
-
         updateNavbar();
-
         reveal();
 
     }
