@@ -4,7 +4,7 @@
 
 const SERVER_IP = "play.muffinmc.ir";
 
-const API = "https://cullofduty63.cullofduty63.workers.dev/api";
+const API = "/api";
 
 const TOKEN_KEY = "muffin_token";
 
@@ -108,7 +108,7 @@ async function updateNavbar() {
 
         authArea.innerHTML = `
             <a
-                href="panel.html"
+                href="account.html"
                 class="nav-user"
                 title="ورود به پنل"
             >
@@ -126,7 +126,7 @@ async function updateNavbar() {
 
         if (heroAuthButton) {
 
-            heroAuthButton.href = "panel.html";
+            heroAuthButton.href = "account.html";
 
             heroAuthButton.innerHTML = `
                 👤 پنل کاربری
@@ -494,7 +494,7 @@ async function buyProduct(type, item) {
             setTimeout(() => {
 
                 window.location.href =
-                    "panel.html";
+                    "account.html";
 
             }, 500);
 
