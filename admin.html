@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MuffinMC Admin</title><link rel="stylesheet" href="style.css">
+<style>
+:root{color-scheme:dark}
+body{background:radial-gradient(ellipse at 15% 0%,#32144b 0%,#10091a 42%,#08050e 100%);color:#fff;font-family:Vazirmatn,Arial,sans-serif}
+.admin-wrap{max-width:1250px;margin:35px auto;padding:18px}
+.admin-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.admin-head h1{margin-bottom:4px}.hint{color:#b8a8c8;font-size:13px;line-height:1.8}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:22px}
+.admin-card{background:linear-gradient(145deg,#1b1128,#110b19);border:1px solid #70449a;border-radius:18px;padding:20px;box-shadow:0 0 28px #9a48e51a;min-width:0}
+.admin-card h2{color:#d3aaff;margin:0 0 12px}
+.admin-card input,.admin-card select,.admin-card textarea{width:100%;box-sizing:border-box;padding:11px;margin:7px 0;background:#0d0913;border:1px solid #4a3260;border-radius:9px;color:white;font:inherit}
+.admin-card button,.action{background:linear-gradient(135deg,#7541a5,#b45cff);border:0;color:white;border-radius:9px;padding:9px 13px;cursor:pointer;font-weight:bold;margin:5px 3px}
+.admin-card button:hover,.action:hover{filter:brightness(1.15)}
+.item{border-bottom:1px solid #382445;padding:11px 0;color:#e5d9ef;line-height:1.8}
+.item:last-child{border-bottom:0}
+.list{max-height:420px;overflow:auto;margin-top:10px}
+#msg{margin:12px 0;padding:10px;border-radius:9px;color:#d9c0ff;background:#21132e;min-height:20px}
+.section-wide{grid-column:1/-1}
+.pill{display:inline-block;border:1px solid #67458a;background:#281638;color:#e6caff;border-radius:30px;padding:2px 9px;font-size:12px;margin:2px}
+.good{color:#a8ffbd}.muted{color:#aa9ab8}
+.player{display:grid;grid-template-columns:1.2fr 1.2fr .7fr .8fr 1fr;gap:8px;align-items:center}
+.purchase{display:grid;grid-template-columns:.5fr 1fr 1fr .7fr .7fr;gap:8px;align-items:center}
+.headrow{color:#cda8ef;font-weight:bold;border-bottom:1px solid #65427e;padding:8px 0}
+@media(max-width:700px){.player,.purchase{grid-template-columns:1fr 1fr}.headrow{display:none}}
+</style></head>
+<body><main class="admin-wrap">
+<header class="admin-head"><div><h1>💜 MuffinMC Admin</h1><p class="hint">نمای کلی مودهای فعلی، بازیکنان سایت و آیتم‌های خریداری‌شده</p></div><a href="account.html">بازگشت به پنل کاربری</a></header>
+<div id="msg">در حال دریافت اطلاعات...</div>
+
+<div class="admin-grid">
+<section class="admin-card">
+<h2>🎮 Game Modeهای فعلی</h2>
+<p class="hint">مودهایی که در دیتابیس سایت ثبت شده‌اند؛ این فهرست شامل مودهای غیرفعال هم هست.</p>
+<button onclick="loadModes()">بروزرسانی مودها</button>
+<div id="modes" class="list hint"></div>
+</section>
+
+<section class="admin-card">
+<h2>👥 بازیکنان سایت</h2>
+<p class="hint">فهرست حساب‌های ثبت‌نام‌شده، Rank، Coin و وضعیت اتصال Minecraft.</p>
+<button onclick="loadUsers()">بروزرسانی بازیکنان</button>
+<div id="users" class="list hint"></div>
+</section>
+
+<section class="admin-card section-wide">
+<h2>🎒 آیتم‌ها و خریدهای بازیکنان</h2>
+<p class="hint">این بخش آیتم‌ها/محصولاتی را نشان می‌دهد که بازیکنان از فروشگاه سایت خریده‌اند و وضعیت تحویل آن‌ها را ثبت می‌کند؛ موجودی زنده‌ی Inventory داخل بازی نیست.</p>
+<button onclick="loadPurchases()">بروزرسانی خریدها</button>
+<div id="purchases" class="list hint"></div>
+</section>
+
+<section class="admin-card">
+<h2>➕ افزودن محصول</h2>
+<input id="p-slug" placeholder="شناسه انگلیسی مثل vip-gold">
+<input id="p-name" placeholder="نام محصول">
+<select id="p-type"><option value="rank">Rank</option><option value="item">Item</option><option value="kit">Kit</option></select>
+<textarea id="p-desc" placeholder="توضیحات"></textarea>
+<input id="p-price" type="number" min="0" placeholder="قیمت Coin">
+<select id="p-kind"><option value="lp-group">LuckPerms Group</option><option value="give">Minecraft Item</option></select>
+<input id="p-value" placeholder="مثلاً vip یا minecraft:diamond 10">
+<button onclick="addProduct()">افزودن محصول</button><div id="products" class="hint"></div>
+</section>
+
+<section class="admin-card">
+<h2>➕ افزودن Game Mode</h2>
+<input id="m-slug" placeholder="شناسه انگلیسی مثل bedwars">
+<input id="m-name" placeholder="نام مود">
+<input id="m-icon" placeholder="ایموجی، مثلاً ⚔️">
+<textarea id="m-desc" placeholder="توضیحات مود"></textarea>
+<button onclick="addMode()">افزودن مود</button>
+</section>
+
+<section class="admin-card">
+<h2>🪙 مدیریت Coin کاربران</h2>
+<input id="u-id" type="number" placeholder="User ID">
+<input id="u-amount" type="number" placeholder="مقدار مثبت یا منفی">
+<input id="u-reason" placeholder="دلیل تغییر موجودی">
+<button onclick="adjustCoins()">ثبت تغییر موجودی</button>
+<p class="hint">شناسه کاربر را از فهرست بازیکنان بردارید.</p>
+</section>
+</div></main>
+<script>
+const API="/api", token=()=>localStorage.getItem("muffin_token");
+async function call(path,opts={}){const r=await fetch(API+path,{...opts,headers:{"Content-Type":"application/json","Authorization":"Bearer "+token(),...(opts.headers||{})}});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"خطای API");return d}
+function msg(t){document.getElementById("msg").textContent=t}
+function val(id){return document.getElementById(id).value}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function boot(){try{const me=await call("/me");if(me.user.role!=="admin"&&me.user.rank!=="ADMIN"){location.href="account.html";return}await Promise.all([loadModes(),loadUsers(),loadPurchases(),loadProducts()]);msg("اطلاعات پنل مدیریت بارگذاری شد.")}catch(e){msg(e.message)}}
+async function loadModes(){try{const d=await call("/admin/modes");document.getElementById("modes").innerHTML=d.modes.length?d.modes.map(m=>`<div class="item">${esc(m.icon)} <b>${esc(m.name)}</b> <span class="pill">${m.active?"فعال":"غیرفعال"}</span><div class="muted">${esc(m.description||"بدون توضیحات")} • شناسه: ${esc(m.slug)}</div><button onclick="editMode(${m.id},${JSON.stringify(m.name)})">تغییر نام</button></div>`).join(""):"هنوز Game Modeای ثبت نشده است."}catch(e){msg(e.message)}}
+async function loadUsers(){try{const d=await call("/admin/users");document.getElementById("users").innerHTML=d.users.length?`<div class="headrow player"><span>بازیکن</span><span>Minecraft</span><span>Rank</span><span>Coin</span><span>شناسه</span></div>`+d.users.map(u=>`<div class="item player"><span><b>${esc(u.username)}</b><br><span class="muted">${esc(u.email)}</span></span><span>${u.minecraft_name?esc(u.minecraft_name):'<span class="muted">لینک نشده</span>'}</span><span class="pill">${esc(u.role==="admin"?"ADMIN":(u.rank||"PLAYER"))}</span><span>${Number(u.coins).toLocaleString("en-US")}</span><span>#${u.id}</span></div>`).join(""):"هنوز بازیکنی ثبت‌نام نکرده است."}catch(e){msg(e.message)}}
+async function loadPurchases(){try{const d=await call("/admin/purchases");document.getElementById("purchases").innerHTML=d.purchases.length?`<div class="headrow purchase"><span>شماره</span><span>بازیکن</span><span>آیتم</span><span>قیمت</span><span>وضعیت</span></div>`+d.purchases.map(p=>`<div class="item purchase"><span>#${p.id}</span><span>${esc(p.username)}</span><span>${esc(p.product_name)}</span><span>${Number(p.price).toLocaleString("en-US")} Coin</span><span class="pill">${esc(statusFa(p.status))}</span></div>`).join(""):"هنوز خریدی ثبت نشده است."}catch(e){msg(e.message)}}
+function statusFa(s){return ({queued:"در صف تحویل",processing:"در حال تحویل",delivered:"تحویل‌شده",failed:"ناموفق"})[s]||s}
+async function loadProducts(){try{const d=await call("/admin/products");document.getElementById("products").innerHTML=d.products.map(p=>`<div class="item">${esc(p.name)} • ${p.price} Coin • ${p.active?"فعال":"غیرفعال"} <button onclick="editProduct(${p.id},${JSON.stringify(p.name)},${p.price})">ویرایش</button> <button onclick="disableProduct(${p.id})">غیرفعال‌سازی</button></div>`).join("")}catch(e){msg(e.message)}}
+async function addProduct(){try{await call("/admin/products",{method:"POST",body:JSON.stringify({slug:val("p-slug"),name:val("p-name"),type:val("p-type"),description:val("p-desc"),price:Number(val("p-price")),delivery_kind:val("p-kind"),delivery_value:val("p-value")})});msg("محصول اضافه شد");loadProducts()}catch(e){msg(e.message)}}
+async function editProduct(id,name,price){const n=prompt("نام جدید محصول",name);if(n===null)return;const v=prompt("قیمت جدید Coin",price);if(v===null)return;try{await call("/admin/products/"+id,{method:"PATCH",body:JSON.stringify({name:n,price:Number(v)})});msg("محصول ویرایش شد");loadProducts()}catch(e){msg(e.message)}}
+async function disableProduct(id){if(!confirm("این محصول غیرفعال شود؟"))return;try{await call("/admin/products/"+id,{method:"DELETE"});loadProducts()}catch(e){msg(e.message)}}
+async function addMode(){try{await call("/admin/modes",{method:"POST",body:JSON.stringify({slug:val("m-slug"),name:val("m-name"),icon:val("m-icon"),description:val("m-desc")})});msg("مود اضافه شد");loadModes()}catch(e){msg(e.message)}}
+async function editMode(id,name){const n=prompt("نام جدید مود",name);if(n===null)return;try{await call("/admin/modes/"+id,{method:"PATCH",body:JSON.stringify({name:n})});msg("نام مود تغییر کرد");loadModes()}catch(e){msg(e.message)}}
+async function adjustCoins(){try{await call("/admin/coins",{method:"POST",body:JSON.stringify({user_id:Number(val("u-id")),amount:Number(val("u-amount")),reason:val("u-reason")})});msg("موجودی تغییر کرد");loadUsers()}catch(e){msg(e.message)}}
+boot();
+</script></body></html>
